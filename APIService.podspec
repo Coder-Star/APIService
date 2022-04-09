@@ -1,9 +1,9 @@
 
 
 Pod::Spec.new do |s|
-  s.name             = 'APIService'
+  s.name             = 'CSAPIService'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of APIService.'
+  s.summary          = 'A short description of CSAPIService.'
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
