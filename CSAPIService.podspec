@@ -3,9 +3,9 @@
 Pod::Spec.new do |s|
   s.name             = 'CSAPIService'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of CSAPIService.'
+  s.summary          = 'Swift 网络抽象层'
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+                       Swift 网络抽象层，角色分明
                        DESC
 
   s.homepage         = 'https://github.com/Coder-Star/APIService'
@@ -13,10 +13,14 @@ TODO: Add long description of the pod here.
   s.author           = { 'CoderStar' => '1340529758@qq.com' }
   s.source           = { :git => 'https://github.com/Coder-Star/APIService.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '11.0'
+  s.swift_version = '5.0'
+  s.module_name = 'APIService'
 
   s.source_files = 'APIService/Classes/**/*'
+
   s.dependency 'Alamofire','4.9.1'
+
 
   # s.resource_bundles = {
   #   'APIService' => ['APIService/Assets/*.png']
