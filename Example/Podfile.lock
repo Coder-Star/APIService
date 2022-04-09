@@ -1,0 +1,27 @@
+PODS:
+  - Alamofire (4.9.1)
+  - APIService (0.1.0):
+    - Alamofire (= 4.9.1)
+  - BetterCodable (0.4.0)
+
+DEPENDENCIES:
+  - APIService (from `../`)
+  - BetterCodable (= 0.4.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - BetterCodable
+
+EXTERNAL SOURCES:
+  APIService:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  APIService: 665496e8662de0b25002e620af44f06e090b12f7
+  BetterCodable: 3f2a765c9f4089b19debd2a7b904a69fca0a5fda
+
+PODFILE CHECKSUM: bd01e8bff1cb074cd7140b1a859e1d05af2722cd
+
+COCOAPODS: 1.11.3
