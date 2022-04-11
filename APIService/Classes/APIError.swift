@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// APIError
 public enum APIError: LocalizedError {
     /// 网络错误
     case networkError
@@ -41,7 +42,9 @@ extension APIError: Equatable {
     }
 }
 
+/// APIRequestError
 public enum APIRequestError: LocalizedError {
+    /// 不合理的请求链接
     case invalidURLRequest
 
     public var errorDescription: String? {
@@ -52,7 +55,9 @@ public enum APIRequestError: LocalizedError {
     }
 }
 
+/// APIResponseError
 public enum APIResponseError: LocalizedError {
+    /// 无法正确解析Response
     case invalidParseResponse(Error)
 
     public var errorDescription: String? {

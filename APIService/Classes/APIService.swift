@@ -162,12 +162,13 @@ extension APIService {
             return nil
         }
 
-        let clinetRequest: APIRequestTask
+        let requestTask: APIRequestTask
+
+        plugins.forEach { $0.willSend(urlRequest, targetRequest: request) }
 
         switch request.taskType {
-        // TODO: - 需要对三个case分别处理
-        case .request, .upload, .download:
-            clinetRequest = clinet.createDataRequest(request: urlRequest, progressHandler: progressHandler) { [weak self] response in
+        case .request:
+            requestTask = clinet.createDataRequest(request: urlRequest, progressHandler: progressHandler) { [weak self] response in
                 let apiResult: APIResult<T.Response>
                 switch response.result {
                 case let .success(data):
@@ -183,12 +184,16 @@ extension APIService {
 
                 self?.performdData(request: request, response: response, result: apiResult, plugins: plugins, completionHandler: completionHandler)
             }
+        case .upload:
+            fatalError("未实现")
+        case .download:
+            fatalError("未实现")
         }
 
-        plugins.forEach { $0.willSend(urlRequest, targetRequest: request) }
-
-        clinetRequest.resume()
-
-        return clinetRequest
+        return requestTask
     }
+}
+
+// MARK: - FormData Upload
+extension APIService {
 }

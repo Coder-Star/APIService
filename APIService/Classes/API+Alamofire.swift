@@ -16,12 +16,13 @@ public typealias APIDataRequest = DataRequest
 public typealias APIDataResponse = DataResponse
 public typealias APIRequestAdapter = RequestAdapter
 
+public typealias APIMultipartFormData = MultipartFormData
 public typealias APIParameterEncoding = ParameterEncoding
 public typealias APIJSONEncoding = JSONEncoding
 public typealias APIURLEncoding = URLEncoding
 public typealias APINetworkReachabilityManager = NetworkReachabilityManager
 
-extension APIDataRequest: APIRequestTask {}
+extension APIDataRequest: APICancellable {}
 
 // MARK: - AlamofireAPIClient
 
@@ -30,11 +31,14 @@ struct AlamofireAPIClient: APIClient {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
         let sessionManager = SessionManager(configuration: configuration)
-        sessionManager.startRequestsImmediately = false
         return sessionManager
     }()
 
-    func createDataRequest(request: URLRequest, progressHandler: APIProgressHandler?, completionHandler: @escaping APIDataResponseCompletionHandler) -> APIRequestTask {
+    func createDataRequest(
+        request: URLRequest,
+        progressHandler: APIProgressHandler?,
+        completionHandler: @escaping APIDataResponseCompletionHandler
+    ) -> APIRequestTask {
         let request = sessionManager.request(request).validate().responseData { response in
             completionHandler(response)
         }
