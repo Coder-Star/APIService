@@ -48,7 +48,7 @@ public protocol APIRequest {
     func intercept(urlRequest: URLRequest) throws -> URLRequest
 
     /// 拦截回调，在回调给接收方之前
-    func intercept<T: APIRequest>(request: T, response: APIResponse<Response>) -> Bool
+    func intercept<U: APIRequest>(request: U, response: APIResponse<Response>) -> Bool
 }
 
 // MARK: - 默认实现
@@ -58,12 +58,13 @@ extension APIRequest {
         return urlRequest
     }
 
-    public func intercept<T: APIRequest>(request: T, response: APIResponse<Response>) -> Bool {
+    public func intercept<U: APIRequest>(request: U, response: APIResponse<Response>) -> Bool {
         return true
     }
 }
 
 extension APIRequest {
+    /// 完整的URL
     var completeURL: URL {
         return path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
     }
@@ -80,35 +81,4 @@ extension APIRequest {
     }
 }
 
-// MARK: - 请求默认实现
 
-public struct DefaultAPIRequest<T: APIParsable>: APIRequest {
-    public var baseURL: URL
-
-    public var path: String
-
-    public var method: APIRequestMethod = .get
-
-    public var parameters: [String: Any]?
-
-    public var headers: APIRequestHeaders?
-
-    public var httpBody: Data?
-
-    public var taskType: APIRequestTaskType = .request
-
-    public var encoding: APIParameterEncoding = APIURLEncoding.default
-
-    public typealias Response = T
-}
-
-extension DefaultAPIRequest {
-    public init(baseURL: URL, path: String, responseType: Response.Type) {
-        self.baseURL = baseURL
-        self.path = path
-    }
-
-    public init<S>(baseURL: URL, path: String, dataType: S.Type) where T: APIModelWrapper, T.DataType == S {
-        self.init(baseURL: baseURL, path: path, responseType: T.self)
-    }
-}

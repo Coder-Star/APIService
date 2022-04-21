@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D68677228042F6C00C42C4B /* CSAPIService.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CSAPIService.podspec; path = ../CSAPIService.podspec; sourceTree = "<group>"; };
 		2DCA91F22801651100FD9576 /* NetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseResponseModel.swift; sourceTree = "<group>"; };
 		5C6D0D3CF717F7816A096F57 /* Pods-APIService_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIService_Tests.release.xcconfig"; path = "Target Support Files/Pods-APIService_Tests/Pods-APIService_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		7847482867F457C50C129D54 /* Pods-APIService_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIService_Tests.debug.xcconfig"; path = "Target Support Files/Pods-APIService_Tests/Pods-APIService_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		811353A8D187F74E92FD7867 /* APIService.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = APIService.podspec; path = ../APIService.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		86D21F1C88F5DD210A088D41 /* Pods_APIService_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APIService_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89AA0048B05EDB3547ED7B04 /* Pods-APIService_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIService_Example.release.xcconfig"; path = "Target Support Files/Pods-APIService_Example/Pods-APIService_Example.release.xcconfig"; sourceTree = "<group>"; };
 		8B3774556D11E3FA22AA6B21 /* Pods-APIService_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIService_Example.debug.xcconfig"; path = "Target Support Files/Pods-APIService_Example/Pods-APIService_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				811353A8D187F74E92FD7867 /* APIService.podspec */,
+				2D68677228042F6C00C42C4B /* CSAPIService.podspec */,
 				928FEF64C38B51F0E43273AA /* README.md */,
 				5D169FB17BE449238B75C3EF /* LICENSE */,
 			);

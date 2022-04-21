@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.9.1)
   - BetterCodable (0.4.0)
-  - CSAPIService (0.1.0):
+  - CSAPIService (0.0.1):
     - Alamofire (= 4.9.1)
 
 DEPENDENCIES:
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BetterCodable: 3f2a765c9f4089b19debd2a7b904a69fca0a5fda
-  CSAPIService: 2380c8c12590c7a84c13aba0cf96c90d12c97f49
+  CSAPIService: fbff48e10ac9a99d3947c23815435fba5d95038b
 
 PODFILE CHECKSUM: de3e96c4e6a12049b4d92d25c1810bdead9d6de7
 
