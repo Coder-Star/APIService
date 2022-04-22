@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 网络请求结果最外层Model
 public protocol APIModelWrapper {
     associatedtype DataType: APIParsable
 

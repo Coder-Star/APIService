@@ -32,6 +32,7 @@ public struct APIResponse<T> {
 }
 
 extension APIResponse {
+    /// 状态码
     public var statusCode: Int? {
         return response?.statusCode
     }

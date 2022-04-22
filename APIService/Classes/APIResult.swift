@@ -9,11 +9,14 @@ import Foundation
 
 /// 结果
 public enum APIResult<T> {
+    /// 成功
     case success(T)
+    /// 失败
     case failure(APIError)
 }
 
 extension APIResult {
+    /// 是否成功
     public var isSuccess: Bool {
         switch self {
         case .success:
@@ -23,6 +26,7 @@ extension APIResult {
         }
     }
 
+    /// 是否失败
     public var isFailure: Bool {
         return !isSuccess
     }

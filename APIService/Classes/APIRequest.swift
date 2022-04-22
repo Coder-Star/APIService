@@ -9,8 +9,11 @@ import Foundation
 
 /// 任务类型
 public enum APIRequestTaskType {
+    /// 请求
     case request
+    /// 上传
     case upload
+    /// 下载
     case download
 }
 
@@ -69,6 +72,7 @@ extension APIRequest {
         return path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
     }
 
+    /// 根据相关信息构造URLRequest
     func buildURLRequest(encoding: APIParameterEncoding?) throws -> URLRequest {
         do {
             let originalRequest = try URLRequest(url: completeURL, method: method, headers: headers)

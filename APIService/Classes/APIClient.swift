@@ -9,7 +9,6 @@ import Foundation
 
 public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
 public typealias APIProgressHandler = (Progress) -> Void
-
 public typealias APIRequestTask = APICancellable
 
 /// 网络请求任务协议
