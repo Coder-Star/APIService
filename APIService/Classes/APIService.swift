@@ -59,13 +59,10 @@ extension APIService {
 
         plugins.forEach { $0.willReceive(apiResponse, targetRequest: request) }
 
-        let isAllowCallback = request.intercept(request: request, response: apiResponse)
-
-        if isAllowCallback {
-            completionHandler(apiResponse)
+        request.intercept(request: request, response: apiResponse) { replaceResponse in
+            completionHandler(replaceResponse)
+            plugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }
         }
-
-        plugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }
     }
 }
 
@@ -183,7 +180,7 @@ extension APIService {
         case .download:
             fatalError("未实现")
         }
-
+        requestTask.resume()
         return requestTask
     }
 }

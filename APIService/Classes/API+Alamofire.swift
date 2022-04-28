@@ -22,7 +22,7 @@ public typealias APIJSONEncoding = JSONEncoding
 public typealias APIURLEncoding = URLEncoding
 public typealias APINetworkReachabilityManager = NetworkReachabilityManager
 
-extension APIDataRequest: APICancellable {}
+extension APIDataRequest: APIRequestTask {}
 
 // MARK: - AlamofireAPIClient
 
@@ -31,6 +31,7 @@ struct AlamofireAPIClient: APIClient {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
         let sessionManager = SessionManager(configuration: configuration)
+        sessionManager.startRequestsImmediately = false
         return sessionManager
     }()
 

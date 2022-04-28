@@ -9,10 +9,12 @@ import Foundation
 
 public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
 public typealias APIProgressHandler = (Progress) -> Void
-public typealias APIRequestTask = APICancellable
 
 /// 网络请求任务协议
-public protocol APICancellable {
+public protocol APIRequestTask {
+    /// 取消
+    func resume()
+
     /// 取消
     func cancel()
 }

@@ -48,10 +48,18 @@ public protocol APIRequest {
 
     /// 拦截urlRequest，在传给client之前
     /// 对其加上额外的统一参数，比如token等
+    ///
+    /// - Parameter urlRequest: 已经构造的 URLRequest
+    /// - Returns: 处理之后的 URLRequest
     func intercept(urlRequest: URLRequest) throws -> URLRequest
 
     /// 拦截回调，在回调给接收方之前
-    func intercept<U: APIRequest>(request: U, response: APIResponse<Response>) -> Bool
+    ///
+    /// - Parameter request: 发送的URLRequest
+    /// - Parameter response: 回调结果
+    /// - Parameter replaceCompletionHandler: 替换返回给业务方的回调，如果不处理，将 response 回调即可
+    /// - Returns: 处理之后的 URLRequest
+    func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, replaceResponseHandler: @escaping APICompletionHandler<Response>)
 }
 
 // MARK: - 默认实现
@@ -61,8 +69,8 @@ extension APIRequest {
         return urlRequest
     }
 
-    public func intercept<U: APIRequest>(request: U, response: APIResponse<Response>) -> Bool {
-        return true
+    public func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, replaceResponseHandler: @escaping APICompletionHandler<Response>) {
+        replaceResponseHandler(response)
     }
 }
 
