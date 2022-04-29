@@ -36,36 +36,6 @@ open class APIService {
     public static let `default` = APIService(clinet: AlamofireAPIClient())
 }
 
-// MARK: - 私有方法
-
-extension APIService {
-    /// 回调数据给调用方
-    ///
-    /// - Parameters:
-    ///   - request: 请求
-    ///   - response: 上层回来的数据
-    ///   - result: 结果
-    ///   - plugins: 插件
-    ///   - completionHandler: 结果回调
-    /// - Returns: 请求任务
-    private func performdData<T: APIRequest>(
-        request: T,
-        response: APIDataResponse<Data>,
-        result: APIResult<T.Response>,
-        plugins: [APIPlugin],
-        completionHandler: @escaping APICompletionHandler<T.Response>
-    ) {
-        let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.data, result: result)
-
-        plugins.forEach { $0.willReceive(apiResponse, targetRequest: request) }
-
-        request.intercept(request: request, response: apiResponse) { replaceResponse in
-            completionHandler(replaceResponse)
-            plugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }
-        }
-    }
-}
-
 // MARK: - 公开属性
 
 extension APIService {
@@ -92,6 +62,33 @@ extension APIService {
     /// 网络是否可用
     public var isNetworkReachable: Bool {
         return networkStatus == .wifi || networkStatus == .wwan
+    }
+}
+
+// MARK: - 私有方法
+
+extension APIService {
+    /// 回调数据给调用方
+    ///
+    /// - Parameters:
+    ///   - request: 请求
+    ///   - response: 上层回来的数据
+    ///   - result: 结果
+    ///   - plugins: 插件
+    ///   - completionHandler: 结果回调
+    /// - Returns: 请求任务
+    private func performdData<T: APIRequest>(
+        request: T,
+        response: APIResponse<T.Response>,
+        plugins: [APIPlugin],
+        completionHandler: @escaping APICompletionHandler<T.Response>
+    ) {
+        plugins.forEach { $0.willReceive(response, targetRequest: request) }
+
+        request.intercept(request: request, response: response) { replaceResponse in
+            completionHandler(replaceResponse)
+            plugins.forEach { $0.didReceive(response, targetRequest: request) }
+        }
     }
 }
 
@@ -173,12 +170,27 @@ extension APIService {
                     apiResult = .failure(.connectionError(error))
                 }
 
-                self?.performdData(request: request, response: response, result: apiResult, plugins: plugins, completionHandler: completionHandler)
+                let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.data, result: apiResult)
+                self?.performdData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
             }
-        case .upload:
-            fatalError("未实现")
-        case .download:
-            fatalError("未实现")
+        case let .download(apiDownloadDestination):
+            requestTask = clinet.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, progressHandler: progressHandler) { [weak self] response in
+                let apiResult: APIResult<T.Response>
+                switch response.result {
+                case let .success(data):
+                    do {
+                        let responseModel = try T.Response.parse(data: data)
+                        apiResult = .success(responseModel)
+                    } catch {
+                        apiResult = .failure(.responseError(error))
+                    }
+                case let .failure(error):
+                    apiResult = .failure(.connectionError(error))
+                }
+
+                let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.value, result: apiResult)
+                self?.performdData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
+            }
         }
         requestTask.resume()
         return requestTask
@@ -186,5 +198,5 @@ extension APIService {
 }
 
 // MARK: - FormData Upload
-extension APIService {
-}
+
+extension APIService {}

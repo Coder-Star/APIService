@@ -8,6 +8,7 @@
 import Foundation
 
 public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
+public typealias APIDownloadResponseCompletionHandler = (APIDownloadResponse<Data>) -> Void
 public typealias APIProgressHandler = (Progress) -> Void
 
 /// 网络请求任务协议
@@ -32,5 +33,20 @@ public protocol APIClient {
         request: URLRequest,
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDataResponseCompletionHandler
+    ) -> APIRequestTask
+
+    /// 创建下载请求
+    ///
+    /// - Parameters:
+    ///   - request: 请求
+    ///   - to: 设置下载的地址以及配置
+    ///   - progressHandler: 进度回调
+    ///   - completionHandler: 结果回调
+    /// - Returns: 请求任务
+    func createDownloadRequest(
+        request: URLRequest,
+        to: @escaping APIDownloadDestination,
+        progressHandler: APIProgressHandler?,
+        completionHandler: @escaping APIDownloadResponseCompletionHandler
     ) -> APIRequestTask
 }

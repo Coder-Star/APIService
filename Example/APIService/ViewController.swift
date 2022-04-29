@@ -20,11 +20,9 @@ class ViewController: UIViewController {
     }
 
     private func getHomeBannerData() {
-        let request = DefaultAPIRequest(csPath: "/config/homeBanner", dataType: HomeBanner.self)
+        let request = CSAPIRequest(path: "/config/homeBanner", dataType: HomeBanner.self)
 
         APIService.sendRequest(request) { reponse in
-            print(reponse.result)
-
             switch reponse.result.validateResult {
             case let .success(info, _):
                 print(info)

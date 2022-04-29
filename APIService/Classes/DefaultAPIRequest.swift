@@ -18,8 +18,6 @@ public struct DefaultAPIRequest<T: APIParsable>: APIRequest {
 
     public var headers: APIRequestHeaders?
 
-    public var httpBody: Data?
-
     public var taskType: APIRequestTaskType = .request
 
     public var encoding: APIParameterEncoding = APIURLEncoding.default

@@ -11,10 +11,9 @@ import Foundation
 public enum APIRequestTaskType {
     /// 请求
     case request
-    /// 上传
-    case upload
     /// 下载
-    case download
+    /// fileURL:  下载文件目的存储位置
+    case download(APIDownloadDestination)
 }
 
 // MARK: - 请求协议

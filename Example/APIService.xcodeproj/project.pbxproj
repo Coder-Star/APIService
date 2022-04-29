@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D9D6BDA281B9D4A002AF9AE /* DefaultAPIRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9D6BD9281B9D4A002AF9AE /* DefaultAPIRequestExtension.swift */; };
+		2D9D6BDC281B9DF2002AF9AE /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */; };
 		2DCA91F42801651100FD9576 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA91F22801651100FD9576 /* NetworkConstants.swift */; };
 		2DCA91F52801651100FD9576 /* CSBaseResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		2D68677228042F6C00C42C4B /* CSAPIService.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CSAPIService.podspec; path = ../CSAPIService.podspec; sourceTree = "<group>"; };
+		2D9D6BD9281B9D4A002AF9AE /* DefaultAPIRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAPIRequestExtension.swift; sourceTree = "<group>"; };
+		2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
 		2DCA91F22801651100FD9576 /* NetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseResponseModel.swift; sourceTree = "<group>"; };
 		5C6D0D3CF717F7816A096F57 /* Pods-APIService_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIService_Tests.release.xcconfig"; path = "Target Support Files/Pods-APIService_Tests/Pods-APIService_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		607FACD21AFB9204008FA782 /* Example for APIService */ = {
 			isa = PBXGroup;
 			children = (
+				2D9D6BD9281B9D4A002AF9AE /* DefaultAPIRequestExtension.swift */,
+				2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */,
 				2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */,
 				2DCA91F22801651100FD9576 /* NetworkConstants.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -249,6 +255,8 @@
 				2DCA91F52801651100FD9576 /* CSBaseResponseModel.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				2D9D6BDC281B9DF2002AF9AE /* CSAPIRequest.swift in Sources */,
+				2D9D6BDA281B9D4A002AF9AE /* DefaultAPIRequestExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
