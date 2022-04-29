@@ -1,3 +1,4 @@
+
 Network里面定义的是一层网络抽象层，包含发送、接收、JSON转Model等操作，其中目前默认使用的是`Alamofire`发起网络请求，可对底层进行更换，而不影响上层API使用；
 
 ## 抽象方式
@@ -16,7 +17,7 @@ Network里面定义的是一层网络抽象层，包含发送、接收、JSON转
 
 负责将网络请求回来的数据进行解析，转为实体；
 
-## 默认使用方式
+### 默认使用方式
 
 ```swift
 /// 返回的Model
@@ -42,7 +43,7 @@ APIService.default.send(request: request) { result in
 
 
 
-## 多主机
+### 多主机
 
 其实我们很有可能遇到App里面访问多个不同域名的服务器后台，那我们应该怎么处理呢？
 
@@ -107,7 +108,7 @@ public struct DomainOneAPIResponseModel<T>: APIParsable & Decodable where T: API
 }
 ```
 
-## 解析协议发生变化
+### 解析协议发生变化
 
 目前解析默认是由`JSON`通过`Decodable`的方式转为Model，但如果后台返回的数据不是`JSON`，而是`XML`或者`Protobuf`等，那我们可以对`APIParsable`协议进行扩展。
 

@@ -22,7 +22,7 @@ LINE_NUMBER=`grep -nE 's.version.*=' ${POD_NAME}.podspec | cut -d : -f1`
 sed -i "" "${LINE_NUMBER}s/${VERSION_NUMBER}/${NEW_VERSION_NUMBER}/g" ${POD_NAME}.podspec
 
 git add .
-git commit -m ${NEW_VERSION_NUMBER}${COMMIT_MESSAGE}
+git commit -m ${COMMIT_MESSAGE}
 git tag ${NEW_VERSION_NUMBER}
 git push --tags
 
