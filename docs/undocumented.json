@@ -1,0 +1,292 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 13,
+      "symbol": "APIRequestMethod",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 14,
+      "symbol": "APIRequestHeaders",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 15,
+      "symbol": "APIDataResponse",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 16,
+      "symbol": "APIDownloadResponse",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 17,
+      "symbol": "APIRequestAdapter",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 18,
+      "symbol": "APIDownloadDestination",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 20,
+      "symbol": "APIMultipartFormData",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 21,
+      "symbol": "APIParameterEncoding",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 22,
+      "symbol": "APIJSONEncoding",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 23,
+      "symbol": "APIURLEncoding",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/API+Alamofire.swift",
+      "line": 24,
+      "symbol": "APINetworkReachabilityManager",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIClient.swift",
+      "line": 10,
+      "symbol": "APIDataResponseCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIClient.swift",
+      "line": 11,
+      "symbol": "APIDownloadResponseCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIClient.swift",
+      "line": 12,
+      "symbol": "APIProgressHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIModelWrapper.swift",
+      "line": 12,
+      "symbol": "APIModelWrapper.DataType",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIModelWrapper.swift",
+      "line": 14,
+      "symbol": "APIModelWrapper.code",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIModelWrapper.swift",
+      "line": 16,
+      "symbol": "APIModelWrapper.msg",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIModelWrapper.swift",
+      "line": 18,
+      "symbol": "APIModelWrapper.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 12,
+      "symbol": "APIParsable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 13,
+      "symbol": "APIParsable.parse(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 17,
+      "symbol": "Data.parse(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 24,
+      "symbol": "APIJSONParsable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 26,
+      "symbol": "APIJSONParsable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 27,
+      "symbol": "APIJSONParsable.parse(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIParsable.swift",
+      "line": 37,
+      "symbol": "APIDefaultJSONParsable",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIPlugin.swift",
+      "line": 10,
+      "symbol": "APIPlugin",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIResponse.swift",
+      "line": 10,
+      "symbol": "APIResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIResponse.swift",
+      "line": 23,
+      "symbol": "APIResponse.init(request:response:data:result:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIResponse.swift",
+      "line": 34,
+      "symbol": "APIResponse",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIResult.swift",
+      "line": 34,
+      "symbol": "APIResult.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIResult.swift",
+      "line": 43,
+      "symbol": "APIResult.error",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 10,
+      "symbol": "APICompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 26,
+      "symbol": "APIService",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 29,
+      "symbol": "APIService.clinet",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 31,
+      "symbol": "APIService.init(clinet:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 41,
+      "symbol": "APIService",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/APIService.swift",
+      "line": 97,
+      "symbol": "APIService",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/DefaultAPIRequest.swift",
+      "line": 10,
+      "symbol": "DefaultAPIRequest",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/DefaultAPIRequest.swift",
+      "line": 28,
+      "symbol": "DefaultAPIRequest",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/DefaultAPIRequest.swift",
+      "line": 29,
+      "symbol": "DefaultAPIRequest.init(baseURL:path:responseType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/DefaultAPIRequest.swift",
+      "line": 34,
+      "symbol": "DefaultAPIRequest.init(baseURL:path:dataType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/Example"
+}
