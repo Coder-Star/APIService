@@ -34,6 +34,7 @@ extension APIJSONParsable where Self: Decodable {
     }
 }
 
+/// 如果使用默认方式Decodable进行解析，最外层Model就可以直接实现该协议
 public typealias APIDefaultJSONParsable = APIJSONParsable & Decodable
 
 // MARK: - 默认实现

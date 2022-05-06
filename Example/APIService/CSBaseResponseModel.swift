@@ -8,7 +8,7 @@
 import Foundation
 import APIService
 
-public struct CSBaseResponseModel<T>: APIModelWrapper, APIDefaultJSONParsable where T: APIDefaultJSONParsable {
+public struct CSBaseResponseModel<T>: APIModelWrapper, APIDefaultJSONParsable where T: Decodable {
     public var code: Int
     public var msg: String
     public var data: T?

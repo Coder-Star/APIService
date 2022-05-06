@@ -1,10 +1,12 @@
-`CSAPIService` 是一个轻量的网络抽象层框架。
+`APIService` 是一个轻量的 Swift 网络抽象层框架。
 
 > 代码注释比较完备，部分细节可以直接查看代码。
 
 ## 框架组成
 
 ![APIServie](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
+> 箭头指的是发送流程，实心点指的是数据回调流程；
+> 高清图可见 [链接](https://www.processon.com/view/link/6274d2db1efad40df0236a83)
 
 框架按照网络请求流程中涉及的步骤将其内部分为几个角色：
 
@@ -21,11 +23,9 @@
 
 我们应当以`领域服务`为单位来提供对应的`APIRequest`，`领域服务`大部分会按照域名不同来区分，即 A 域名对应`AAPIRequest`，B 域名对应`BAPIRequest`。
 
-> 内部实现默认有一个`DefaultAPIRequest`，主要目的是为大家提供一个示例，大家尽量不要直接使用它；
-
 `APIRequest`的拦截器应用场景主要是整个`领域服务`级别的，一般添加的逻辑都是统一的逻辑。如：
 - 发送前加上统一参数，Header 等信息；
-- 数据回调到业务之前统一对一些 code 进行判断，如未登录自动弹出登录框等统一逻辑；
+- 数据回调到业务之前统一对一些 `code` 进行判断，如未登录自动弹出登录框等统一逻辑；
 
 ```swift
 /// 请求发送之前
@@ -39,7 +39,7 @@ func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, repla
 
 ### APIClient 协议
 
-负责发送一个`Request`请求，我们可以调整`APIClient`的实现方式； 目前默认实现方式为`Alamofire`;
+负责发送一个`Request`请求，我们可以调整`APIClient`的实现方式； 目前默认实现方式为`Alamofire`，其中使用别名等方式做了隔离。
 
 ```swift
 /// 网络请求任务协议
@@ -101,95 +101,230 @@ extension APIJSONParsable where Self: Decodable {
 
 目前协议的默认实现方式是通过`Decodable`的方式将`JSON`转为`Model`。
 
-当然
+当然我们可以根据项目数据交换协议扩展对应的解析方式，如 XML、`Protobuf`等；
 
-目前解析默认是由`JSON`通过`Decodable`的方式转为 Model，但如果后台返回的数据不是`JSON`，而是`XML`或者`Protobuf`等，那我们可以对`APIParsable`协议进行扩展。
+```swift
+public typealias APIDefaultJSONParsable = APIJSONParsable & Decodable
+```
 
-目前协议默认实现了当`Model`实现了`Decodable` 协议时候的自动转换；
+同时为方便业务使用，添加了一个别名，如果使用默认方式 `Decodable` 进行解析，最外层 `Model` 就可以直接实现该协议。
+
+### APIPlugin
+
+```swift
+public protocol APIPlugin {
+    /// 构造URLRequest
+    func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest
+
+    /// 发送之前
+    func willSend<T: APIRequest>(_ request: URLRequest, targetRequest: T)
+
+    /// 接收结果，时机在返回给调用方之前
+    func willReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T)
+
+    /// 接收结果，时机在返回给调用方之后
+    func didReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T)
+}
+```
+
+在具体网络请求层次上提供的拦截器协议，这样业务使用过程中可以感知到请求请求中的重要节点，从而完成一些逻辑，如`Loading`的加载与消失就可以通过构造一些对应的实例去完成。
 
 ### APIService
 
-## 默认使用方式
+这是最外层的供业务发起网络请求的`API`。
 
 ```swift
-/// 返回的Model
-struct HomeBanner: APIParsable, Codable {
-    var interval: Int = 0
-}
+open class APIService {
+    private let reachabilityManager = APINetworkReachabilityManager()
 
-let request = DefaultNetRequest(responseType: HomeBanner.self, url: "你的API地止")
+    public let clinet: APIClient
 
-APIService.default.send(request: request) { result in
-     switch result.result {
-     case let .success(model):
-          print(model)
-     case let .failure(error):
-          print(error)
-     }
-}
-```
-
-这是一个最简单的使用方式，我们可以直接在`.success`的回调中拿到我们反序列化后的`Model`。
-
-但是这个方式肯定是满足不了我们业务中的场景的，那接下来我们看看怎么灵活扩展；
-
-### 多主机
-
-其实我们很有可能遇到 App 里面访问多个不同域名的服务器后台，那我们应该怎么处理呢？
-
-我们可以自己实现`APIRequest`这个协议，如下：
-
-```swift
-public struct DomainOneNetRequest<T: APIParsable>: APIRequest {
-    public var url: String
-
-    public var method: NetRequestMethod
-
-    public var parameters: [String: Any]?
-
-    public var headers: NetRequestHeaders?
-
-    public var httpBody: Data?
-
-    public typealias Response = T
-
-    /// 站点1 基础URL
-    let domainOneBaseUrl = ""
-}
-
-extension DomainOneNetRequest {
-    /// 最外层数据结构构建
-    public init(responseType: Response.Type, url: String, method: NetRequestMethod = .get) {
-        /// 拼接URL
-        self.url = domainOneBaseUrl + url
-        self.method = method
+    public init(clinet: APIClient) {
+        self.clinet = clinet
     }
+
+    /// 单例
+    public static let `default` = APIService(clinet: AlamofireAPIClient())
 }
 ```
 
-这样每对应一个`domain`我们就定义这样一个`NetRequest`，我们在访问不同域名的 API 后台时，选择对应的`NetRequest`即可，并且我们可以把站点的域名收敛到构造函数里面，避免外面多次传入；
-
-同时我们可以通过定义多个构造函数的方式给调用方提供是直接返回最外层数据结构的 Model 或者 真正数据对应的 Model。
+`APIService`提供**类方法**以及**实例方法**，其中类方法就是使用的`default`实例，当然也可以其他的`APIClient`实现实例然后调用实例方法，等后续对底层实现进行替换是，只需要替换`default`实例的默认实现就可以了。
 
 ```swift
-extension DomainOneNetRequest {
-    /// 数据层数据结构，最外层数据选用DefaultAPIResponseModel
-    public init<S>(defaultDataType: S.Type, url: String, method: NetRequestMethod = .get) where DefaultAPIResponseModel<S> == T {
-      	/// 拼接URL
-        self.url = domainOneBaseUrl + url
-        self.method = method
-    }
+public func sendRequest<T: APIRequest>(
+        _ request: T,
+        plugins: [APIPlugin] = [],
+        encoding: APIParameterEncoding? = nil,
+        progressHandler: APIProgressHandler? = nil,
+        completionHandler: @escaping APICompletionHandler<T.Response>
+    ) -> APIRequestTask? { }
+```
+
+实例方法定义如上，支持传入`APIPlugin` 实例数组。
+
+## 业务使用实践
+
+> 相关代码在 Demo 工程里面可以看到。
+
+### 最外层的 Model
+
+```swift
+/// 网络请求结果最外层Model
+public protocol APIModelWrapper {
+    associatedtype DataType: Decodable
+
+    var code: Int { get }
+
+    var msg: String { get }
+
+    var data: DataType? { get }
 }
 ```
 
-## 更换最外层基础 Model
+对于大多数的网络请求而言，拿到的回调结果最外层肯定是最基础的 Model，也就是所谓的`BaseReponseBean`，其字段主要也是`code`、`msg`、`data`。
 
-我们只需要按照`DefaultAPIResponseModel`的形式定义自己的 Model 就可以了，相应使用者换掉就 ok，上面场景就是一个例子；
+我们定义这样的一个协议方便后续使用，其实这个协议当时是直接放在库里面的，后来发现库内部对其没有依赖，其更多是一种更优的编程实践，就提出来放到了 Demo 工程里面去。
+
+我们需要构造一个实体去实现该协议，
 
 ```swift
-public struct DomainOneAPIResponseModel<T>: APIParsable & Decodable where T: APIParsable & Decodable {
+public struct CSBaseResponseModel<T>: APIModelWrapper, APIDefaultJSONParsable where T: Decodable {
     public var code: Int
     public var msg: String
     public var data: T?
+
+    enum CodingKeys: String, CodingKey {
+        case code
+        case msg = "desc"
+        case data
+    }
+}
+```
+
+> 有的小伙伴可能回想不能直接使用实体吗？为什么还需要一个协议，这个协议在后面会用到。
+
+### 业务 APIRequest
+
+```swift
+public struct CSAPIRequest<T: APIParsable>: APIRequest {
+    public let baseURL: URL
+
+    public let path: String
+
+    public var method: APIRequestMethod = .get
+
+    public var parameters: [String: Any]?
+
+    public var headers: APIRequestHeaders?
+
+    public var taskType: APIRequestTaskType = .request
+
+    public var encoding: APIParameterEncoding = APIURLEncoding.default
+
+    public typealias Response = T
+}
+
+// MARK: - 构造函数
+
+extension CSAPIRequest {
+    /// 注意这个 CSBaseResponseModel
+    public init<S>(path: String, dataType: S.Type) where CSBaseResponseModel<S> == T {
+        self.baseURL = NetworkConstants.baseURL
+
+        self.path = path
+    }
+}
+
+// MARK: - 协议方法
+
+extension CSAPIRequest {
+    public func intercept(urlRequest: URLRequest) throws -> URLRequest {
+        /// 我们可以在这个位置添加统一的参数、header的信息；
+        return urlRequest
+    }
+
+    public func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, replaceResponseHandler: @escaping APICompletionHandler<Response>) {
+        /// 我们在这里位置可以处理统一的回调判断相关逻辑
+        replaceResponseHandler(response)
+    }
+}
+```
+
+### APIResult 扩展
+
+我们通过`APIResult`最终获得的是最外层的`Model`，那对于大部分业务方而言，他们拿到数据后还会有一些通用逻辑，如：
+
+- 根据`code`值判断请求是否成功；
+- 错误本地化；
+- 获取实际的`data`数据；
+- ...
+
+而这些逻辑在每一个`域名服务`又可能是不同的，属于业务逻辑，所以不宜放入库内部。
+
+那对于这些逻辑，我们就可以对 `APIResult` 进行扩展，将这些逻辑收进去，业务方可以根据自己的需求决定在拿到`APIResult`之后是否还调用这个扩展。
+
+如果有多种逻辑，可以考虑增加一些特定前缀去区别，如下面的`validateResult`我们可以扩展为多个 -- `csValidateResult`，`cfValidateResult`等等。
+
+```swift
+public enum APIValidateResult<T> {
+    case success(T, String)
+    case failure(String, APIError)
+}
+
+public enum CSDataError: Error {
+    case invalidParseResponse
+}
+
+/// APIModelWrapper 在这个地方用到了
+extension APIResult where T: APIModelWrapper {
+    var validateResult: APIValidateResult<T.DataType> {
+        var message = "出现错误，请稍后重试"
+        switch self {
+        case let .success(reponse):
+            if reponse.code == 200, let data = reponse.data {
+                return .success(data, reponse.msg)
+            } else {
+                return .failure(message, APIError.responseError(APIResponseError.invalidParseResponse(CSDataError.invalidParseResponse)))
+            }
+        case let .failure(apiError):
+            if apiError == APIError.networkError {
+                message = apiError.localizedDescription
+            }
+
+            assertionFailure(apiError.localizedDescription)
+            return .failure(message, apiError)
+        }
+    }
+}
+
+```
+
+### BetterCoable
+
+项目中用了`Coable`做了反序列化工具，但是`Coable`本身还有一些地方使用起来不是很方便。如：
+
+- 定义的 key，`JSON`数据里面没有；
+- 定义的 key 与`JSON`数据里面对应的数据类型不一致；
+- ...
+
+为了解决这些问题，大家可以使用`BetterCoable`这个三方库。
+
+但是这个三方库还有一个问题没解决，就是如果我们定义的 key 名字与 json 数据返回的 key 名字不同时，我们需要定义`CodingKeys` 这个枚举去修改，但是实际操作是如果我们想修改某一个 key，我们需要将整个实体的 key 都在这个枚举里面得到体现，非常不便捷。
+
+为了解决这个问题，大家可以考虑从`Sourcery`角度去解决这个问题，具体细节后面再披露。
+
+### 业务使用
+
+```swift
+let request = CSAPIRequest(path: "/config/homeBanner", dataType: HomeBanner.self)
+
+APIService.sendRequest(request) { reponse in
+    switch reponse.result.validateResult {
+    case let .success(info, _):
+        /// 这个 Info 就是上面我们传入的 HomeBanner 类型
+        print(info)
+    case let .failure(_, error):
+        print(error)
+    }
 }
 ```
