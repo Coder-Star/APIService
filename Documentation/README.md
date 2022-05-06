@@ -2,9 +2,9 @@
 
 > 代码注释比较完备，部分细节可以直接查看代码。
 
-## 抽象方式
+## 框架组成
 
-<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:525px; height:245px;" src="https://www.processon.com/embed/6273fd0e7d9c08074fb5bad4"></iframe>
+![APIServie](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
 
 框架按照网络请求流程中涉及的步骤将其内部分为几个角色：
 
