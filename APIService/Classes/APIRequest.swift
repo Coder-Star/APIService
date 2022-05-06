@@ -12,7 +12,6 @@ public enum APIRequestTaskType {
     /// 请求
     case request
     /// 下载
-    /// fileURL:  下载文件目的存储位置
     case download(APIDownloadDestination)
 }
 
