@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D68677228042F6C00C42C4B /* CSAPIService.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CSAPIService.podspec; path = ../CSAPIService.podspec; sourceTree = "<group>"; };
+		2D68677228042F6C00C42C4B /* CSAPIService.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CSAPIService.podspec; path = ../CSAPIService.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
 		2DCA91F22801651100FD9576 /* NetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseResponseModel.swift; sourceTree = "<group>"; };
