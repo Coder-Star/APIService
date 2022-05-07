@@ -7,8 +7,6 @@
 
 `CSAPIService` 是一个轻量的 Swift 网络抽象层框架，将请求、解析等流程工作分成几大角色去承担，完全面向协议实现，利于扩展。
 
-[详细说明文档](./Documentation/README.md)
-
 ## 使用方式
 
 ```ruby
