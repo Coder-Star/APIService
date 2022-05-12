@@ -216,6 +216,8 @@ public struct CSBaseResponseModel<T>: APIModelWrapper, APIDefaultJSONParsable wh
 }
 ```
 
+因为最外层的 `CSBaseResponseModel` 已经满足了 `APIDefaultJSONParsable`协议，所以业务Model不需要再实现该协议了，而是直接实现`Decodable`就好。
+
 > 有的小伙伴可能会想不能直接使用实体吗？为什么还需要一个协议，这个协议在后面会用到。
 
 ### 业务 APIRequest
