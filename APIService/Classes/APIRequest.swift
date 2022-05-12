@@ -44,8 +44,14 @@ public protocol APIRequest {
     /// 参数编码处理
     var encoding: APIParameterEncoding { get }
 
+    /// 拦截参数，在参数编码之前
+    /// 可以用于加上一些统一参数的场景
+    ///
+    /// - Parameter parameters: 业务方传入的参数
+    /// - Returns: 处理后的参数
+    func intercept(parameters: [String: Any]?) -> [String: Any]?
+
     /// 拦截urlRequest，在传给client之前
-    /// 对其加上额外的统一参数，比如token等
     ///
     /// - Parameter urlRequest: 已经构造的 URLRequest
     /// - Returns: 处理之后的 URLRequest
@@ -63,6 +69,10 @@ public protocol APIRequest {
 // MARK: - 默认实现
 
 extension APIRequest {
+    public func intercept(parameters: [String: Any]?) -> [String: Any]? {
+        return parameters
+    }
+
     public func intercept(urlRequest: URLRequest) throws -> URLRequest {
         return urlRequest
     }
@@ -74,7 +84,8 @@ extension APIRequest {
 
 extension APIRequest {
     /// 完整的URL
-    var completeURL: URL {
+    /// 不包含参数，只是 baseURL 与 path 的拼接
+    public var completeURL: URL {
         return path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
     }
 
@@ -82,8 +93,12 @@ extension APIRequest {
     func buildURLRequest(encoding: APIParameterEncoding?) throws -> URLRequest {
         do {
             let originalRequest = try URLRequest(url: completeURL, method: method, headers: headers)
+
+            let resultParameters = intercept(parameters: parameters)
+
             /// 优先使用单个API的编码方式，其次使用Request级别的编码方式
-            let encodedURLRequest = try (encoding ?? self.encoding).encode(originalRequest, with: parameters)
+            let encodedURLRequest = try (encoding ?? self.encoding).encode(originalRequest, with: resultParameters)
+
             return try intercept(urlRequest: encodedURLRequest)
         } catch {
             throw APIRequestError.invalidURLRequest
