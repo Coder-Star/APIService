@@ -9,11 +9,20 @@ import Foundation
 
 // MARK: - APIParsable
 
+/// 解析角色
 public protocol APIParsable {
+    /// 将 Data 解析成 Model
+    /// - Parameter data: data
+    /// - Returns: Model
     static func parse(data: Data) throws -> Self
 }
 
 extension Data: APIParsable {
+    /// Data默认实现解析协议
+    /// 使请求时可以请求Data数据，业务方自己根据实际情况进行解析
+    ///
+    /// - Parameter data: data
+    /// - Returns: 还是data
     public static func parse(data: Data) throws -> Self {
         return data
     }
@@ -21,9 +30,15 @@ extension Data: APIParsable {
 
 // MARK: - APIJSONParsable
 
+/// JSON解析角色
 public protocol APIJSONParsable: APIParsable {}
 
 extension APIJSONParsable where Self: Decodable {
+    /// APIJSONParsable 默认实现
+    /// 使用 JSONDecoder 的方式
+    ///
+    /// - Parameter data: data
+    /// - Returns: 解析结果
     public static func parse(data: Data) throws -> Self {
         do {
             let model = try JSONDecoder().decode(self, from: data)

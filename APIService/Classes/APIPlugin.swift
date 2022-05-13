@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 插件
 public protocol APIPlugin {
     /// 构造URLRequest
     func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest

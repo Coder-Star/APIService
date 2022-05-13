@@ -18,7 +18,7 @@
         <a class='header-link' href='index.html'>
           APIService Docs
         </a>
-         (68% documented)
+         (100% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -186,13 +186,324 @@
 <a href="https://coder-star.github.io/APIService/"><img src="https://img.shields.io/badge/doc-https%3A%2F%2Fcoder--star.github.io%2FAPIService%2F-lightgrey" alt="Doc"></a></p>
 
 <p><code>CSAPIService</code> 是一个轻量的 Swift 网络抽象层框架，将请求、解析等流程工作分成几大角色去承担，完全面向协议实现，利于扩展。</p>
-
-<p><a href="./Documentation/README.md">详细说明文档</a></p>
 <h2 id='使用方式' class='heading'>使用方式</h2>
 <pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'CSAPIService'</span>
 </code></pre>
 
 <p>其实原来的名称为<code>APIService</code>，但是因为该名在<code>CocoaPods</code>已经被占用了，就加了前缀，但是在使用时，模块名称依然是<code>APIService</code>。</p>
+
+<blockquote>
+<p>代码注释比较完备，部分细节可以直接查看代码。</p>
+</blockquote>
+<h2 id='框架组成' class='heading'>框架组成</h2>
+
+<p><img src="http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png" alt="APIServie"></p>
+
+<blockquote>
+<p>箭头指的是发送流程，实心点指的是数据回调流程；
+高清图可见 <a href="https://www.processon.com/view/link/6274d2db1efad40df0236a83">链接</a></p>
+</blockquote>
+
+<p>框架按照网络请求流程中涉及的步骤将其内部分为几个角色：</p>
+
+<ul>
+<li>请求者（APIRequest）：更准确的叫法应该是<strong>构建请求者</strong>，其主要作用就是将外部传入的相关参数经过相关处理构造成一个<code>URLRequest</code>实例，并且提供请求拦截器以及回调拦截器两种拦截器；</li>
+<li>发送者（APIClient）：实际的网络请求发送者，目前默认是<code>Alamofire</code>，你也可以实现协议，灵活的对发送者进行替换；</li>
+<li>解析者（APIParsable）：一般与<code>Model</code>是同一个角色，由<code>Model</code>实现协议从而实现从数据到实体这一过程的映射；</li>
+<li>服务提供者（APIService）：整个框架的服务提供者，提供最外层的<code>API</code>，可以传入插件；</li>
+</ul>
+
+<p>整个框架是按照<code>POP</code>的思想进行设计，将相关角色都尽量抽象成协议，方便扩展；</p>
+<h3 id='apirequest-协议' class='heading'>APIRequest 协议</h3>
+
+<p>描述一个<code>URLRequest</code>实例需要的信息，并提供相应的拦截服务，在构造中我们可以设置返回的<code>ResponseModel</code>类型；</p>
+
+<p>我们应当以<code>领域服务</code>为单位来提供对应的<code>APIRequest</code>，<code>领域服务</code>大部分会按照域名不同来划分，即 A 域名对应<code>AAPIRequest</code>，B 域名对应<code>BAPIRequest</code>。</p>
+
+<p><code>APIRequest</code>的拦截器应用场景主要是整个<code>领域服务</code>级别的，一般添加的逻辑都是统一的逻辑。如：</p>
+
+<ul>
+<li>发送前加上统一参数，Header 等信息；</li>
+<li>数据回调到业务之前统一对一些 <code>code</code> 进行判断，如未登录自动弹出登录框等统一逻辑；</li>
+</ul>
+<pre class="highlight swift"><code><span class="c1">/// 请求发送之前</span>
+<span class="kd">func</span> <span class="nf">intercept</span><span class="p">(</span><span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span>
+
+<span class="c1">/// 数据回调给业务之前</span>
+<span class="c1">/// 利用 replaceResponseHandler 我们可以替换返回给业务的数据，还可以用作一些重试机制上等；</span>
+<span class="c1">/// 需要注意的是一旦实现该方法，需要及时使用 replaceResponseHandler 将 response 返回给业务方。</span>
+<span class="kd">func</span> <span class="n">intercept</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">U</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">replaceResponseHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APICompletionHandler</span><span class="o">&lt;</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre>
+<h3 id='apiclient-协议' class='heading'>APIClient 协议</h3>
+
+<p>负责发送一个<code>Request</code>请求，我们可以调整<code>APIClient</code>的实现方式； 目前默认实现方式为<code>Alamofire</code>，其中使用别名等方式做了隔离。</p>
+<pre class="highlight swift"><code><span class="c1">/// 网络请求任务协议</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIRequestTask</span> <span class="p">{</span>
+    <span class="c1">/// 取消</span>
+    <span class="kd">func</span> <span class="nf">resume</span><span class="p">()</span>
+
+    <span class="c1">/// 取消</span>
+    <span class="kd">func</span> <span class="nf">cancel</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">/// 网络请求客户端协议</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIClient</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">createDataRequest</span><span class="p">(</span>
+        <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span>
+        <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt">APIProgressHandler</span><span class="p">?,</span>
+        <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APIDataResponseCompletionHandler</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">APIRequestTask</span>
+
+    <span class="kd">func</span> <span class="nf">createDownloadRequest</span><span class="p">(</span>
+        <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span>
+        <span class="nv">to</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APIDownloadDestination</span><span class="p">,</span>
+        <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt">APIProgressHandler</span><span class="p">?,</span>
+        <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APIDownloadResponseCompletionHandler</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">APIRequestTask</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><code><a href="Protocols/APIClient.html">APIClient</a></code> 协议比较简单，就是根据请求类型区分不同的方法，其返回值也是一个协议（<code>APIRequestTask</code>），支持<code>resume</code>以及<code>cancel</code>操作。</p>
+
+<blockquote>
+<p>目前操作只保留数据请求、下载请求两种方式，其他方式后续版本再补充；</p>
+</blockquote>
+<h3 id='apiparsable-协议' class='heading'>APIParsable 协议</h3>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIParsable</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>如上所示，<code>APIParsable</code>协议其实很简单，实现者通常是<code>Model</code>，就是将<code>Data</code>类型的数据映射成实体类型。</p>
+
+<p>这是最上层的协议，在该协议下方目前还有<code>APIJSONParsable</code>协议，其继承了<code>APIParsable</code>协议，如下所示：</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIJSONParsable</span><span class="p">:</span> <span class="kt">APIParsable</span> <span class="p">{}</span>
+
+<span class="kd">extension</span> <span class="kt">APIJSONParsable</span> <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="p">{</span>
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">model</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">JSONDecoder</span><span class="p">()</span><span class="o">.</span><span class="nf">decode</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">model</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="kt">APIResponseError</span><span class="o">.</span><span class="nf">invalidParseResponse</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>目前协议的默认实现方式是通过<code>Decodable</code>的方式将<code>JSON</code>转为<code>Model</code>。</p>
+
+<p>当然我们可以根据项目数据交换协议扩展对应的解析方式，如 XML、<code>Protobuf</code>等；</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">APIDefaultJSONParsable</span> <span class="o">=</span> <span class="kt">APIJSONParsable</span> <span class="o">&amp;</span> <span class="kt">Decodable</span>
+</code></pre>
+
+<p>同时为方便业务使用，添加了一个别名，如果使用默认方式 <code>Decodable</code> 进行解析，最外层 <code>Model</code> 就可以直接实现该协议。</p>
+<h3 id='apiplugin' class='heading'>APIPlugin</h3>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIPlugin</span> <span class="p">{</span>
+    <span class="c1">/// 构造URLRequest</span>
+    <span class="kd">func</span> <span class="n">prepare</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span>
+
+    <span class="c1">/// 发送之前</span>
+    <span class="kd">func</span> <span class="n">willSend</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+
+    <span class="c1">/// 接收结果，时机在返回给调用方之前</span>
+    <span class="kd">func</span> <span class="n">willReceive</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+
+    <span class="c1">/// 接收结果，时机在返回给调用方之后</span>
+    <span class="kd">func</span> <span class="n">didReceive</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>在具体网络请求层次上提供的拦截器协议，这样业务使用过程中可以感知到请求请求中的重要节点，从而完成一些逻辑，如<code>Loading</code>的加载与消失就可以通过构造一些对应的实例去完成。</p>
+<h3 id='apiservice' class='heading'>APIService</h3>
+
+<p>这是最外层的供业务发起网络请求的<code>API</code>。</p>
+<pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">APIService</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">reachabilityManager</span> <span class="o">=</span> <span class="kt">APINetworkReachabilityManager</span><span class="p">()</span>
+
+    <span class="kd">public</span> <span class="k">let</span> <span class="nv">clinet</span><span class="p">:</span> <span class="kt">APIClient</span>
+
+    <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">clinet</span><span class="p">:</span> <span class="kt">APIClient</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">clinet</span> <span class="o">=</span> <span class="n">clinet</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// 单例</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">let</span> <span class="err">`</span><span class="k">default</span><span class="err">`</span> <span class="o">=</span> <span class="kt">APIService</span><span class="p">(</span><span class="nv">clinet</span><span class="p">:</span> <span class="kt">AlamofireAPIClient</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><code>APIService</code>提供<strong>类方法</strong>以及<strong>实例方法</strong>，其中类方法就是使用的<code>default</code>实例，当然也可以其他的<code>APIClient</code>实现实例然后调用实例方法，等后续对底层实现进行替换是，只需要替换<code>default</code>实例的默认实现就可以了。</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">sendRequest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span>
+        <span class="nv">plugins</span><span class="p">:</span> <span class="p">[</span><span class="kt">APIPlugin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nv">encoding</span><span class="p">:</span> <span class="kt">APIParameterEncoding</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+        <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt">APIProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+        <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APICompletionHandler</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">APIRequestTask</span><span class="p">?</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre>
+
+<p>实例方法定义如上，支持传入<code><a href="Protocols/APIPlugin.html">APIPlugin</a></code> 实例数组。</p>
+<h2 id='业务使用实践' class='heading'>业务使用实践</h2>
+
+<blockquote>
+<p>相关代码在 Demo 工程里面可以看到。</p>
+</blockquote>
+<h3 id='最外层的-model' class='heading'>最外层的 Model</h3>
+<pre class="highlight swift"><code><span class="c1">/// 网络请求结果最外层Model</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIModelWrapper</span> <span class="p">{</span>
+    <span class="kd">associatedtype</span> <span class="kt">DataType</span><span class="p">:</span> <span class="kt">Decodable</span>
+
+    <span class="k">var</span> <span class="nv">code</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">DataType</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>对于大多数的网络请求而言，拿到的回调结果最外层肯定是最基础的 Model，也就是所谓的<code>BaseReponseBean</code>，其字段主要也是<code>code</code>、<code>msg</code>、<code>data</code>。</p>
+
+<p>我们定义这样的一个协议方便后续使用，其实这个协议当时是直接放在库里面的，后来发现库内部对其没有依赖，其更多是一种更优的编程实践，就提出来放到了 Demo 工程里面去。</p>
+
+<p>我们需要构造一个实体去实现该协议，</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CSBaseResponseModel</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">APIModelWrapper</span><span class="p">,</span> <span class="kt">APIDefaultJSONParsable</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">code</span><span class="p">:</span> <span class="kt">Int</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">T</span><span class="p">?</span>
+
+    <span class="kd">enum</span> <span class="kt">CodingKeys</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CodingKey</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">code</span>
+        <span class="k">case</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">"desc"</span>
+        <span class="k">case</span> <span class="n">data</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>因为最外层的 <code>CSBaseResponseModel</code> 已经满足了 <code>APIDefaultJSONParsable</code>协议，所以业务Model不需要再实现该协议了，而是直接实现<code>Decodable</code>就好。</p>
+
+<blockquote>
+<p>有的小伙伴可能会想不能直接使用实体吗？为什么还需要一个协议，这个协议在后面会用到。</p>
+</blockquote>
+<h3 id='业务-apirequest' class='heading'>业务 APIRequest</h3>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CSAPIRequest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIParsable</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">APIRequest</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="k">let</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="kt">URL</span>
+
+    <span class="kd">public</span> <span class="k">let</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span>
+
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">method</span><span class="p">:</span> <span class="kt">APIRequestMethod</span> <span class="o">=</span> <span class="o">.</span><span class="k">get</span>
+
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span>
+
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">headers</span><span class="p">:</span> <span class="kt">APIRequestHeaders</span><span class="p">?</span>
+
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">taskType</span><span class="p">:</span> <span class="kt">APIRequestTaskType</span> <span class="o">=</span> <span class="o">.</span><span class="n">request</span>
+
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">APIParameterEncoding</span> <span class="o">=</span> <span class="kt">APIURLEncoding</span><span class="o">.</span><span class="k">default</span>
+
+    <span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Response</span> <span class="o">=</span> <span class="kt">T</span>
+<span class="p">}</span>
+
+<span class="c1">// MARK: - 构造函数</span>
+
+<span class="kd">extension</span> <span class="kt">CSAPIRequest</span> <span class="p">{</span>
+    <span class="c1">/// 注意这个 CSBaseResponseModel</span>
+    <span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">dataType</span><span class="p">:</span> <span class="kt">S</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="k">where</span> <span class="kt">CSBaseResponseModel</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span> <span class="o">==</span> <span class="kt">T</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">baseURL</span> <span class="o">=</span> <span class="kt">NetworkConstants</span><span class="o">.</span><span class="n">baseURL</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// MARK: - 协议方法</span>
+
+<span class="kd">extension</span> <span class="kt">CSAPIRequest</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">intercept</span><span class="p">(</span><span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span> <span class="p">{</span>
+        <span class="c1">/// 我们可以在这个位置添加统一的参数、header的信息；</span>
+        <span class="k">return</span> <span class="n">urlRequest</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="n">intercept</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">U</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">replaceResponseHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APICompletionHandler</span><span class="o">&lt;</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">/// 我们在这里位置可以处理统一的回调判断相关逻辑</span>
+        <span class="nf">replaceResponseHandler</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='apiresult-扩展' class='heading'>APIResult 扩展</h3>
+
+<p>我们通过<code>APIResult</code>最终获得的是最外层的<code>Model</code>，那对于大部分业务方而言，他们拿到数据后还会有一些通用逻辑，如：</p>
+
+<ul>
+<li>根据<code>code</code>值判断请求是否成功；</li>
+<li>错误本地化；</li>
+<li>获取实际的<code>data</code>数据；</li>
+<li>&hellip;</li>
+</ul>
+
+<p>而这些逻辑在每一个<code>域名服务</code>又可能是不同的，属于业务逻辑，所以不宜放入库内部。</p>
+
+<p>那对于这些逻辑，我们就可以对 <code><a href="Enums/APIResult.html">APIResult</a></code> 进行扩展，将这些逻辑收进去，业务方可以根据自己的需求决定在拿到<code><a href="Enums/APIResult.html">APIResult</a></code>之后是否还调用这个扩展。</p>
+
+<p>如果有多种逻辑，可以考虑增加一些特定前缀去区别，如下面的<code>validateResult</code>我们可以扩展为多个 &ndash; <code>csValidateResult</code>，<code>cfValidateResult</code>等等。</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">APIValidateResult</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nf">success</span><span class="p">(</span><span class="kt">T</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="k">case</span> <span class="nf">failure</span><span class="p">(</span><span class="kt">String</span><span class="p">,</span> <span class="kt">APIError</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CSDataError</span><span class="p">:</span> <span class="kt">Error</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">invalidParseResponse</span>
+<span class="p">}</span>
+
+<span class="c1">/// APIModelWrapper 在这个地方用到了</span>
+<span class="kd">extension</span> <span class="kt">APIResult</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">APIModelWrapper</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">validateResult</span><span class="p">:</span> <span class="kt">APIValidateResult</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">DataType</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">message</span> <span class="o">=</span> <span class="s">"出现错误，请稍后重试"</span>
+        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">reponse</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">reponse</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">reponse</span><span class="o">.</span><span class="n">data</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reponse</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="kt">APIError</span><span class="o">.</span><span class="nf">responseError</span><span class="p">(</span><span class="kt">APIResponseError</span><span class="o">.</span><span class="nf">invalidParseResponse</span><span class="p">(</span><span class="kt">CSDataError</span><span class="o">.</span><span class="n">invalidParseResponse</span><span class="p">)))</span>
+            <span class="p">}</span>
+        <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">apiError</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">apiError</span> <span class="o">==</span> <span class="kt">APIError</span><span class="o">.</span><span class="n">networkError</span> <span class="p">{</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">apiError</span><span class="o">.</span><span class="n">localizedDescription</span>
+            <span class="p">}</span>
+
+            <span class="nf">assertionFailure</span><span class="p">(</span><span class="n">apiError</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">apiError</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+<h3 id='bettercodable' class='heading'>BetterCodable</h3>
+
+<p>项目中用了<code>Codable</code>做了反序列化工具，但是<code>Codable</code>本身还有一些地方使用起来不是很方便。如：</p>
+
+<ul>
+<li>定义的 key，<code>JSON</code>数据里面没有；</li>
+<li>定义的 key 与<code>JSON</code>数据里面对应的数据类型不一致；</li>
+<li>&hellip;</li>
+</ul>
+
+<p>为了解决这些问题，大家可以使用<code>BetterCodable</code>这个三方库。</p>
+
+<p>但是这个三方库还有一个问题没解决，就是如果我们定义的 key 名字与 json 数据返回的 key 名字不同时，我们需要定义<code>CodingKeys</code> 这个枚举去修改，但是实际操作是如果我们想修改某一个 key，我们需要将整个实体的 key 都在这个枚举里面得到体现，非常不便捷。</p>
+
+<p>为了解决这个问题，大家可以考虑从<code>Sourcery</code>角度去解决这个问题，具体细节后面再披露。</p>
+<h3 id='业务使用' class='heading'>业务使用</h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">request</span> <span class="o">=</span> <span class="kt">CSAPIRequest</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"/config/homeBanner"</span><span class="p">,</span> <span class="nv">dataType</span><span class="p">:</span> <span class="kt">HomeBanner</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+
+<span class="kt">APIService</span><span class="o">.</span><span class="nf">sendRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="p">{</span> <span class="n">reponse</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">reponse</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">validateResult</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <span class="c1">/// 这个 Info 就是上面我们传入的 HomeBanner 类型</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
 
           </div>
         </section>
@@ -201,7 +512,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-06)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-13)</p>
     </section>  </body>
 </div>
 </html>

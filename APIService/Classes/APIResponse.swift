@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 回调结果
 public struct APIResponse<T> {
     /// 请求
     public var request: URLRequest?
@@ -20,6 +21,12 @@ public struct APIResponse<T> {
     /// 解析后数据
     public var result: APIResult<T>
 
+    /// 构造函数
+    /// - Parameters:
+    ///   - request: request
+    ///   - response: response
+    ///   - data: data
+    ///   - result: result
     public init(request: URLRequest?,
                 response: HTTPURLResponse?,
                 data: Data?,

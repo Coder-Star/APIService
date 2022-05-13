@@ -7,8 +7,11 @@
 
 import Foundation
 
+/// APIDataResponseCompletionHandler
 public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
+/// APIDownloadResponseCompletionHandler
 public typealias APIDownloadResponseCompletionHandler = (APIDownloadResponse<Data>) -> Void
+/// APIProgressHandler
 public typealias APIProgressHandler = (Progress) -> Void
 
 /// 网络请求任务协议

@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           APIService Docs
         </a>
-         (68% documented)
+         (100% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -438,6 +438,67 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
+                    <a name="/s:10APIService10APIRequestP9intercept10parametersSDySSypGSgAG_tF"></a>
+                    <a name="//apple_ref/swift/Method/intercept(parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService10APIRequestP9intercept10parametersSDySSypGSgAG_tF">intercept(parameters:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>拦截参数，在参数编码之前
+可以用于加上一些统一参数的场景</p>
+
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">intercept</span><span class="p">(</span><span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>业务方传入的参数</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h5>Return Value</h5>
+                        <p>处理后的参数</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
                     <a name="/s:10APIService10APIRequestP9intercept10urlRequest10Foundation10URLRequestVAH_tKF"></a>
                     <a name="//apple_ref/swift/Method/intercept(urlRequest:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:10APIService10APIRequestP9intercept10urlRequest10Foundation10URLRequestVAH_tKF">intercept(urlRequest:)</a>
@@ -451,8 +512,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>拦截urlRequest，在传给client之前
-对其加上额外的统一参数，比如token等</p>
+                        <p>拦截urlRequest，在传给client之前</p>
 
                       </div>
                       <h5>Default Implementation</h5>
@@ -582,13 +642,58 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E9%BB%98%E8%AE%A4%E5%AE%9E%E7%8E%B0"></a>
+                <a name="//apple_ref/swift/Section/默认实现" class="dashAnchor"></a>
+                <a href="#/%E9%BB%98%E8%AE%A4%E5%AE%9E%E7%8E%B0">
+                  <h3 class="section-name">默认实现</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService10APIRequestPAAE11completeURL10Foundation0D0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/completeURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService10APIRequestPAAE11completeURL10Foundation0D0Vvp">completeURL</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>完整的URL
+不包含参数，只是 baseURL 与 path 的拼接</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">completeURL</span><span class="p">:</span> <span class="kt">URL</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-06)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-13)</p>
     </section>  </body>
 </div>
 </html>

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// APICompletionHandler
 public typealias APICompletionHandler<T> = (APIResponse<T>) -> Void
 
 /// 网络状态
@@ -23,17 +24,20 @@ public enum NetworkStatus {
 
 // MARK: - APIService
 
+/// API服务
 open class APIService {
     private let reachabilityManager = APINetworkReachabilityManager()
 
+    /// 发送者
     public let clinet: APIClient
 
+    /// 构造方法
+    /// - Parameter clinet: 发送者实现
     public init(clinet: APIClient) {
         self.clinet = clinet
     }
 
-    /// 单例
-    public static let `default` = APIService(clinet: AlamofireAPIClient())
+    private static let `default` = APIService(clinet: AlamofireAPIClient())
 }
 
 // MARK: - 公开属性

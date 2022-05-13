@@ -10,17 +10,28 @@ import Foundation
 
 // MARK: - 别名
 
+/// Method
 public typealias APIRequestMethod = HTTPMethod
+/// Header
 public typealias APIRequestHeaders = HTTPHeaders
+/// APIDataResponse
 public typealias APIDataResponse = DataResponse
+/// APIDownloadResponse
 public typealias APIDownloadResponse = DownloadResponse
+/// APIRequestAdapter
 public typealias APIRequestAdapter = RequestAdapter
+/// APIDownloadDestination
 public typealias APIDownloadDestination = DownloadRequest.DownloadFileDestination
 
+/// APIMultipartFormData
 public typealias APIMultipartFormData = MultipartFormData
+/// APIParameterEncoding
 public typealias APIParameterEncoding = ParameterEncoding
+/// APIJSONEncoding
 public typealias APIJSONEncoding = JSONEncoding
+/// APIURLEncoding
 public typealias APIURLEncoding = URLEncoding
+/// APINetworkReachabilityManager
 public typealias APINetworkReachabilityManager = NetworkReachabilityManager
 
 extension Request: APIRequestTask {}

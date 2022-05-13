@@ -31,6 +31,7 @@ extension APIResult {
         return !isSuccess
     }
 
+    /// 值
     public var value: T? {
         switch self {
         case let .success(value):
@@ -40,6 +41,7 @@ extension APIResult {
         }
     }
 
+    /// 错误
     public var error: APIError? {
         switch self {
         case .success:
