@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CSAPIService'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'Swift 网络抽象层'
   s.description      = <<-DESC
                        Swift 网络抽象层，角色分明
