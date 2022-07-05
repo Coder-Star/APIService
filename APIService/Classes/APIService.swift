@@ -29,15 +29,15 @@ open class APIService {
     private let reachabilityManager = APINetworkReachabilityManager()
 
     /// 发送者
-    public let clinet: APIClient
+    public let client: APIClient
 
     /// 构造方法
-    /// - Parameter clinet: 发送者实现
-    public init(clinet: APIClient) {
-        self.clinet = clinet
+    /// - Parameter client: 发送者实现
+    public init(client: APIClient) {
+        self.client = client
     }
 
-    private static let `default` = APIService(clinet: AlamofireAPIClient())
+    private static let `default` = APIService(client: AlamofireAPIClient())
 }
 
 // MARK: - 公开属性
@@ -81,7 +81,7 @@ extension APIService {
     ///   - plugins: 插件
     ///   - completionHandler: 结果回调
     /// - Returns: 请求任务
-    private func performdData<T: APIRequest>(
+    private func performData<T: APIRequest>(
         request: T,
         response: APIResponse<T.Response>,
         plugins: [APIPlugin],
@@ -160,7 +160,7 @@ extension APIService {
 
         switch request.taskType {
         case .request:
-            requestTask = clinet.createDataRequest(request: urlRequest, progressHandler: progressHandler) { [weak self] response in
+            requestTask = client.createDataRequest(request: urlRequest, progressHandler: progressHandler) { [weak self] response in
                 let apiResult: APIResult<T.Response>
                 switch response.result {
                 case let .success(data):
@@ -175,10 +175,10 @@ extension APIService {
                 }
 
                 let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.data, result: apiResult)
-                self?.performdData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
+                self?.performData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
             }
         case let .download(apiDownloadDestination):
-            requestTask = clinet.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, progressHandler: progressHandler) { [weak self] response in
+            requestTask = client.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, progressHandler: progressHandler) { [weak self] response in
                 let apiResult: APIResult<T.Response>
                 switch response.result {
                 case let .success(data):
@@ -193,7 +193,7 @@ extension APIService {
                 }
 
                 let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.value, result: apiResult)
-                self?.performdData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
+                self?.performData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
             }
         }
         requestTask.resume()
