@@ -3,7 +3,7 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 use_frameworks!
 inhibit_all_warnings!
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'APIService_Example' do
   pod 'CSAPIService', :path => '../'
