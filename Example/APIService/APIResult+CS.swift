@@ -21,9 +21,9 @@ extension APIResult where T: APIModelWrapper {
     var validateResult: APIValidateResult<T.DataType> {
         var message = "出现错误，请稍后重试"
         switch self {
-        case let .success(reponse):
-            if reponse.code == 200, let data = reponse.data {
-                return .success(data, reponse.msg)
+        case let .success(response):
+            if response.code == 200, let data = response.data {
+                return .success(data, response.msg)
             } else {
                 return .failure(message, APIError.responseError(APIResponseError.invalidParseResponse(CSDataError.invalidParseResponse)))
             }
