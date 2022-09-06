@@ -34,6 +34,7 @@ public protocol APIClient {
     /// - Returns: 请求任务
     func createDataRequest(
         request: URLRequest,
+        queue: DispatchQueue,
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDataResponseCompletionHandler
     ) -> APIRequestTask
@@ -49,6 +50,7 @@ public protocol APIClient {
     func createDownloadRequest(
         request: URLRequest,
         to: @escaping APIDownloadDestination,
+        queue: DispatchQueue,
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDownloadResponseCompletionHandler
     ) -> APIRequestTask

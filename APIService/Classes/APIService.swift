@@ -87,10 +87,14 @@ extension APIService {
         plugins: [APIPlugin],
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) {
+        /// 插件拦截器：即将回调给业务方
         plugins.forEach { $0.willReceive(response, targetRequest: request) }
 
+        /// Request拦截器：在回调给业务方之前
         request.intercept(request: request, response: response) { replaceResponse in
             completionHandler(replaceResponse)
+
+            /// 插件拦截器：回调给业务方之后
             plugins.forEach { $0.didReceive(response, targetRequest: request) }
         }
     }
@@ -112,11 +116,11 @@ extension APIService {
     public static func sendRequest<T: APIRequest>(
         _ request: T,
         plugins: [APIPlugin] = [],
-        encoding: APIParameterEncoding? = nil,
+        queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) -> APIRequestTask? {
-        `default`.sendRequest(request, plugins: plugins, encoding: encoding, progressHandler: progressHandler, completionHandler: completionHandler)
+        `default`.sendRequest(request, plugins: plugins, queue: queue, progressHandler: progressHandler, completionHandler: completionHandler)
     }
 
     /// 创建数据请求
@@ -131,14 +135,17 @@ extension APIService {
     public func sendRequest<T: APIRequest>(
         _ request: T,
         plugins: [APIPlugin] = [],
-        encoding: APIParameterEncoding? = nil,
+        queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) -> APIRequestTask? {
         var urlRequest: URLRequest
 
         do {
-            urlRequest = try request.buildURLRequest(encoding: encoding)
+            /// Request拦截器：构建网络请求
+            urlRequest = try request.buildURLRequest()
+
+            /// 插件拦截器：构造网络请求
             urlRequest = plugins.reduce(urlRequest) { $1.prepare($0, targetRequest: request) }
         } catch {
             let apiResult: APIResult<T.Response> = .failure(.requestError(error))
@@ -156,11 +163,12 @@ extension APIService {
 
         let requestTask: APIRequestTask
 
+        /// 拦截器：即将发送网络请求
         plugins.forEach { $0.willSend(urlRequest, targetRequest: request) }
 
         switch request.taskType {
         case .request:
-            requestTask = client.createDataRequest(request: urlRequest, progressHandler: progressHandler) { [weak self] response in
+            requestTask = client.createDataRequest(request: urlRequest, queue: queue, progressHandler: progressHandler) { [weak self] response in
                 let apiResult: APIResult<T.Response>
                 switch response.result {
                 case let .success(data):
@@ -178,7 +186,7 @@ extension APIService {
                 self?.performData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
             }
         case let .download(apiDownloadDestination):
-            requestTask = client.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, progressHandler: progressHandler) { [weak self] response in
+            requestTask = client.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, queue: queue, progressHandler: progressHandler) { [weak self] response in
                 let apiResult: APIResult<T.Response>
                 switch response.result {
                 case let .success(data):

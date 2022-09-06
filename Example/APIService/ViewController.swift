@@ -16,10 +16,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "首页"
 
-        getHomeBannerData()
+        let rightBarButtonItem = UIBarButtonItem(title: "请求", style: .plain, target: self, action: #selector(getHomeBannerData))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 
+    @objc
     private func getHomeBannerData() {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 100
+        APIConfig.shared.urlSessionConfiguration = configuration
         let request = CSAPIRequest(path: "/config/homeBanner", dataType: HomeBanner.self)
 
         APIService.sendRequest(request) { response in

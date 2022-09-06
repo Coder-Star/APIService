@@ -10,6 +10,7 @@ import Foundation
 /// 插件
 public protocol APIPlugin {
     /// 构造URLRequest
+    /// 单个API的超时时间可在此进行设置
     func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest
 
     /// 发送之前

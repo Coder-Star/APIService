@@ -40,19 +40,18 @@ extension Request: APIRequestTask {}
 
 struct AlamofireAPIClient: APIClient {
     let sessionManager: SessionManager = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 20
-        let sessionManager = SessionManager(configuration: configuration)
+        let sessionManager = SessionManager(configuration: APIConfig.shared.urlSessionConfiguration)
         sessionManager.startRequestsImmediately = false
         return sessionManager
     }()
 
     func createDataRequest(
         request: URLRequest,
+        queue: DispatchQueue,
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDataResponseCompletionHandler
     ) -> APIRequestTask {
-        let request = sessionManager.request(request).validate().responseData { response in
+        let request = sessionManager.request(request).validate().responseData(queue: queue) { response in
             completionHandler(response)
         }
         if let tempProgressHandler = progressHandler {
@@ -64,10 +63,11 @@ struct AlamofireAPIClient: APIClient {
     func createDownloadRequest(
         request: URLRequest,
         to: @escaping APIDownloadDestination,
+        queue: DispatchQueue,
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDownloadResponseCompletionHandler
     ) -> APIRequestTask {
-        let request = sessionManager.download(request, to: to).validate().responseData { response in
+        let request = sessionManager.download(request, to: to).validate().responseData(queue: queue) { response in
             completionHandler(response)
         }
         if let tempProgressHandler = progressHandler {
