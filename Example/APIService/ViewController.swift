@@ -25,9 +25,7 @@ class ViewController: UIViewController {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 100
         APIConfig.shared.urlSessionConfiguration = configuration
-        let request = CSAPIRequest(path: "/config/homeBanner", dataType: HomeBanner.self)
-
-        APIService.sendRequest(request) { response in
+        APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { response in
             switch response.result.validateResult {
             case let .success(info, _):
                 print(info)

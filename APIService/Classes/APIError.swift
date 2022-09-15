@@ -9,7 +9,8 @@ import Foundation
 
 /// APIError
 public enum APIError: LocalizedError {
-    /// 网络错误
+    /// 网络不可用
+    /// 目前是在发送请求前进行检查
     case networkError
 
     /// 发送错误

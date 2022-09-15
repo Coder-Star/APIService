@@ -9,37 +9,48 @@
 import APIService
 import Foundation
 
-public struct CSAPIRequest<T: APIParsable>: APIRequest {
-    public let baseURL: URL
+protocol CSAPIRequest: APIRequest where Response == CSBaseResponseModel<DataResponse> {
+    associatedtype DataResponse: Decodable
 
-    public let path: String
-
-    public var method: APIRequestMethod = .get
-
-    public var parameters: [String: Any]?
-
-    public var headers: APIRequestHeaders?
-
-    public var taskType: APIRequestTaskType = .request
-
-    public var encoding: APIParameterEncoding = APIURLEncoding.default
-
-    public typealias Response = T
+    var isMock: Bool { get }
 }
 
-// MARK: - 构造函数
-
 extension CSAPIRequest {
-    public init<S>(path: String, dataType: S.Type) where CSBaseResponseModel<S> == T {
-        self.baseURL = NetworkConstants.baseURL
-
-        self.path = path
+    var isMock: Bool {
+        return false
     }
-}
 
-// MARK: - 协议方法
+    var baseURL: URL {
+        if isMock {
+            return NetworkConstants.baseMockURL
+        }
+        switch NetworkConstants.env {
+        case .prod:
+            return NetworkConstants.baseProdURL
+        case .dev:
+            return NetworkConstants.baseDevURL
+        }
+    }
 
-extension CSAPIRequest {
+    var method: APIRequestMethod { .get }
+
+
+    var parameters: [String: Any]? {
+        return nil
+    }
+
+    var headers: APIRequestHeaders? {
+        return nil
+    }
+
+    var taskType: APIRequestTaskType {
+        return .request
+    }
+
+    var encoding: APIParameterEncoding {
+        return APIURLEncoding.default
+    }
+
     public func intercept(urlRequest: URLRequest) throws -> URLRequest {
         return urlRequest
     }

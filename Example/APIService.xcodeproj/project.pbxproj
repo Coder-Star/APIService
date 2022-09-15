@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D6D9C1A28D32D47000A406A /* HomeBannerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D9C1928D32D47000A406A /* HomeBannerAPI.swift */; };
 		2D9D6BDC281B9DF2002AF9AE /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */; };
 		2DCA91F42801651100FD9576 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA91F22801651100FD9576 /* NetworkConstants.swift */; };
 		2DCA91F52801651100FD9576 /* CSBaseResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		2D68677228042F6C00C42C4B /* CSAPIService.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CSAPIService.podspec; path = ../CSAPIService.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2D6D9C1928D32D47000A406A /* HomeBannerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBannerAPI.swift; sourceTree = "<group>"; };
 		2D9D6BDB281B9DF2002AF9AE /* CSAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
 		2DCA91F22801651100FD9576 /* NetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		2DCA91F32801651100FD9576 /* CSBaseResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseResponseModel.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				2DDF7B64282538CF003943BC /* API */,
 				2DDF7B5E28253768003943BC /* BetterCoableExtensions.swift */,
+				2D6D9C1928D32D47000A406A /* HomeBannerAPI.swift */,
 				2DDF7B6028253789003943BC /* HomeBanner.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
@@ -273,6 +276,7 @@
 				2DCA91F52801651100FD9576 /* CSBaseResponseModel.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				2DDF7B5F28253768003943BC /* BetterCoableExtensions.swift in Sources */,
+				2D6D9C1A28D32D47000A406A /* HomeBannerAPI.swift in Sources */,
 				2DDF7B6128253789003943BC /* HomeBanner.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				2DDF7B5D28253703003943BC /* APIResult+CS.swift in Sources */,

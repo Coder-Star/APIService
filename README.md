@@ -19,7 +19,7 @@ pod 'CSAPIService'
 
 ## 框架组成
 
-![APIServie](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
+![APIService](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
 > 箭头指的是发送流程，实心点指的是数据回调流程；
 > 高清图可见 [链接](https://www.processon.com/view/link/6274d2db1efad40df0236a83)
 
@@ -316,19 +316,7 @@ extension APIResult where T: APIModelWrapper {
 
 ```
 
-### BetterCodable
 
-项目中用了`Codable`做了反序列化工具，但是`Codable`本身还有一些地方使用起来不是很方便。如：
-
-- 定义的 key，`JSON`数据里面没有；
-- 定义的 key 与`JSON`数据里面对应的数据类型不一致；
-- ...
-
-为了解决这些问题，大家可以使用`BetterCodable`这个三方库。
-
-但是这个三方库还有一个问题没解决，就是如果我们定义的 key 名字与 json 数据返回的 key 名字不同时，我们需要定义`CodingKeys` 这个枚举去修改，但是实际操作是如果我们想修改某一个 key，我们需要将整个实体的 key 都在这个枚举里面得到体现，非常不便捷。
-
-为了解决这个问题，大家可以考虑从`Sourcery`角度去解决这个问题，具体细节后面再披露。
 
 ### 业务使用
 
@@ -345,3 +333,9 @@ APIService.sendRequest(request) { reponse in
     }
 }
 ```
+
+
+
+## 未来规范
+
+- 重试机制
