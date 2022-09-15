@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HomeBannerAPI {
+enum HomeBannerAPI {
     struct HomeBannerRequest: CSAPIRequest {
         typealias DataResponse = HomeBanner
 
