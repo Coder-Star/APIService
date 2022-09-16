@@ -223,38 +223,49 @@ public struct CSBaseResponseModel<T>: APIModelWrapper, APIDefaultJSONParsable wh
 ### 业务 APIRequest
 
 ```swift
-public struct CSAPIRequest<T: APIParsable>: APIRequest {
-    public let baseURL: URL
+/// 注意这个 CSBaseResponseModel
+protocol CSAPIRequest: APIRequest where Response == CSBaseResponseModel<DataResponse> {
+    associatedtype DataResponse: Decodable
 
-    public let path: String
-
-    public var method: APIRequestMethod = .get
-
-    public var parameters: [String: Any]?
-
-    public var headers: APIRequestHeaders?
-
-    public var taskType: APIRequestTaskType = .request
-
-    public var encoding: APIParameterEncoding = APIURLEncoding.default
-
-    public typealias Response = T
+    var isMock: Bool { get }
 }
 
-// MARK: - 构造函数
-
 extension CSAPIRequest {
-    /// 注意这个 CSBaseResponseModel
-    public init<S>(path: String, dataType: S.Type) where CSBaseResponseModel<S> == T {
-        self.baseURL = NetworkConstants.baseURL
-
-        self.path = path
+  	var isMock: Bool {
+        return false
     }
-}
 
-// MARK: - 协议方法
+    var baseURL: URL {
+        if isMock {
+            return NetworkConstants.baseMockURL
+        }
+        switch NetworkConstants.env {
+        case .prod:
+            return NetworkConstants.baseProdURL
+        case .dev:
+            return NetworkConstants.baseDevURL
+        }
+    }
 
-extension CSAPIRequest {
+    var method: APIRequestMethod { .get }
+
+
+    var parameters: [String: Any]? {
+        return nil
+    }
+
+    var headers: APIRequestHeaders? {
+        return nil
+    }
+
+    var taskType: APIRequestTaskType {
+        return .request
+    }
+
+    var encoding: APIParameterEncoding {
+        return APIURLEncoding.default
+    }
+  
     public func intercept(urlRequest: URLRequest) throws -> URLRequest {
         /// 我们可以在这个位置添加统一的参数、header的信息；
         return urlRequest
@@ -321,9 +332,21 @@ extension APIResult where T: APIModelWrapper {
 ### 业务使用
 
 ```swift
-let request = CSAPIRequest(path: "/config/homeBanner", dataType: HomeBanner.self)
+enum HomeBannerAPI {
+    struct HomeBannerRequest: CSAPIRequest {
+        typealias DataResponse = HomeBanner
 
-APIService.sendRequest(request) { reponse in
+        var parameters: [String: Any]? {
+            return nil
+        }
+
+        var path: String {
+            return "/config/homeBanner"
+        }
+    }
+}
+
+APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { reponse in
     switch reponse.result.validateResult {
     case let .success(info, _):
         /// 这个 Info 就是上面我们传入的 HomeBanner 类型
@@ -339,3 +362,4 @@ APIService.sendRequest(request) { reponse in
 ## 未来规范
 
 - 重试机制
+- 缓存机制
