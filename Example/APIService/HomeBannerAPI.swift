@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import APIService
 
 enum HomeBannerAPI {
     struct HomeBannerRequest: CSAPIRequest {
@@ -18,6 +19,14 @@ enum HomeBannerAPI {
 
         var path: String {
             return "/config/homeBanner"
+        }
+
+        var cache: APICache? {
+            var cache = APICache()
+            cache.readMode = .cancelNetwork
+            cache.writeNode = .memoryAndDisk
+            cache.expiry = .seconds(10)
+            return cache
         }
     }
 }

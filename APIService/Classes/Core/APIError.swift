@@ -23,6 +23,9 @@ public enum APIError: LocalizedError {
     /// 解析等步骤
     case responseError(Error)
 
+    /// 缓存错误
+    case cache(Error)
+
     public var errorDescription: String? {
         switch self {
         case let .requestError(error):
@@ -33,6 +36,8 @@ public enum APIError: LocalizedError {
             return "结果处理错误（\(error.localizedDescription)）"
         case .networkError:
             return "当前网络不可用"
+        case let .cache(error):
+            return "缓存错误（\(error.localizedDescription)）"
         }
     }
 }
@@ -68,3 +73,24 @@ public enum APIResponseError: LocalizedError {
         }
     }
 }
+
+/// APICacheError
+public enum APICacheError: LocalizedError {
+    /// 缓存过期
+    case expire(key: String, data: Any)
+
+    /// 缓存找不到
+    case notFound(key: String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .expire:
+            return "缓存过期"
+        case .notFound:
+            return "缓存找不到"
+        }
+    }
+}
+
+
+

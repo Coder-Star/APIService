@@ -17,6 +17,12 @@ pod 'CSAPIService'
 
 > 代码注释比较完备，部分细节可以直接查看代码。
 
+## 特性
+
+- 支持Request级别拦截器，并支持对响应进行异步替换；
+- 支持插件化拦截器；
+- 面向协议，角色清晰，方便功能扩展；
+
 ## 框架组成
 
 ![APIService](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
@@ -152,14 +158,14 @@ public protocol APIPlugin {
 open class APIService {
     private let reachabilityManager = APINetworkReachabilityManager()
 
-    public let clinet: APIClient
+    public let client: APIClient
 
-    public init(clinet: APIClient) {
-        self.clinet = clinet
+    public init(client: APIClient) {
+        self.client = client
     }
 
     /// 单例
-    public static let `default` = APIService(clinet: AlamofireAPIClient())
+    public static let `default` = APIService(client: AlamofireAPIClient())
 }
 ```
 
@@ -359,7 +365,7 @@ APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { reponse in
 
 
 
-## 未来规范
+## 未来规划
 
 - 重试机制
 - 缓存机制

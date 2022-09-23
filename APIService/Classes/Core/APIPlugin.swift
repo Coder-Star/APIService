@@ -14,7 +14,8 @@ public protocol APIPlugin {
     func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest
 
     /// 发送之前
-    func willSend<T: APIRequest>(_ request: URLRequest, targetRequest: T)
+    /// 返回值控制是否允许发送，true：允许发送（默认值），false：不允许发送
+    func willSend<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> Bool
 
     /// 接收结果，时机在返回给调用方之前
     func willReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T)
@@ -26,11 +27,13 @@ public protocol APIPlugin {
 // MARK: - 默认实现
 
 extension APIPlugin {
-    func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest { request }
+    public func prepare<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> URLRequest { request }
 
-    func willSend<T: APIRequest>(_ request: URLRequest, targetRequest: T) {}
+    public func willSend<T: APIRequest>(_ request: URLRequest, targetRequest: T) -> Bool {
+        return true
+    }
 
-    func willReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T) {}
+    public func willReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T) { }
 
-    func didReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T) {}
+    public func didReceive<T: APIRequest>(_ result: APIResponse<T.Response>, targetRequest: T) {}
 }

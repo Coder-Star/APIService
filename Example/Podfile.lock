@@ -1,17 +1,31 @@
 PODS:
   - Alamofire (4.9.1)
   - BetterCodable (0.4.0)
+  - Cache (6.0.0)
   - CSAPIService (0.0.5):
+    - CSAPIService/Cache (= 0.0.5)
+    - CSAPIService/Core (= 0.0.5)
+    - CSAPIService/Plugin (= 0.0.5)
+  - CSAPIService/Cache (0.0.5):
+    - Cache (= 6.0.0)
+    - CSAPIService/Core
+  - CSAPIService/Core (0.0.5):
     - Alamofire (= 4.9.1)
+  - CSAPIService/Plugin (0.0.5):
+    - CSAPIService/Core
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - BetterCodable (= 0.4.0)
   - CSAPIService (from `../`)
+  - SVProgressHUD (= 2.2.5)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - BetterCodable
+    - Cache
+    - SVProgressHUD
 
 EXTERNAL SOURCES:
   CSAPIService:
@@ -20,8 +34,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BetterCodable: 3f2a765c9f4089b19debd2a7b904a69fca0a5fda
-  CSAPIService: c841a376b107dca256eb0a0074e297c42d990cc0
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  CSAPIService: 2699246a990c485b9cca09117fb302936be27e1d
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 6ae8be5f002c69c218ec08664d9c18e919cb833f
+PODFILE CHECKSUM: 120180f0f9a425489ee3f81827d3fefc1d159227
 
 COCOAPODS: 1.11.3

@@ -10,6 +10,9 @@ import Foundation
 /// APICompletionHandler
 public typealias APICompletionHandler<T> = (APIResponse<T>) -> Void
 
+/// 请求命中缓存回调
+public typealias APICacheCompletionHandler<T> = (APIResponse<T>) -> Void
+
 /// 网络状态
 public enum NetworkStatus {
     /// 未知
@@ -110,6 +113,7 @@ extension APIService {
     ///   - request: 请求
     ///   - plugins: 插件
     ///   - progressHandler: 进度回调
+    ///   - cacheHandler: 命中缓存回调
     ///   - completionHandler: 结果回调
     /// - Returns: 请求任务
     @discardableResult
@@ -118,9 +122,17 @@ extension APIService {
         plugins: [APIPlugin] = [],
         queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
+        cacheHandler: APICacheCompletionHandler<T.Response>? = nil,
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) -> APIRequestTask? {
-        `default`.sendRequest(request, plugins: plugins, queue: queue, progressHandler: progressHandler, completionHandler: completionHandler)
+        `default`.sendRequest(
+            request,
+            plugins: plugins,
+            queue: queue,
+            progressHandler: progressHandler,
+            cacheHandler: cacheHandler,
+            completionHandler: completionHandler
+        )
     }
 
     /// 创建数据请求
@@ -129,6 +141,7 @@ extension APIService {
     ///   - request: 请求
     ///   - plugins: 插件
     ///   - progressHandler: 进度回调
+    ///   - cacheHandler: 命中缓存回调
     ///   - completionHandler: 结果回调
     /// - Returns: 请求任务
     @discardableResult
@@ -137,34 +150,101 @@ extension APIService {
         plugins: [APIPlugin] = [],
         queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
+        cacheHandler: APICacheCompletionHandler<T.Response>? = nil,
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) -> APIRequestTask? {
-        var urlRequest: URLRequest
+        var resultPlugins = APIConfig.shared.defaultPlugins
+        resultPlugins.append(contentsOf: plugins)
 
+        /// 构建 URLRequest
+        var urlRequest: URLRequest
         do {
             /// Request拦截器：构建网络请求
             urlRequest = try request.buildURLRequest()
 
             /// 插件拦截器：构造网络请求
-            urlRequest = plugins.reduce(urlRequest) { $1.prepare($0, targetRequest: request) }
+            urlRequest = resultPlugins.reduce(urlRequest) { $1.prepare($0, targetRequest: request) }
         } catch {
             let apiResult: APIResult<T.Response> = .failure(.requestError(error))
             let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
-            completionHandler(apiResponse)
+            (queue ?? DispatchQueue.main).async { completionHandler(apiResponse) }
             return nil
         }
 
+        /// 检查缓存
+        if let cache = request.cache, cache.readMode != .none {
+            if let cacheTool = APIConfig.shared.cacheTool {
+                do {
+                    let cachePackage = try cacheTool.getValidObject(byKey: request.cacheKey)
+
+                    let responseModel = try T.Response.parse(data: cachePackage.data)
+                    let apiResult: APIResult<T.Response> = .success(responseModel)
+                    let apiResponse = APIResponse<T.Response>(request: urlRequest, response: nil, data: cachePackage.data, result: apiResult)
+                    (queue ?? DispatchQueue.main).async { cacheHandler?(apiResponse) }
+
+                    if cache.readMode != .alsoNetwork {
+                        return nil
+                    }
+                } catch {
+                    let apiResult: APIResult<T.Response> = .failure(.cache(error))
+                    let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
+                    (queue ?? DispatchQueue.main).async { cacheHandler?(apiResponse) }
+                }
+            } else {
+                assertionFailure("please set cacheStore in APIConfig")
+            }
+        }
+
+        return sendRequest(
+            urlRequest: urlRequest,
+            request: request,
+            resultPlugins: resultPlugins,
+            queue: queue,
+            progressHandler: progressHandler,
+            cacheHandler: cacheHandler,
+            completionHandler: completionHandler
+        )
+    }
+
+    /// 发起网络请求，不读取缓存
+    private func sendRequest<T: APIRequest>(
+        urlRequest: URLRequest,
+        request: T,
+        resultPlugins: [APIPlugin],
+        queue: DispatchQueue,
+        progressHandler: APIProgressHandler?,
+        cacheHandler: APICacheCompletionHandler<T.Response>?,
+        completionHandler: @escaping APICompletionHandler<T.Response>
+    ) -> APIRequestTask? {
+        /// 拦截器：即将发送网络请求
+        /// 有一个插件不允许发送，则整体不允许发送
+        var allowSend = true
+        resultPlugins.forEach {
+            let result = $0.willSend(urlRequest, targetRequest: request)
+            allowSend = result && allowSend
+        }
+
+        if !allowSend {
+            return nil
+        }
+
+        /// 检查网络可达
         if !isNetworkReachable {
             let apiResult: APIResult<T.Response> = .failure(.networkError)
             let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
-            completionHandler(apiResponse)
+
+            /// 插件拦截器：即将回调给业务方
+            resultPlugins.forEach { $0.willReceive(apiResponse, targetRequest: request) }
+
+            (queue ?? DispatchQueue.main).async { completionHandler(apiResponse) }
+
+            /// 插件拦截器：回调给业务方之后
+            resultPlugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }
+
             return nil
         }
 
         let requestTask: APIRequestTask
-
-        /// 拦截器：即将发送网络请求
-        plugins.forEach { $0.willSend(urlRequest, targetRequest: request) }
 
         switch request.taskType {
         case .request:
@@ -175,6 +255,21 @@ extension APIService {
                     do {
                         let responseModel = try T.Response.parse(data: data)
                         apiResult = .success(responseModel)
+
+                        /// 缓存存储
+                        if let cache = request.cache, cache.writeNode != .none {
+                            if let cacheTool = APIConfig.shared.cacheTool {
+                                let allowCache = cache.shouldCacheHandler == nil || cache.shouldCacheHandler!(response.response, response.data)
+                                if allowCache {
+                                    let cachePackage = APICachePackage(creationDate: Date(), data: data)
+                                    cacheTool.set(forKey: request.cacheKey, data: cachePackage, writeMode: cache.writeNode, expiry: cache.expiry, completion: nil)
+                                }
+
+                            } else {
+                                assertionFailure("please set cacheStore in APIConfig")
+                            }
+                        }
+
                     } catch {
                         apiResult = .failure(.responseError(error))
                     }
@@ -183,7 +278,7 @@ extension APIService {
                 }
 
                 let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.data, result: apiResult)
-                self?.performData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
+                self?.performData(request: request, response: apiResponse, plugins: resultPlugins, completionHandler: completionHandler)
             }
         case let .download(apiDownloadDestination):
             requestTask = client.createDownloadRequest(request: urlRequest, to: apiDownloadDestination, queue: queue, progressHandler: progressHandler) { [weak self] response in
@@ -201,10 +296,12 @@ extension APIService {
                 }
 
                 let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.value, result: apiResult)
-                self?.performData(request: request, response: apiResponse, plugins: plugins, completionHandler: completionHandler)
+                self?.performData(request: request, response: apiResponse, plugins: resultPlugins, completionHandler: completionHandler)
             }
         }
+
         requestTask.resume()
+
         return requestTask
     }
 }

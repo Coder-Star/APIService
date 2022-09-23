@@ -3,11 +3,12 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 use_frameworks!
 inhibit_all_warnings!
 
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'APIService_Example' do
   pod 'CSAPIService', :path => '../'
   pod 'BetterCodable', '0.4.0'
+  pod 'SVProgressHUD', '2.2.5'
 end
 
 post_install do |installer|

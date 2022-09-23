@@ -20,8 +20,12 @@ public enum APIRequestTaskType {
 /// 请求协议
 /// 每一个域名一个
 public protocol APIRequest {
+    // MARK: - 回调实体
+
     /// 回调实体
     associatedtype Response: APIParsable
+
+    // MARK: - 请求
 
     /// 基础地址
     var baseURL: URL { get }
@@ -44,6 +48,14 @@ public protocol APIRequest {
     /// 参数编码处理
     var encoding: APIParameterEncoding { get }
 
+    // MARK: - 缓存
+
+    /// 缓存
+    /// 目前 taskType 为 request 才生效
+    var cache: APICache? { get }
+
+    // MARK: - 方法
+
     /// 拦截参数，在参数编码之前
     /// 可以用于加上一些统一参数的场景
     ///
@@ -52,6 +64,7 @@ public protocol APIRequest {
     func intercept(parameters: [String: Any]?) -> [String: Any]?
 
     /// 拦截urlRequest，在传给client之前
+    /// 可以用于添加统一Header等场景
     ///
     /// - Parameter urlRequest: 已经构造的 URLRequest
     /// - Returns: 处理之后的 URLRequest
@@ -69,6 +82,10 @@ public protocol APIRequest {
 // MARK: - 默认实现
 
 extension APIRequest {
+    public var cache: APICache? {
+        return nil
+    }
+
     public func intercept(parameters: [String: Any]?) -> [String: Any]? {
         return parameters
     }
@@ -89,11 +106,15 @@ extension APIRequest {
         return path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
     }
 
+    /// 最终的参数
+    var resultParameters: [String: Any]? {
+        return intercept(parameters: parameters)
+    }
+
     /// 根据相关信息构造URLRequest
     func buildURLRequest() throws -> URLRequest {
         do {
             let originalRequest = try URLRequest(url: completeURL, method: method, headers: headers)
-            let resultParameters = intercept(parameters: parameters)
             let encodedURLRequest = try encoding.encode(originalRequest, with: resultParameters)
             return try intercept(urlRequest: encodedURLRequest)
         } catch {
@@ -102,4 +123,23 @@ extension APIRequest {
     }
 }
 
+// MARK: - 缓存相关
 
+extension APIRequest {
+    /// 缓存key
+    var cacheKey: String {
+        /// 参数字符串
+        var paramString = ""
+        if let resultParameters = resultParameters, !resultParameters.isEmpty {
+            let paramKeys = resultParameters.keys.sorted()
+            paramKeys.forEach {
+                paramString.append(contentsOf: "\(paramString.isEmpty ? "?" : "&")\($0)\(resultParameters[$0])")
+            }
+        }
+        var cacheKey = "\(method.rawValue)-\(completeURL.absoluteString)\(paramString)"
+        if let extraCacheKey = cache?.extraCacheKey, !extraCacheKey.isEmpty {
+            cacheKey.append(contentsOf: "-\(extraCacheKey)")
+        }
+        return cacheKey
+    }
+}

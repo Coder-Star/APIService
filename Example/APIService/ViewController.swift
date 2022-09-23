@@ -10,8 +10,21 @@ import APIService
 import BetterCodable
 import Foundation
 import UIKit
+import SVProgressHUD
 
 class ViewController: UIViewController {
+    lazy var networkActivityPlugin: NetworkActivityPlugin = {
+        let networkActivityPlugin = NetworkActivityPlugin { change in
+            switch change {
+            case .began:
+                SVProgressHUD.show()
+            case .ended:
+                SVProgressHUD.dismiss()
+            }
+        }
+        return networkActivityPlugin
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "首页"
@@ -22,18 +35,20 @@ class ViewController: UIViewController {
 
     @objc
     private func getHomeBannerData() {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 100
-        APIConfig.shared.urlSessionConfiguration = configuration
-        APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { response in
+        let request = HomeBannerAPI.HomeBannerRequest()
+        APIService.sendRequest(request, plugins: [networkActivityPlugin], cacheHandler: { response in
+            debugPrint(response)
+            if response.result.isSuccess {
+                SVProgressHUD.showInfo(withStatus: "缓存")
+            }
+        }, completionHandler: { response in
             switch response.result.validateResult {
             case let .success(info, _):
-                print(info)
+                SVProgressHUD.showInfo(withStatus: "网络结果")
+                debugPrint(info)
             case let .failure(_, error):
-                print(error)
+                debugPrint(error)
             }
-        }
+        })
     }
 }
-
-
