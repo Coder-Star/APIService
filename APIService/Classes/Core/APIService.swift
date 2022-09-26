@@ -182,6 +182,8 @@ extension APIService {
                     let apiResponse = APIResponse<T.Response>(request: urlRequest, response: nil, data: cachePackage.data, result: apiResult)
                     (queue ?? DispatchQueue.main).async { cacheHandler?(apiResponse) }
 
+                    DebugUtils.log("\(request)使用缓存，缓存key为：\(request.cacheKey)")
+
                     if cache.readMode != .alsoNetwork {
                         return nil
                     }
@@ -263,6 +265,8 @@ extension APIService {
                                 if allowCache {
                                     let cachePackage = APICachePackage(creationDate: Date(), data: data)
                                     cacheTool.set(forKey: request.cacheKey, data: cachePackage, writeMode: cache.writeNode, expiry: cache.expiry, completion: nil)
+
+                                    DebugUtils.log("\(request)缓存写入，缓存key为：\(request.cacheKey)")
                                 }
 
                             } else {

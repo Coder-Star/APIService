@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 缓存读取模式
 public enum APICacheReadMode {
     /// 不使用缓存
     case none
@@ -18,6 +19,7 @@ public enum APICacheReadMode {
     case cancelNetwork
 }
 
+/// 缓存写入模式
 public enum APICacheWriteMode {
     /// 不缓存
     case none
@@ -32,6 +34,7 @@ public enum APICacheWriteMode {
     case memoryAndDisk
 }
 
+/// 缓存
 public struct APICache {
     public init() { }
 
@@ -58,6 +61,7 @@ public struct APICache {
     public var expiry: APICacheExpiry = .seconds(0)
 }
 
+/// 缓存
 public struct APICachePackage: Codable {
     /// 缓存创建时间
     public var creationDate: Date

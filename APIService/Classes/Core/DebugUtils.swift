@@ -8,7 +8,7 @@
 import Foundation
 
 struct DebugUtils {
-    public static func log<T>(_ log: T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    static func log<T>(_ log: T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         if APIConfig.shared.debugLogEnabled {
             printLog(log, file: file, function: function, line: line)
         }

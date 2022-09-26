@@ -31,7 +31,7 @@ public final class CacheTool {
             in: .userDomainMask,
             appropriateFor: nil,
             create: true
-        ).appendingPathComponent("APIService"),
+        ).appendingPathComponent("com.coderstar.APIService"),
         protectionType: .complete
     )
 
@@ -152,7 +152,6 @@ extension CacheTool: APICacheTool {
                 try getStorage().async.setObject(data, forKey: key, expiry: resultExpiry) { result in
                     switch result {
                     case let .value(value):
-                        try? DebugUtils.log(self.getValidObject(byKey: key))
                         completion?(.success(value))
                     case let .error(error):
                         completion?(.failure(error))
