@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>NetworkActivityPlugin Structure Reference</title>
+    <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
+    <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
+    <meta charset='utf-8'>
+    <script src='../js/jquery.min.js' defer></script>
+    <script src='../js/jazzy.js' defer></script>
+  </head>
+  <body>
+
+    <a name='//apple_ref/swift/Struct/NetworkActivityPlugin' class='dashAnchor'></a>
+
+    <a title='NetworkActivityPlugin Structure Reference'></a>
+
+    <header class='header'>
+      <p class='header-col header-col--primary'>
+        <a class='header-link' href='../index.html'>
+          APIService Docs
+        </a>
+         (86% documented)
+      </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='https://github.com/Coder-Star/APIService'>
+            <img class='header-icon' src='../img/gh.png'/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class='breadcrumbs'>
+      <a class='breadcrumb' href='../index.html'>APIService Reference</a>
+      <img class='carat' src='../img/carat.png' />
+      NetworkActivityPlugin Structure Reference
+    </p>
+
+    <div class='content-wrapper'>
+      <nav class='navigation'>
+        <ul class='nav-groups'>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Classes.html'>Classes</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIConfig.html'>APIConfig</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIService.html'>APIService</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/CacheTool.html'>CacheTool</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Enumerations.html'>Enumerations</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheError.html'>APICacheError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestError.html'>APIRequestError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestTaskType.html'>APIRequestTaskType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResponseError.html'>APIResponseError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResult.html'>APIResult</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkActivityChangeType.html'>NetworkActivityChangeType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkStatus.html'>NetworkStatus</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Extensions.html'>Extensions</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:Sa'>Array</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions/Data.html'>Data</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:9Alamofire7RequestC'>Request</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:SS'>String</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Protocols.html'>Protocols</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APICacheTool.html'>APICacheTool</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIClient.html'>APIClient</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIJSONParsable.html'>APIJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIParsable.html'>APIParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIPlugin.html'>APIPlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequest.html'>APIRequest</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequestTask.html'>APIRequestTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Structures.html'>Structures</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICache.html'>APICache</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICachePackage.html'>APICachePackage</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Type Aliases.html'>Type Aliases</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService25APICacheCompletionHandlera'>APICacheCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIDataResponsea'>APIDataResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService32APIDataResponseCompletionHandlera'>APIDataResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDefaultJSONParsablea'>APIDefaultJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDownloadDestinationa'>APIDownloadDestination</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService19APIDownloadResponsea'>APIDownloadResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService36APIDownloadResponseCompletionHandlera'>APIDownloadResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIJSONEncodinga'>APIJSONEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIMultipartFormDataa'>APIMultipartFormData</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService29APINetworkReachabilityManagera'>APINetworkReachabilityManager</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIParameterEncodinga'>APIParameterEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService18APIProgressHandlera'>APIProgressHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestAdaptera'>APIRequestAdapter</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestHeadersa'>APIRequestHeaders</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService16APIRequestMethoda'>APIRequestMethod</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class='main-content'>
+
+        <section class='section'>
+          <div class='section-content'>
+            <h1>NetworkActivityPlugin</h1>
+              <div class='declaration'>
+                <div class='language'>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NetworkActivityPlugin</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NetworkActivityPlugin</span><span class="p">:</span> <span class="kt"><a href="../Protocols/APIPlugin.html">APIPlugin</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </div>
+        </section>
+
+        <section class='section'>
+          <div class='section-content'>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService21NetworkActivityPluginV0bC7Closurea"></a>
+                    <a name="//apple_ref/swift/Alias/NetworkActivityClosure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService21NetworkActivityPluginV0bC7Closurea">NetworkActivityClosure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">NetworkActivityClosure</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">change</span><span class="p">:</span> <span class="kt"><a href="../Enums/NetworkActivityChangeType.html">NetworkActivityChangeType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService21NetworkActivityPluginV07networkC7ClosureACyAA0bC10ChangeTypeOc_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(networkActivityClosure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService21NetworkActivityPluginV07networkC7ClosureACyAA0bC10ChangeTypeOc_tcfc">init(networkActivityClosure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">networkActivityClosure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Structs/NetworkActivityPlugin.html#/s:10APIService21NetworkActivityPluginV0bC7Closurea">NetworkActivityClosure</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIPluginP8willSend_13targetRequestSb10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/willSend(_:targetRequest:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIPluginP8willSend_13targetRequestSb10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF">willSend(_:targetRequest:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">willSend</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/APIRequest.html">APIRequest</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIPluginP11willReceive_13targetRequestyAA11APIResponseVy8ResponseQyd__G_qd__tAA10APIRequestRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/willReceive(_:targetRequest:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIPluginP11willReceive_13targetRequestyAA11APIResponseVy8ResponseQyd__G_qd__tAA10APIRequestRd__lF">willReceive(_:targetRequest:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">willReceive</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Structs/APIResponse.html">APIResponse</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/APIRequest.html">APIRequest</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class='footer' id="footer">
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
+    </section>  </body>
+</div>
+</html>

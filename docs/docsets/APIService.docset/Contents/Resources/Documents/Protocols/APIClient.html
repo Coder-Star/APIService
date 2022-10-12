@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           APIService Docs
         </a>
-         (100% documented)
+         (86% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -44,13 +44,31 @@
             <a class='nav-group-name-link' href='../Classes.html'>Classes</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIConfig.html'>APIConfig</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Classes/APIService.html'>APIService</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/CacheTool.html'>CacheTool</a>
               </li>
             </ul>
           </li>
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='../Enumerations.html'>Enumerations</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheError.html'>APICacheError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
               </li>
@@ -65,6 +83,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIResult.html'>APIResult</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkActivityChangeType.html'>NetworkActivityChangeType</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/NetworkStatus.html'>NetworkStatus</a>
@@ -92,6 +113,9 @@
             <a class='nav-group-name-link' href='../Protocols.html'>Protocols</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APICacheTool.html'>APICacheTool</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Protocols/APIClient.html'>APIClient</a>
               </li>
               <li class='nav-group-task'>
@@ -115,13 +139,28 @@
             <a class='nav-group-name-link' href='../Structures.html'>Structures</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICache.html'>APICache</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICachePackage.html'>APICachePackage</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
           </li>
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='../Type Aliases.html'>Type Aliases</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService25APICacheCompletionHandlera'>APICacheCompletionHandler</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
               </li>
@@ -197,9 +236,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService9APIClientP17createDataRequest7request15progressHandler010completionH0AA14APIRequestTask_p10Foundation10URLRequestV_ySo10NSProgressCcSgy9Alamofire0D8ResponseVyAI0D0VGctF"></a>
-                    <a name="//apple_ref/swift/Method/createDataRequest(request:progressHandler:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService9APIClientP17createDataRequest7request15progressHandler010completionH0AA14APIRequestTask_p10Foundation10URLRequestV_ySo10NSProgressCcSgy9Alamofire0D8ResponseVyAI0D0VGctF">createDataRequest(request:progressHandler:completionHandler:)</a>
+                    <a name="/s:10APIService9APIClientP17createDataRequest7request5queue15progressHandler010completionI0AA14APIRequestTask_p10Foundation10URLRequestV_So012OS_dispatch_G0CySo10NSProgressCcSgy9Alamofire0D8ResponseVyAJ0D0VGctF"></a>
+                    <a name="//apple_ref/swift/Method/createDataRequest(request:queue:progressHandler:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIClientP17createDataRequest7request5queue15progressHandler010completionI0AA14APIRequestTask_p10Foundation10URLRequestV_So012OS_dispatch_G0CySo10NSProgressCcSgy9Alamofire0D8ResponseVyAJ0D0VGctF">createDataRequest(request:queue:progressHandler:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -216,6 +255,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createDataRequest</span><span class="p">(</span>
     <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">,</span>
     <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService18APIProgressHandlera">APIProgressHandler</a></span><span class="p">?,</span>
     <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService32APIDataResponseCompletionHandlera">APIDataResponseCompletionHandler</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/APIRequestTask.html">APIRequestTask</a></span></code></pre>
@@ -278,9 +318,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService9APIClientP21createDownloadRequest7request2to15progressHandler010completionI0AA14APIRequestTask_p10Foundation10URLRequestV_AJ3URLV011destinationO0_9Alamofire0dE0C0D7OptionsV7optionstAN_So17NSHTTPURLResponseCtcySo10NSProgressCcSgyAP0D8ResponseVyAJ4DataVGctF"></a>
-                    <a name="//apple_ref/swift/Method/createDownloadRequest(request:to:progressHandler:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService9APIClientP21createDownloadRequest7request2to15progressHandler010completionI0AA14APIRequestTask_p10Foundation10URLRequestV_AJ3URLV011destinationO0_9Alamofire0dE0C0D7OptionsV7optionstAN_So17NSHTTPURLResponseCtcySo10NSProgressCcSgyAP0D8ResponseVyAJ4DataVGctF">createDownloadRequest(request:to:progressHandler:completionHandler:)</a>
+                    <a name="/s:10APIService9APIClientP21createDownloadRequest7request2to5queue15progressHandler010completionJ0AA14APIRequestTask_p10Foundation10URLRequestV_AK3URLV011destinationP0_9Alamofire0dE0C0D7OptionsV7optionstAO_So17NSHTTPURLResponseCtcSo012OS_dispatch_H0CySo10NSProgressCcSgyAQ0D8ResponseVyAK4DataVGctF"></a>
+                    <a name="//apple_ref/swift/Method/createDownloadRequest(request:to:queue:progressHandler:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIClientP21createDownloadRequest7request2to5queue15progressHandler010completionJ0AA14APIRequestTask_p10Foundation10URLRequestV_AK3URLV011destinationP0_9Alamofire0dE0C0D7OptionsV7optionstAO_So17NSHTTPURLResponseCtcSo012OS_dispatch_H0CySo10NSProgressCcSgyAQ0D8ResponseVyAK4DataVGctF">createDownloadRequest(request:to:queue:progressHandler:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -298,6 +338,7 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createDownloadRequest</span><span class="p">(</span>
     <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span>
     <span class="nv">to</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService22APIDownloadDestinationa">APIDownloadDestination</a></span><span class="p">,</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">,</span>
     <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService18APIProgressHandlera">APIProgressHandler</a></span><span class="p">?,</span>
     <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService36APIDownloadResponseCompletionHandlera">APIDownloadResponseCompletionHandler</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/APIRequestTask.html">APIRequestTask</a></span></code></pre>
@@ -377,7 +418,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-13)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
     </section>  </body>
 </div>
 </html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>APIConfig Class Reference</title>
+    <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
+    <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
+    <meta charset='utf-8'>
+    <script src='../js/jquery.min.js' defer></script>
+    <script src='../js/jazzy.js' defer></script>
+  </head>
+  <body>
+
+    <a name='//apple_ref/swift/Class/APIConfig' class='dashAnchor'></a>
+
+    <a title='APIConfig Class Reference'></a>
+
+    <header class='header'>
+      <p class='header-col header-col--primary'>
+        <a class='header-link' href='../index.html'>
+          APIService Docs
+        </a>
+         (86% documented)
+      </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='https://github.com/Coder-Star/APIService'>
+            <img class='header-icon' src='../img/gh.png'/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class='breadcrumbs'>
+      <a class='breadcrumb' href='../index.html'>APIService Reference</a>
+      <img class='carat' src='../img/carat.png' />
+      APIConfig Class Reference
+    </p>
+
+    <div class='content-wrapper'>
+      <nav class='navigation'>
+        <ul class='nav-groups'>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Classes.html'>Classes</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIConfig.html'>APIConfig</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIService.html'>APIService</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/CacheTool.html'>CacheTool</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Enumerations.html'>Enumerations</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheError.html'>APICacheError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestError.html'>APIRequestError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestTaskType.html'>APIRequestTaskType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResponseError.html'>APIResponseError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResult.html'>APIResult</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkActivityChangeType.html'>NetworkActivityChangeType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkStatus.html'>NetworkStatus</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Extensions.html'>Extensions</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:Sa'>Array</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions/Data.html'>Data</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:9Alamofire7RequestC'>Request</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:SS'>String</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Protocols.html'>Protocols</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APICacheTool.html'>APICacheTool</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIClient.html'>APIClient</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIJSONParsable.html'>APIJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIParsable.html'>APIParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIPlugin.html'>APIPlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequest.html'>APIRequest</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequestTask.html'>APIRequestTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Structures.html'>Structures</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICache.html'>APICache</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICachePackage.html'>APICachePackage</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Type Aliases.html'>Type Aliases</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService25APICacheCompletionHandlera'>APICacheCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIDataResponsea'>APIDataResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService32APIDataResponseCompletionHandlera'>APIDataResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDefaultJSONParsablea'>APIDefaultJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDownloadDestinationa'>APIDownloadDestination</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService19APIDownloadResponsea'>APIDownloadResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService36APIDownloadResponseCompletionHandlera'>APIDownloadResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIJSONEncodinga'>APIJSONEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIMultipartFormDataa'>APIMultipartFormData</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService29APINetworkReachabilityManagera'>APINetworkReachabilityManager</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIParameterEncodinga'>APIParameterEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService18APIProgressHandlera'>APIProgressHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestAdaptera'>APIRequestAdapter</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestHeadersa'>APIRequestHeaders</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService16APIRequestMethoda'>APIRequestMethod</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class='main-content'>
+
+        <section class='section'>
+          <div class='section-content'>
+            <h1>APIConfig</h1>
+              <div class='declaration'>
+                <div class='language'>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">APIConfig</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </div>
+        </section>
+
+        <section class='section'>
+          <div class='section-content'>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIConfigC6sharedACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIConfigC6sharedACvpZ">shared</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span><span class="p">:</span> <span class="kt">APIConfig</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E8%B0%83%E8%AF%95"></a>
+                <a name="//apple_ref/swift/Section/调试" class="dashAnchor"></a>
+                <a href="#/%E8%B0%83%E8%AF%95">
+                  <h3 class="section-name">调试</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIConfigC15debugLogEnabledSbvp"></a>
+                    <a name="//apple_ref/swift/Property/debugLogEnabled" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIConfigC15debugLogEnabledSbvp">debugLogEnabled</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugLogEnabled</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E7%BD%91%E7%BB%9C"></a>
+                <a name="//apple_ref/swift/Section/网络" class="dashAnchor"></a>
+                <a href="#/%E7%BD%91%E7%BB%9C">
+                  <h3 class="section-name">网络</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIConfigC23urlSessionConfigurationSo012NSURLSessionE0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/urlSessionConfiguration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIConfigC23urlSessionConfigurationSo012NSURLSessionE0Cvp">urlSessionConfiguration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>URLSessionConfiguration
+一次性赋值，有效时机在没有发任何请求之前</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">urlSessionConfiguration</span><span class="p">:</span> <span class="kt">URLSessionConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E7%BC%93%E5%AD%98"></a>
+                <a name="//apple_ref/swift/Section/缓存" class="dashAnchor"></a>
+                <a href="#/%E7%BC%93%E5%AD%98">
+                  <h3 class="section-name">缓存</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIConfigC9cacheToolAA08APICacheD0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/cacheTool" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIConfigC9cacheToolAA08APICacheD0_pSgvp">cacheTool</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cacheTool</span><span class="p">:</span> <span class="kt"><a href="../Protocols/APICacheTool.html">APICacheTool</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService9APIConfigC14defaultPluginsSayAA9APIPlugin_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/defaultPlugins" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService9APIConfigC14defaultPluginsSayAA9APIPlugin_pGvp">defaultPlugins</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>默认插件</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">defaultPlugins</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/APIPlugin.html">APIPlugin</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class='footer' id="footer">
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
+    </section>  </body>
+</div>
+</html>

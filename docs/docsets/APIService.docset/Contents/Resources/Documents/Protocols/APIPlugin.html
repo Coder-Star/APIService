@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           APIService Docs
         </a>
-         (100% documented)
+         (86% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -44,13 +44,31 @@
             <a class='nav-group-name-link' href='../Classes.html'>Classes</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIConfig.html'>APIConfig</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Classes/APIService.html'>APIService</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/CacheTool.html'>CacheTool</a>
               </li>
             </ul>
           </li>
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='../Enumerations.html'>Enumerations</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheError.html'>APICacheError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
               </li>
@@ -65,6 +83,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIResult.html'>APIResult</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkActivityChangeType.html'>NetworkActivityChangeType</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/NetworkStatus.html'>NetworkStatus</a>
@@ -92,6 +113,9 @@
             <a class='nav-group-name-link' href='../Protocols.html'>Protocols</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APICacheTool.html'>APICacheTool</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Protocols/APIClient.html'>APIClient</a>
               </li>
               <li class='nav-group-task'>
@@ -115,13 +139,28 @@
             <a class='nav-group-name-link' href='../Structures.html'>Structures</a>
             <ul class='nav-group-tasks'>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICache.html'>APICache</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICachePackage.html'>APICachePackage</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
           </li>
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='../Type Aliases.html'>Type Aliases</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService25APICacheCompletionHandlera'>APICacheCompletionHandler</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
               </li>
@@ -201,14 +240,22 @@
                     <a name="//apple_ref/swift/Method/prepare(_:targetRequest:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:10APIService9APIPluginP7prepare_13targetRequest10Foundation10URLRequestVAH_qd__tAA10APIRequestRd__lF">prepare(_:targetRequest:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>构造URLRequest</p>
+                        <p>构造URLRequest
+单个API的超时时间可在此进行设置</p>
 
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
@@ -227,24 +274,32 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService9APIPluginP8willSend_13targetRequesty10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF"></a>
+                    <a name="/s:10APIService9APIPluginP8willSend_13targetRequestSb10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF"></a>
                     <a name="//apple_ref/swift/Method/willSend(_:targetRequest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService9APIPluginP8willSend_13targetRequesty10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF">willSend(_:targetRequest:)</a>
+                    <a class="token" href="#/s:10APIService9APIPluginP8willSend_13targetRequestSb10Foundation10URLRequestV_qd__tAA10APIRequestRd__lF">willSend(_:targetRequest:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>发送之前</p>
+                        <p>发送之前
+返回值控制是否允许发送，true：允许发送（默认值），false：不允许发送</p>
 
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">willSend</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/APIRequest.html">APIRequest</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">willSend</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">targetRequest</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/APIRequest.html">APIRequest</a></span></code></pre>
 
                         </div>
                       </div>
@@ -261,6 +316,9 @@
                     <a name="//apple_ref/swift/Method/willReceive(_:targetRequest:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:10APIService9APIPluginP11willReceive_13targetRequestyAA11APIResponseVy8ResponseQyd__G_qd__tAA10APIRequestRd__lF">willReceive(_:targetRequest:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -269,6 +327,10 @@
                       <div class="abstract">
                         <p>接收结果，时机在返回给调用方之前</p>
 
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
@@ -291,6 +353,9 @@
                     <a name="//apple_ref/swift/Method/didReceive(_:targetRequest:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:10APIService9APIPluginP10didReceive_13targetRequestyAA11APIResponseVy8ResponseQyd__G_qd__tAA10APIRequestRd__lF">didReceive(_:targetRequest:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -299,6 +364,10 @@
                       <div class="abstract">
                         <p>接收结果，时机在返回给调用方之后</p>
 
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
@@ -322,7 +391,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-05-13)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
     </section>  </body>
 </div>
 </html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>APICacheTool Protocol Reference</title>
+    <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
+    <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
+    <meta charset='utf-8'>
+    <script src='../js/jquery.min.js' defer></script>
+    <script src='../js/jazzy.js' defer></script>
+  </head>
+  <body>
+
+    <a name='//apple_ref/swift/Protocol/APICacheTool' class='dashAnchor'></a>
+
+    <a title='APICacheTool Protocol Reference'></a>
+
+    <header class='header'>
+      <p class='header-col header-col--primary'>
+        <a class='header-link' href='../index.html'>
+          APIService Docs
+        </a>
+         (86% documented)
+      </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='https://github.com/Coder-Star/APIService'>
+            <img class='header-icon' src='../img/gh.png'/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class='breadcrumbs'>
+      <a class='breadcrumb' href='../index.html'>APIService Reference</a>
+      <img class='carat' src='../img/carat.png' />
+      APICacheTool Protocol Reference
+    </p>
+
+    <div class='content-wrapper'>
+      <nav class='navigation'>
+        <ul class='nav-groups'>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Classes.html'>Classes</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIConfig.html'>APIConfig</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/APIService.html'>APIService</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Classes/CacheTool.html'>CacheTool</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Enumerations.html'>Enumerations</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheError.html'>APICacheError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestError.html'>APIRequestError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIRequestTaskType.html'>APIRequestTaskType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResponseError.html'>APIResponseError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APIResult.html'>APIResult</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkActivityChangeType.html'>NetworkActivityChangeType</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/NetworkStatus.html'>NetworkStatus</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Extensions.html'>Extensions</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:Sa'>Array</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions/Data.html'>Data</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:9Alamofire7RequestC'>Request</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Extensions.html#/s:SS'>String</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Protocols.html'>Protocols</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APICacheTool.html'>APICacheTool</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIClient.html'>APIClient</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIJSONParsable.html'>APIJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIParsable.html'>APIParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIPlugin.html'>APIPlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequest.html'>APIRequest</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Protocols/APIRequestTask.html'>APIRequestTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Structures.html'>Structures</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICache.html'>APICache</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APICachePackage.html'>APICachePackage</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='../Type Aliases.html'>Type Aliases</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService25APICacheCompletionHandlera'>APICacheCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIDataResponsea'>APIDataResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService32APIDataResponseCompletionHandlera'>APIDataResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDefaultJSONParsablea'>APIDefaultJSONParsable</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService22APIDownloadDestinationa'>APIDownloadDestination</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService19APIDownloadResponsea'>APIDownloadResponse</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService36APIDownloadResponseCompletionHandlera'>APIDownloadResponseCompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIJSONEncodinga'>APIJSONEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIMultipartFormDataa'>APIMultipartFormData</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService29APINetworkReachabilityManagera'>APINetworkReachabilityManager</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APIParameterEncodinga'>APIParameterEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService18APIProgressHandlera'>APIProgressHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestAdaptera'>APIRequestAdapter</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService17APIRequestHeadersa'>APIRequestHeaders</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService16APIRequestMethoda'>APIRequestMethod</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class='main-content'>
+
+        <section class='section'>
+          <div class='section-content'>
+            <h1>APICacheTool</h1>
+              <div class='declaration'>
+                <div class='language'>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APICacheTool</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </div>
+        </section>
+
+        <section class='section'>
+          <div class='section-content'>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E5%BC%82%E6%AD%A5"></a>
+                <a name="//apple_ref/swift/Section/异步" class="dashAnchor"></a>
+                <a href="#/%E5%BC%82%E6%AD%A5">
+                  <h3 class="section-name">异步</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService12APICacheToolP3set6forKey4data9writeMode6expiry10completionySS_AA0B7PackageVAA0b5WriteI0OAA0B6ExpiryOys6ResultOyyts5Error_pGcSgtF"></a>
+                    <a name="//apple_ref/swift/Method/set(forKey:data:writeMode:expiry:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService12APICacheToolP3set6forKey4data9writeMode6expiry10completionySS_AA0B7PackageVAA0b5WriteI0OAA0B6ExpiryOys6ResultOyyts5Error_pGcSgtF">set(forKey:data:writeMode:expiry:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Structs/APICachePackage.html">APICachePackage</a></span><span class="p">,</span> <span class="nv">writeMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheWriteMode.html">APICacheWriteMode</a></span><span class="p">,</span> <span class="nv">expiry</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheExpiry.html">APICacheExpiry</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService12APICacheToolP14getValidObject5byKey10completionySS_ys6ResultOyAA0B7PackageVs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getValidObject(byKey:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService12APICacheToolP14getValidObject5byKey10completionySS_ys6ResultOyAA0B7PackageVs5Error_pGctF">getValidObject(byKey:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>如果缓存找不到，缓存过期都走错误分支
+使用 APICacheError</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getValidObject</span><span class="p">(</span><span class="n">byKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/APICachePackage.html">APICachePackage</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/%E5%90%8C%E6%AD%A5"></a>
+                <a name="//apple_ref/swift/Section/同步" class="dashAnchor"></a>
+                <a href="#/%E5%90%8C%E6%AD%A5">
+                  <h3 class="section-name">同步</h3>
+                </a>
+              </div>
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService12APICacheToolP3set6forKey4data9writeMode6expiryySS_AA0B7PackageVAA0b5WriteI0OAA0B6ExpiryOtKF"></a>
+                    <a name="//apple_ref/swift/Method/set(forKey:data:writeMode:expiry:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService12APICacheToolP3set6forKey4data9writeMode6expiryySS_AA0B7PackageVAA0b5WriteI0OAA0B6ExpiryOtKF">set(forKey:data:writeMode:expiry:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Structs/APICachePackage.html">APICachePackage</a></span><span class="p">,</span> <span class="nv">writeMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheWriteMode.html">APICacheWriteMode</a></span><span class="p">,</span> <span class="nv">expiry</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheExpiry.html">APICacheExpiry</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService12APICacheToolP14getValidObject5byKeyAA0B7PackageVSS_tKF"></a>
+                    <a name="//apple_ref/swift/Method/getValidObject(byKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService12APICacheToolP14getValidObject5byKeyAA0B7PackageVSS_tKF">getValidObject(byKey:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>如果缓存找不到、缓存过期都扔出错误
+使用 APICacheError</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getValidObject</span><span class="p">(</span><span class="n">byKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/APICachePackage.html">APICachePackage</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class='footer' id="footer">
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
+    </section>  </body>
+</div>
+</html>
