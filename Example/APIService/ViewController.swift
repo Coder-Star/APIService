@@ -37,16 +37,6 @@ class ViewController: UIViewController {
     private func getHomeBannerData() {
         let request = HomeBannerAPI.HomeBannerRequest()
 
-//        var cachePlugin = CachePlugin<HomeBannerAPI.HomeBannerRequest>()
-//        var cache = APICache()
-//        cache.readMode = .cancelNetwork
-//        cache.writeNode = .memoryAndDisk
-//        cache.expiry = .seconds(10)
-//        cachePlugin.cache = cache
-//        cachePlugin.cacheHandler = { response in
-//
-//        }
-
         APIService.sendRequest(request, plugins: [networkActivityPlugin], cacheHandler: { response in
             debugPrint(response)
             if response.result.isSuccess {

@@ -54,6 +54,11 @@ public protocol APIRequest {
     /// 目前 taskType 为 request 才生效
     var cache: APICache? { get }
 
+    /// 是否允许缓存
+    /// 可根据业务实际情况控制：比如业务code为成功，业务数据不为空
+    /// 这个闭包之所以不放入 APICache 内部的原因是 享受泛型的回调
+    var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? { get }
+
     // MARK: - 方法
 
     /// 拦截参数，在参数编码之前
@@ -83,6 +88,10 @@ public protocol APIRequest {
 
 extension APIRequest {
     public var cache: APICache? {
+        return nil
+    }
+
+    public var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? {
         return nil
     }
 
@@ -140,6 +149,11 @@ extension APIRequest {
         if let extraCacheKey = cache?.extraCacheKey, !extraCacheKey.isEmpty {
             cacheKey.append(contentsOf: "-\(extraCacheKey)")
         }
+
+        if let customCacheKeyHandler = cache?.customCacheKeyHandler {
+            return customCacheKeyHandler(cacheKey)
+        }
+
         return cacheKey
     }
 }

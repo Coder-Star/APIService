@@ -261,7 +261,9 @@ extension APIService {
                         /// 缓存存储
                         if let cache = request.cache, cache.writeNode != .none {
                             if let cacheTool = APIConfig.shared.cacheTool {
-                                let allowCache = cache.shouldCacheHandler == nil || cache.shouldCacheHandler!(response.response, response.data)
+                                let cacheAPIResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.data, result: apiResult)
+
+                                let allowCache = request.cacheShouldWriteHandler == nil || request.cacheShouldWriteHandler!(cacheAPIResponse)
                                 if allowCache {
                                     let cachePackage = APICachePackage(creationDate: Date(), data: data)
                                     cacheTool.set(forKey: request.cacheKey, data: cachePackage, writeMode: cache.writeNode, expiry: cache.expiry, completion: nil)

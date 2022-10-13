@@ -22,7 +22,7 @@ extension APIResult where T: APIModelWrapper {
         var message = "出现错误，请稍后重试"
         switch self {
         case let .success(response):
-            if response.code == 200, let data = response.data {
+            if checkSuccessCode(code: response.code), let data = response.data {
                 return .success(data, response.msg)
             } else {
                 return .failure(message, APIError.responseError(APIResponseError.invalidParseResponse(CSDataError.invalidParseResponse)))
@@ -35,5 +35,13 @@ extension APIResult where T: APIModelWrapper {
             assertionFailure(apiError.localizedDescription)
             return .failure(message, apiError)
         }
+    }
+
+    var isSuccessCode: Bool {
+        return checkSuccessCode(code: value?.code)
+    }
+
+    private func checkSuccessCode(code: Int?) -> Bool {
+        return code == 200
     }
 }

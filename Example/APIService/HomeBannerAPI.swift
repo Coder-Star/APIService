@@ -28,5 +28,12 @@ enum HomeBannerAPI {
             cache.expiry = .seconds(10)
             return cache
         }
+
+        var cacheShouldWriteHandler: ((APIResponse<CSBaseResponseModel<DataResponse>>) -> Bool)? = { response in
+            if response.result.isSuccessCode, response.result.value?.data != nil {
+                return true
+            }
+            return false
+        }
     }
 }

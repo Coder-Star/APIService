@@ -34,9 +34,21 @@ public enum APICacheWriteMode {
     case memoryAndDisk
 }
 
+/// 缓存过期策略
+public enum APICacheExpiry {
+    /// 永不过期
+    case never
+
+    /// 指定有效期
+    case seconds(TimeInterval)
+
+    /// 指定日期
+    case date(Date)
+}
+
 /// 缓存
 public struct APICache {
-    public init() { }
+    public init() {}
 
     /// 读取缓存模式
     public var readMode: APICacheReadMode = .none
@@ -46,19 +58,16 @@ public struct APICache {
 
     /// 只有 writeNode 不为 .none 时，后面参数有效
 
+    /// 缓存策略类型
+    public var expiry: APICacheExpiry = .seconds(0)
+
     /// 额外的缓存key部分
     /// 可添加app版本号、用户id、缓存版本等
     public var extraCacheKey = ""
 
-    /// 是否允许缓存
-    /// 可根据业务实际情况控制
-    public var shouldCacheHandler: ((HTTPURLResponse?, Data?) -> Bool)?
-
     /// 自定义缓存key
+    /// 闭包参数为框架内部按照规则生成的key值
     public var customCacheKeyHandler: ((String) -> String)?
-
-    /// 缓存策略类型
-    public var expiry: APICacheExpiry = .seconds(0)
 }
 
 /// 缓存
@@ -68,17 +77,6 @@ public struct APICachePackage: Codable {
 
     /// 缓存数据
     public var data: Data
-}
-
-public enum APICacheExpiry {
-    /// 永不过期
-    case never
-
-    /// 指定有效期
-    case seconds(TimeInterval)
-
-    /// 指定日期前
-    case date(Date)
 }
 
 public protocol APICacheTool {

@@ -103,12 +103,7 @@ APIConfig.shared.cacheTool = CacheTool.shared
 
 框架内部对于缓存的读写采用的是 **同步读，异步存** 的方式。
 
-对于缓存的使用，框架提供了两种方式，一种是 `APIRequest` 属性 + `APIService` 回调的方式，另外一种是 `plugin`的形式。大家可根据两种形式的使用场景灵活选择。
-
-#### `APIRequest` 属性 + `APIService` 回调
-
-这种方式主要适用于用来声明某个API的缓存策略。
-
+使用方式：
 ```swift
 
 enum HomeBannerAPI {
@@ -156,38 +151,6 @@ APIService.sendRequest(request, plugins: [networkActivityPlugin], cacheHandler: 
 ```
 
 我们可以看到，`sendRequest` 为缓存单独加了一个回调，而不是和原来的`completionHandler`使用同一个，目的是想让业务方可以明确的感知到该次回调是来自网络还是缓存，也是呼应 `APICacheReadMode` 这个配置。
-
-#### `plugin` 形式
-
-这种方式主要适用于 描述某个发送行为的缓存。
-
-我们也可以通过传入一个`CachePlugin`的实例来实现缓存功能。
-
-```swift
-let request = HomeBannerAPI.HomeBannerRequest()
-
-/// 这里因为语法的限制，需要将 Request 元类型也传给 缓存一次
-/// 有点瑕疵了
-var cachePlugin = CachePlugin<HomeBannerAPI.HomeBannerRequest>()
-var cache = APICache()
-cache.readMode = .cancelNetwork
-cache.writeNode = .memoryAndDisk
-cache.expiry = .seconds(10)
-cachePlugin.cache = cache
-cachePlugin.cacheHandler = { response in
-    /// 缓存回调
-}
-
-APIService.sendRequest(request, plugins: [cachePlugin]) { reponse in
-    switch reponse.result.validateResult {
-    case let .success(info, _):
-        /// 这个 Info 就是上面我们传入的 HomeBanner 类型
-        print(info)
-    case let .failure(_, error):
-        print(error)
-    }
-}
-```
 
 ### APIClient 协议
 
@@ -281,9 +244,7 @@ public protocol APIPlugin {
 
 在具体网络请求层次上提供的拦截器协议，这样业务使用过程中可以感知到请求请求中的重要节点，从而完成一些逻辑，如`Loading`的加载与消失就可以通过构造一些对应的实例去完成。
 
-> 目前提供了两个默认的 `Plugin`，分别是：
-> 1、CachePlugin： 缓存Plugin
-> 2、NetworkActivityPlugin： Loading Plugin
+> 目前提供了一个默认的 `Plugin`，是： NetworkActivityPlugin
 
 ### APIService
 

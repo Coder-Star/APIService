@@ -45,6 +45,6 @@ extension AppDelegate {
         APIConfig.shared.cacheTool = CacheTool.shared
         APIConfig.shared.debugLogEnabled = true
 
-        print(NSHomeDirectory())
+        debugPrint(NSHomeDirectory())
     }
 }
