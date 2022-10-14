@@ -59,11 +59,11 @@ public final class CacheTool {
         }
     }
 
-    private func getMemoryStorage() throws -> MemoryStorage<String, APICachePackage> {
+    private func getMemoryStorage() -> MemoryStorage<String, APICachePackage> {
         if let storage = memoryStorage {
             return storage
         } else {
-            let memoryStorage = try MemoryStorage<String, APICachePackage>(config: memoryConfig ?? defaultMemoryConfig)
+            let memoryStorage = MemoryStorage<String, APICachePackage>(config: memoryConfig ?? defaultMemoryConfig)
             self.memoryStorage = memoryStorage
             return memoryStorage
         }
@@ -73,7 +73,7 @@ public final class CacheTool {
         if let storage = storage {
             return storage
         } else {
-            let memoryStorage = try getMemoryStorage()
+            let memoryStorage = getMemoryStorage()
             let diskStorage = try getDiskStorage()
             let hybridStorage = HybridStorage(memoryStorage: memoryStorage, diskStorage: diskStorage)
             let storage = Storage(hybridStorage: hybridStorage)
@@ -133,7 +133,7 @@ extension CacheTool: APICacheTool {
             case .none:
                 break
             case .memory:
-                try getMemoryStorage().setObject(data, forKey: key, expiry: resultExpiry)
+                getMemoryStorage().setObject(data, forKey: key, expiry: resultExpiry)
             case .disk:
                 try getStorage().async.serialQueue.async { [weak self] in
                     guard let self = self else {
@@ -178,7 +178,7 @@ extension CacheTool: APICacheTool {
         case .none:
             return
         case .memory:
-            try getMemoryStorage().setObject(data, forKey: key, expiry: resultExpiry)
+            getMemoryStorage().setObject(data, forKey: key, expiry: resultExpiry)
         case .disk:
             try getDiskStorage().setObject(data, forKey: key, expiry: resultExpiry)
         case .memoryAndDisk:

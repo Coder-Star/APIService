@@ -167,7 +167,7 @@ extension APIService {
         } catch {
             let apiResult: APIResult<T.Response> = .failure(.requestError(error))
             let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
-            (queue ?? DispatchQueue.main).async { completionHandler(apiResponse) }
+            queue.async { completionHandler(apiResponse) }
             return nil
         }
 
@@ -180,7 +180,7 @@ extension APIService {
                     let responseModel = try T.Response.parse(data: cachePackage.data)
                     let apiResult: APIResult<T.Response> = .success(responseModel)
                     let apiResponse = APIResponse<T.Response>(request: urlRequest, response: nil, data: cachePackage.data, result: apiResult)
-                    (queue ?? DispatchQueue.main).async { cacheHandler?(apiResponse) }
+                    queue.async { cacheHandler?(apiResponse) }
 
                     DebugUtils.log("\(request)使用缓存，缓存key为：\(request.cacheKey)")
 
@@ -190,7 +190,7 @@ extension APIService {
                 } catch {
                     let apiResult: APIResult<T.Response> = .failure(.cache(error))
                     let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
-                    (queue ?? DispatchQueue.main).async { cacheHandler?(apiResponse) }
+                    queue.async { cacheHandler?(apiResponse) }
                 }
             } else {
                 assertionFailure("please set cacheStore in APIConfig")
@@ -238,7 +238,7 @@ extension APIService {
             /// 插件拦截器：即将回调给业务方
             resultPlugins.forEach { $0.willReceive(apiResponse, targetRequest: request) }
 
-            (queue ?? DispatchQueue.main).async { completionHandler(apiResponse) }
+            queue.async { completionHandler(apiResponse) }
 
             /// 插件拦截器：回调给业务方之后
             resultPlugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }

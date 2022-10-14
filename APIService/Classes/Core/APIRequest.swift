@@ -142,7 +142,7 @@ extension APIRequest {
         if let resultParameters = resultParameters, !resultParameters.isEmpty {
             let paramKeys = resultParameters.keys.sorted()
             paramKeys.forEach {
-                paramString.append(contentsOf: "\(paramString.isEmpty ? "?" : "&")\($0)\(resultParameters[$0])")
+                paramString.append(contentsOf: "\(paramString.isEmpty ? "?" : "&")\($0)\(String(describing: resultParameters[$0]))")
             }
         }
         var cacheKey = "\(method.rawValue)-\(completeURL.absoluteString)\(paramString)"
