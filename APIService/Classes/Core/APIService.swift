@@ -7,6 +7,17 @@
 
 import Foundation
 
+/// 回调来源类型
+public enum APICompletionHandlerSourceType {
+    /// 网络
+    case network
+    /// 缓存
+    case cache
+}
+
+/// APICompletionSourceHandler
+public typealias APICompletionSourceHandler<T> = (APIResponse<T>, APICompletionHandlerSourceType) -> Void
+
 /// APICompletionHandler
 public typealias APICompletionHandler<T> = (APIResponse<T>) -> Void
 
@@ -72,37 +83,6 @@ extension APIService {
     }
 }
 
-// MARK: - 私有方法
-
-extension APIService {
-    /// 回调数据给调用方
-    ///
-    /// - Parameters:
-    ///   - request: 请求
-    ///   - response: 上层回来的数据
-    ///   - result: 结果
-    ///   - plugins: 插件
-    ///   - completionHandler: 结果回调
-    /// - Returns: 请求任务
-    private func performData<T: APIRequest>(
-        request: T,
-        response: APIResponse<T.Response>,
-        plugins: [APIPlugin],
-        completionHandler: @escaping APICompletionHandler<T.Response>
-    ) {
-        /// 插件拦截器：即将回调给业务方
-        plugins.forEach { $0.willReceive(response, targetRequest: request) }
-
-        /// Request拦截器：在回调给业务方之前
-        request.intercept(request: request, response: response) { replaceResponse in
-            completionHandler(replaceResponse)
-
-            /// 插件拦截器：回调给业务方之后
-            plugins.forEach { $0.didReceive(response, targetRequest: request) }
-        }
-    }
-}
-
 // MARK: - 公开方法
 
 extension APIService {
@@ -113,8 +93,8 @@ extension APIService {
     ///   - request: 请求
     ///   - plugins: 插件
     ///   - progressHandler: 进度回调
-    ///   - cacheHandler: 命中缓存回调
-    ///   - completionHandler: 结果回调
+    ///   - cacheHandler: 缓存回调
+    ///   - completionHandler: 网络回调
     /// - Returns: 请求任务
     @discardableResult
     public static func sendRequest<T: APIRequest>(
@@ -123,7 +103,7 @@ extension APIService {
         queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
         cacheHandler: APICacheCompletionHandler<T.Response>? = nil,
-        completionHandler: @escaping APICompletionHandler<T.Response>
+        completionHandler: APICompletionHandler<T.Response>?
     ) -> APIRequestTask? {
         `default`.sendRequest(
             request,
@@ -136,13 +116,46 @@ extension APIService {
     }
 
     /// 创建数据请求
+    /// 这种方式使用为 Alamofire 作为底层实现
+    ///
+    /// - Parameters:
+    ///   - request: 请求
+    ///   - plugins: 插件
+    ///   - progressHandler: 进度回调
+    ///   - completionHandler: 结果回调，包含多种类型
+    /// - Returns: 请求任务
+    @discardableResult
+    public static func sendRequest<T: APIRequest>(
+        _ request: T,
+        plugins: [APIPlugin] = [],
+        queue: DispatchQueue = .main,
+        progressHandler: APIProgressHandler? = nil,
+        completionHandler: APICompletionSourceHandler<T.Response>?
+    ) -> APIRequestTask? {
+        `default`.sendRequest(
+            request,
+            plugins: plugins,
+            queue: queue,
+            progressHandler: progressHandler,
+            cacheHandler: { response in
+                completionHandler?(response, .cache)
+            },
+            completionHandler: { response in
+                completionHandler?(response, .network)
+            }
+        )
+    }
+}
+
+extension APIService {
+    /// 创建数据请求
     ///
     /// - Parameters:
     ///   - request: 请求
     ///   - plugins: 插件
     ///   - progressHandler: 进度回调
     ///   - cacheHandler: 命中缓存回调
-    ///   - completionHandler: 结果回调
+    ///   - completionHandler: 网络回调
     /// - Returns: 请求任务
     @discardableResult
     public func sendRequest<T: APIRequest>(
@@ -151,7 +164,7 @@ extension APIService {
         queue: DispatchQueue = .main,
         progressHandler: APIProgressHandler? = nil,
         cacheHandler: APICacheCompletionHandler<T.Response>? = nil,
-        completionHandler: @escaping APICompletionHandler<T.Response>
+        completionHandler: APICompletionHandler<T.Response>?
     ) -> APIRequestTask? {
         var resultPlugins = APIConfig.shared.defaultPlugins
         resultPlugins.append(contentsOf: plugins)
@@ -167,7 +180,7 @@ extension APIService {
         } catch {
             let apiResult: APIResult<T.Response> = .failure(.requestError(error))
             let apiResponse = APIResponse<T.Response>(request: nil, response: nil, data: nil, result: apiResult)
-            queue.async { completionHandler(apiResponse) }
+            queue.async { completionHandler?(apiResponse) }
             return nil
         }
 
@@ -184,7 +197,7 @@ extension APIService {
 
                     DebugUtils.log("\(request)使用缓存，缓存key为：\(request.cacheKey)")
 
-                    if cache.readMode != .alsoNetwork {
+                    if cache.readMode == .cancelNetwork {
                         return nil
                     }
                 } catch {
@@ -203,7 +216,6 @@ extension APIService {
             resultPlugins: resultPlugins,
             queue: queue,
             progressHandler: progressHandler,
-            cacheHandler: cacheHandler,
             completionHandler: completionHandler
         )
     }
@@ -215,8 +227,7 @@ extension APIService {
         resultPlugins: [APIPlugin],
         queue: DispatchQueue,
         progressHandler: APIProgressHandler?,
-        cacheHandler: APICacheCompletionHandler<T.Response>?,
-        completionHandler: @escaping APICompletionHandler<T.Response>
+        completionHandler: APICompletionHandler<T.Response>?
     ) -> APIRequestTask? {
         /// 拦截器：即将发送网络请求
         /// 有一个插件不允许发送，则整体不允许发送
@@ -238,7 +249,7 @@ extension APIService {
             /// 插件拦截器：即将回调给业务方
             resultPlugins.forEach { $0.willReceive(apiResponse, targetRequest: request) }
 
-            queue.async { completionHandler(apiResponse) }
+            queue.async { completionHandler?(apiResponse) }
 
             /// 插件拦截器：回调给业务方之后
             resultPlugins.forEach { $0.didReceive(apiResponse, targetRequest: request) }
@@ -315,3 +326,34 @@ extension APIService {
 // MARK: - FormData Upload
 
 extension APIService {}
+
+// MARK: - 私有方法
+
+extension APIService {
+    /// 回调数据给调用方
+    ///
+    /// - Parameters:
+    ///   - request: 请求
+    ///   - response: 上层回来的数据
+    ///   - result: 结果
+    ///   - plugins: 插件
+    ///   - completionHandler: 结果回调
+    /// - Returns: 请求任务
+    private func performData<T: APIRequest>(
+        request: T,
+        response: APIResponse<T.Response>,
+        plugins: [APIPlugin],
+        completionHandler: APICompletionHandler<T.Response>?
+    ) {
+        /// 插件拦截器：即将回调给业务方
+        plugins.forEach { $0.willReceive(response, targetRequest: request) }
+
+        /// Request拦截器：在回调给业务方之前
+        request.intercept(request: request, response: response) { replaceResponse in
+            completionHandler?(replaceResponse)
+
+            /// 插件拦截器：回调给业务方之后
+            plugins.forEach { $0.didReceive(response, targetRequest: request) }
+        }
+    }
+}

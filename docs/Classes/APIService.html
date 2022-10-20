@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           APIService Docs
         </a>
-         (86% documented)
+         (90% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -68,6 +68,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICompletionHandlerSourceType.html'>APICompletionHandlerSourceType</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
@@ -148,9 +151,6 @@
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
               </li>
               <li class='nav-group-task'>
-                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
-              </li>
-              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
@@ -163,6 +163,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService26APICompletionSourceHandlera'>APICompletionSourceHandler</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIDataResponsea'>APIDataResponse</a>
@@ -397,9 +400,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgyAVctAA0J0RzlFZ"></a>
+                    <a name="/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgAWtAA0J0RzlFZ"></a>
                     <a name="//apple_ref/swift/Method/sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgyAVctAA0J0RzlFZ">sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)</a>
+                    <a class="token" href="#/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgAWtAA0J0RzlFZ">sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -422,7 +425,7 @@
     <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
     <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService18APIProgressHandlera">APIProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">cacheHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService25APICacheCompletionHandlera">APICacheCompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService20APICompletionHandlera">APICompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span>
+    <span class="nv">completionHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService20APICompletionHandlera">APICompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">?</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/APIRequestTask.html">APIRequestTask</a></span><span class="p">?</span></code></pre>
 
                         </div>
@@ -475,7 +478,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>命中缓存回调</p>
+                                  <p>缓存回调</p>
                                 </div>
                               </td>
                             </tr>
@@ -487,7 +490,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>结果回调</p>
+                                  <p>网络回调</p>
                                 </div>
                               </td>
                             </tr>
@@ -507,9 +510,106 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgyAVctAA0J0RzlF"></a>
+                    <a name="/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzG_AA013APICompletionG10SourceTypeOtcSgtAA0I0RzlFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendRequest(_:plugins:queue:progressHandler:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzG_AA013APICompletionG10SourceTypeOtcSgtAA0I0RzlFZ">sendRequest(_:plugins:queue:progressHandler:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>创建数据请求
+这种方式使用为 Alamofire 作为底层实现</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">sendRequest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols/APIRequest.html">APIRequest</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span>
+    <span class="nv">plugins</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/APIPlugin.html">APIPlugin</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService18APIProgressHandlera">APIProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">completionHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService26APICompletionSourceHandlera">APICompletionSourceHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/APIRequestTask.html">APIRequestTask</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>请求</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>plugins</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>插件</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>进度回调</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>结果回调，包含多种类型</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h5>Return Value</h5>
+                        <p>请求任务</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgAWtAA0J0RzlF"></a>
                     <a name="//apple_ref/swift/Method/sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgyAVctAA0J0RzlF">sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)</a>
+                    <a class="token" href="#/s:10APIServiceAAC11sendRequest_7plugins5queue15progressHandler05cacheG0010completionG0AA14APIRequestTask_pSgx_SayAA9APIPlugin_pGSo012OS_dispatch_E0CySo10NSProgressCcSgyAA11APIResponseVy8ResponseQzGcSgAWtAA0J0RzlF">sendRequest(_:plugins:queue:progressHandler:cacheHandler:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -531,7 +631,7 @@
     <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
     <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService18APIProgressHandlera">APIProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">cacheHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService25APICacheCompletionHandlera">APICacheCompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService20APICompletionHandlera">APICompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span>
+    <span class="nv">completionHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10APIService20APICompletionHandlera">APICompletionHandler</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">?</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/APIRequestTask.html">APIRequestTask</a></span><span class="p">?</span></code></pre>
 
                         </div>
@@ -596,7 +696,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>结果回调</p>
+                                  <p>网络回调</p>
                                 </div>
                               </td>
                             </tr>
@@ -621,7 +721,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-20)</p>
     </section>  </body>
 </div>
 </html>

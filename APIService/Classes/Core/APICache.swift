@@ -58,7 +58,7 @@ public struct APICache {
 
     /// 只有 writeNode 不为 .none 时，后面参数有效
 
-    /// 缓存策略类型
+    /// 缓存过期策略类型
     public var expiry: APICacheExpiry = .seconds(0)
 
     /// 额外的缓存key部分

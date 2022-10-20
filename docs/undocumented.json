@@ -16,35 +16,28 @@
     },
     {
       "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 39,
+      "line": 51,
       "symbol": "APICache.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 73,
-      "symbol": "APICacheExpiry",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 84,
+      "line": 82,
       "symbol": "APICacheTool",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 87,
+      "line": 85,
       "symbol": "APICacheTool.set(forKey:data:writeMode:expiry:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 95,
+      "line": 93,
       "symbol": "APICacheTool.set(forKey:data:writeMode:expiry:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -75,48 +68,6 @@
       "line": 31,
       "symbol": "APIConfig.cacheTool",
       "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 10,
-      "symbol": "CachePlugin",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 11,
-      "symbol": "CachePlugin.init()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 13,
-      "symbol": "CachePlugin.cache",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 15,
-      "symbol": "CachePlugin.queue",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 17,
-      "symbol": "CachePlugin.cacheHandler",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/CachePlugin.swift",
-      "line": 20,
-      "symbol": "CachePlugin",
-      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {

@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           APIService Docs
         </a>
-         (86% documented)
+         (90% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -68,6 +68,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Enums/APICompletionHandlerSourceType.html'>APICompletionHandlerSourceType</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APIError.html'>APIError</a>
@@ -148,9 +151,6 @@
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
               </li>
               <li class='nav-group-task'>
-                <a class='nav-group-task-link' href='../Structs/CachePlugin.html'>CachePlugin</a>
-              </li>
-              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
@@ -163,6 +163,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService20APICompletionHandlera'>APICompletionHandler</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService26APICompletionSourceHandlera'>APICompletionSourceHandler</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService15APIDataResponsea'>APIDataResponse</a>
@@ -541,6 +544,45 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService10APIRequestP23cacheShouldWriteHandlerSbAA11APIResponseVy8ResponseQzGcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/cacheShouldWriteHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService10APIRequestP23cacheShouldWriteHandlerSbAA11APIResponseVy8ResponseQzGcSgvp">cacheShouldWriteHandler</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>是否允许缓存
+可根据业务实际情况控制：比如业务code为成功，业务数据不为空
+这个闭包之所以不放入 APICache 内部的原因是 享受泛型的回调</p>
+
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">cacheShouldWriteHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt"><a href="../Structs/APIResponse.html">APIResponse</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/APIRequest.html#/s:10APIService10APIRequestP8ResponseQa">Response</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -811,7 +853,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-12)</p>
+      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-20)</p>
     </section>  </body>
 </div>
 </html>
