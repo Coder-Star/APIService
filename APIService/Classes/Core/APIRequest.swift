@@ -63,6 +63,7 @@ public protocol APIRequest {
 
     /// 拦截参数，在参数编码之前
     /// 可以用于加上一些统一参数的场景
+    /// 参数的相关操作最好都在这个位置进行处理，缓存key依赖于这个参数
     ///
     /// - Parameter parameters: 业务方传入的参数
     /// - Returns: 处理后的参数

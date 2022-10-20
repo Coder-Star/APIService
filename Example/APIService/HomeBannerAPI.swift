@@ -23,7 +23,7 @@ enum HomeBannerAPI {
 
         var cache: APICache? {
             var cache = APICache()
-            cache.readMode = .alsoNetwork
+            cache.usageMode = .alsoNetwork
             cache.writeNode = .memoryAndDisk
             cache.expiry = .seconds(10)
             return cache

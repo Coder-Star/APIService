@@ -184,8 +184,11 @@ extension APIService {
             return nil
         }
 
+
+        var resultCompletionHandler = completionHandler
+
         /// 检查缓存
-        if let cache = request.cache, cache.readMode != .none {
+        if let cache = request.cache, cache.usageMode != .none {
             if let cacheTool = APIConfig.shared.cacheTool {
                 do {
                     let cachePackage = try cacheTool.getValidObject(byKey: request.cacheKey)
@@ -195,10 +198,14 @@ extension APIService {
                     let apiResponse = APIResponse<T.Response>(request: urlRequest, response: nil, data: cachePackage.data, result: apiResult)
                     queue.async { cacheHandler?(apiResponse) }
 
-                    DebugUtils.log("\(request)使用缓存，缓存key为：\(request.cacheKey)")
+                    DebugUtils.log("\(request)命中缓存，缓存key为：\(request.cacheKey)")
 
-                    if cache.readMode == .cancelNetwork {
+                    if cache.usageMode == .cancelNetwork {
                         return nil
+                    }
+
+                    if cache.usageMode == .alsoNetwork {
+                        resultCompletionHandler = nil
                     }
                 } catch {
                     let apiResult: APIResult<T.Response> = .failure(.cache(error))
@@ -216,7 +223,7 @@ extension APIService {
             resultPlugins: resultPlugins,
             queue: queue,
             progressHandler: progressHandler,
-            completionHandler: completionHandler
+            completionHandler: resultCompletionHandler
         )
     }
 

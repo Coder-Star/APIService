@@ -7,13 +7,17 @@
 
 import Foundation
 
-/// 缓存读取模式
-public enum APICacheReadMode {
+/// 缓存使用模式
+public enum APICacheUsageMode {
     /// 不使用缓存
     case none
 
-    /// 命中缓存之后仍然发起网络请求
+    /// 命中缓存后，仍然发起网络请求，但是不会执行网络回调
+    /// 使用场景：命中缓存后业务方使用缓存，并请求网络刷新缓存
     case alsoNetwork
+
+    /// 命中缓存之后，仍然发起网络请求并执行网络回调
+    case alsoNetworkWithCallback
 
     /// 取消网络请求
     case cancelNetwork
@@ -50,8 +54,8 @@ public enum APICacheExpiry {
 public struct APICache {
     public init() {}
 
-    /// 读取缓存模式
-    public var readMode: APICacheReadMode = .none
+    /// 缓存使用模式
+    public var usageMode: APICacheUsageMode = .none
 
     /// 写入缓存模式
     public var writeNode: APICacheWriteMode = .none
