@@ -36,6 +36,7 @@ pod 'CSAPIService'
 - 请求者（APIRequest）：更准确的叫法应该是**构建请求者**，其主要作用就是将外部传入的相关参数经过相关处理构造成一个`URLRequest`实例，并且提供请求拦截器以及回调拦截器两种拦截器；
 - 发送者（APIClient）：实际的网络请求发送者，目前默认是`Alamofire`，你也可以实现协议，灵活的对发送者进行替换；
 - 解析者（APIParsable）：一般与`Model`是同一个角色，由`Model`实现协议从而实现从数据到实体这一过程的映射；
+- 缓存（APICache、APICacheTool）：缓存相关；
 - 服务提供者（APIService）：整个框架的服务提供者，提供最外层的`API`，可以传入插件；
 
 整个框架是按照`POP`的思想进行设计，将相关角色都尽量抽象成协议，方便扩展；
@@ -51,6 +52,9 @@ pod 'CSAPIService'
 - 数据回调到业务之前统一对一些 `code` 进行判断，如未登录自动弹出登录框等统一逻辑；
 
 ```swift
+/// 拦截参数，在参数编码之前
+func intercept(parameters: [String: Any]?) -> [String: Any]?
+
 /// 请求发送之前
 func intercept(urlRequest: URLRequest) throws -> URLRequest
 
@@ -71,7 +75,7 @@ public struct APICache {
     public init() { }
 
     /// 读取缓存模式
-    public var readMode: APICacheReadMode = .none
+    public var usageMode: APICacheUsageMode = .none
 
     /// 写入缓存模式
     public var writeNode: APICacheWriteMode = .none
@@ -82,15 +86,28 @@ public struct APICache {
     /// 可添加app版本号、用户id、缓存版本等
     public var extraCacheKey = ""
 
-    /// 是否允许缓存
-    /// 可根据业务实际情况控制
-    public var shouldCacheHandler: ((HTTPURLResponse?, Data?) -> Bool)?
-
     /// 自定义缓存key
     public var customCacheKeyHandler: ((String) -> String)?
 
-    /// 缓存策略类型
+    /// 缓存过期策略类型
     public var expiry: APICacheExpiry = .seconds(0)
+}
+
+public protocol APIRequest {
+    // MARK: - 缓存相关
+
+    /// 缓存
+    /// 目前 taskType 为 request 才生效
+    var cache: APICache? { get }
+
+    /// 是否允许缓存
+    /// 可根据业务实际情况控制：比如业务code为成功，业务数据不为空
+    /// 这个闭包之所以不放入 APICache 内部的原因是 享受泛型的回调
+    var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? { get }
+
+    /// 过滤不参与缓存key生成的参数
+    /// 如果一些业务场景不想统一参数参与缓存key生成，可在此配置
+    var cacheFilterParameters: [String] { get }
 }
 ```
 

@@ -70,7 +70,7 @@ public struct APICache {
     public var extraCacheKey = ""
 
     /// 自定义缓存key
-    /// 闭包参数为框架内部按照规则生成的key值
+    /// 闭包参数为框架内部按照规则生成的key值，实际的cacheKey还会再此基础上进行md5
     public var customCacheKeyHandler: ((String) -> String)?
 }
 

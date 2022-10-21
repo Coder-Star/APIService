@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 /// 任务类型
 public enum APIRequestTaskType {
@@ -48,7 +49,7 @@ public protocol APIRequest {
     /// 参数编码处理
     var encoding: APIParameterEncoding { get }
 
-    // MARK: - 缓存
+    // MARK: - 缓存相关
 
     /// 缓存
     /// 目前 taskType 为 request 才生效
@@ -58,6 +59,10 @@ public protocol APIRequest {
     /// 可根据业务实际情况控制：比如业务code为成功，业务数据不为空
     /// 这个闭包之所以不放入 APICache 内部的原因是 享受泛型的回调
     var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? { get }
+
+    /// 过滤不参与缓存key生成的参数
+    /// 如果一些业务场景不想统一参数参与缓存key生成，可在此配置
+    var cacheFilterParameters: [String] { get }
 
     // MARK: - 方法
 
@@ -94,6 +99,10 @@ extension APIRequest {
 
     public var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? {
         return nil
+    }
+
+    public var cacheFilterParameters: [String] {
+        return []
     }
 
     public func intercept(parameters: [String: Any]?) -> [String: Any]? {
@@ -140,12 +149,15 @@ extension APIRequest {
     var cacheKey: String {
         /// 参数字符串
         var paramString = ""
-        if let resultParameters = resultParameters, !resultParameters.isEmpty {
+        if var resultParameters = resultParameters, !resultParameters.isEmpty {
+            resultParameters = resultParameters.filter { !cacheFilterParameters.contains($0.key) }
             let paramKeys = resultParameters.keys.sorted()
             paramKeys.forEach {
-                paramString.append(contentsOf: "\(paramString.isEmpty ? "?" : "&")\($0)\(String(describing: resultParameters[$0]))")
+                let value = resultParameters[$0] ?? ""
+                paramString.append(contentsOf: "\(paramString.isEmpty ? "?" : "&")\($0)=\(value)")
             }
         }
+
         var cacheKey = "\(method.rawValue)-\(completeURL.absoluteString)\(paramString)"
         if let extraCacheKey = cache?.extraCacheKey, !extraCacheKey.isEmpty {
             cacheKey.append(contentsOf: "-\(extraCacheKey)")
@@ -155,6 +167,22 @@ extension APIRequest {
             return customCacheKeyHandler(cacheKey)
         }
 
-        return cacheKey
+        return cacheKey.md5
+    }
+}
+
+extension String {
+    /// md5
+    fileprivate var md5: String {
+        guard let data = data(using: .utf8) else {
+            return self
+        }
+        var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+
+        _ = data.withUnsafeBytes { buffer in
+            CC_MD5(buffer.baseAddress, CC_LONG(buffer.count), &hash)
+        }
+
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
 }

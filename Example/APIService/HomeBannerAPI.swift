@@ -14,7 +14,10 @@ enum HomeBannerAPI {
         typealias DataResponse = HomeBanner
 
         var parameters: [String: Any]? {
-            return nil
+            return [
+                "param1": "张三",
+                "param2": "18"
+            ]
         }
 
         var path: String {
@@ -27,6 +30,10 @@ enum HomeBannerAPI {
             cache.writeNode = .memoryAndDisk
             cache.expiry = .seconds(10)
             return cache
+        }
+
+        var cacheFilterParameters: [String] {
+            return ["param1"]
         }
 
         var cacheShouldWriteHandler: ((APIResponse<CSBaseResponseModel<DataResponse>>) -> Bool)? = { response in
