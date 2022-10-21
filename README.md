@@ -159,7 +159,7 @@ APIService.sendRequest(request, plugins: [networkActivityPlugin], cacheHandler: 
 ```swift
 /// 网络请求任务协议
 public protocol APIRequestTask {
-    /// 取消
+    /// 恢复
     func resume()
 
     /// 取消
