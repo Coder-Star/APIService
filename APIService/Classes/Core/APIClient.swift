@@ -16,7 +16,7 @@ public typealias APIProgressHandler = (Progress) -> Void
 
 /// 网络请求任务协议
 public protocol APIRequestTask {
-    /// 取消
+    /// 恢复
     func resume()
 
     /// 取消
