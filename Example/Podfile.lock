@@ -2,16 +2,16 @@ PODS:
   - Alamofire (4.9.1)
   - BetterCodable (0.4.0)
   - Cache (6.0.0)
-  - CSAPIService (0.0.7):
-    - CSAPIService/Cache (= 0.0.7)
-    - CSAPIService/Core (= 0.0.7)
-    - CSAPIService/Plugin (= 0.0.7)
-  - CSAPIService/Cache (0.0.7):
+  - CSAPIService (0.0.9):
+    - CSAPIService/Cache (= 0.0.9)
+    - CSAPIService/Core (= 0.0.9)
+    - CSAPIService/Plugin (= 0.0.9)
+  - CSAPIService/Cache (0.0.9):
     - Cache (= 6.0.0)
     - CSAPIService/Core
-  - CSAPIService/Core (0.0.7):
+  - CSAPIService/Core (0.0.9):
     - Alamofire (= 4.9.1)
-  - CSAPIService/Plugin (0.0.7):
+  - CSAPIService/Plugin (0.0.9):
     - CSAPIService/Core
   - SVProgressHUD (2.2.5)
 
@@ -35,7 +35,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BetterCodable: 3f2a765c9f4089b19debd2a7b904a69fca0a5fda
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  CSAPIService: 071ddc8044c5bc8a9a05f6d4fab68684336db22a
+  CSAPIService: 065d50920d16106903daba2948f4d53c12cb8915
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
 PODFILE CHECKSUM: 62e45b7fc885a52c8f89dd91374dd9c00462aa1e

@@ -35,9 +35,8 @@ class ViewController: UIViewController {
 
     @objc
     private func getHomeBannerData() {
-        let request = HomeBannerAPI.HomeBannerRequest()
-
-//        APIService.sendRequest(request, plugins: [networkActivityPlugin], cacheHandler: { response in
+//        let homeBannerRequest = HomeBannerAPI.HomeBannerRequest()
+//        APIService.sendRequest(homeBannerRequest, plugins: [networkActivityPlugin], cacheHandler: { response in
 //            debugPrint(response)
 //            if response.result.isSuccess {
 //                SVProgressHUD.showInfo(withStatus: "缓存")
@@ -52,7 +51,9 @@ class ViewController: UIViewController {
 //            }
 //        })
 
-        APIService.sendRequest(request, plugins: [networkActivityPlugin]) { response, type in
+        let launchAdRequest = HomeBannerAPI.LaunchAdRequest()
+
+        APIService.sendRequest(launchAdRequest, plugins: [networkActivityPlugin]) { response, type in
             switch type {
             case .network:
                 switch response.result.validateResult {

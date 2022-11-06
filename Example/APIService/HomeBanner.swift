@@ -6,21 +6,42 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
-import Foundation
 import APIService
 import BetterCodable
+import Foundation
 
 struct HomeBanner: APIDefaultJSONParsable {
+    @DefaultIntZero
     var interval: Int
 
-    @DefaultCodable<DefaultEmptyString>
+    @DefaultEmptyString
     var info: String
 
-    @DefaultCodable<DefaultEmptyArray>
+    @DefaultEmptyArray
     var imageList: [ImageList]
 }
 
 struct ImageList: Decodable {
+    @DefaultEmptyString
     var imgUrl: String
+
+    @DefaultEmptyString
     var actionUrl: String
+}
+
+struct LaunchAd: APIDefaultJSONParsable {
+    @DefaultEmptyString
+    var actionUrl: String = ""
+
+    @DefaultIntZero
+    var animationType: Int = 0
+
+    @DefaultIntZero
+    var duration: Int = 0
+
+    @DefaultEmptyString
+    var imgUrl: String = ""
+
+    @DefaultIntZero
+    var skipBtnType: Int = 0
 }

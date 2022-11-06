@@ -6,17 +6,17 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
-import Foundation
 import APIService
+import Foundation
 
 enum HomeBannerAPI {
-    struct HomeBannerRequest: CSAPIRequest {
+    struct HomeBannerRequest: CSAPIRequestProtocol {
         typealias DataResponse = HomeBanner
 
         var parameters: [String: Any]? {
             return [
                 "param1": "张三",
-                "param2": "18"
+                "param2": "18",
             ]
         }
 
@@ -41,6 +41,23 @@ enum HomeBannerAPI {
                 return true
             }
             return false
+        }
+    }
+
+    class LaunchAdRequest: CSAPIRequest<LaunchAd> {
+        override var parameters: [String: Any]? {
+            return [
+                "param1": "张三",
+                "param2": "18",
+            ]
+        }
+
+        override var path: String {
+            return "/config/launchAd"
+        }
+
+        deinit {
+            debugPrint("LaunchAdRequest deinit")
         }
     }
 }

@@ -2,23 +2,15 @@
 //  CSAPIRequest.swift
 //  APIService_Example
 //
-//  Created by CoderStar on 2022/4/29.
+//  Created by CoderStar on 2022/11/6.
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
 import APIService
 import Foundation
 
-protocol CSAPIRequest: APIRequest where Response == CSBaseResponseModel<DataResponse> {
-    associatedtype DataResponse: Decodable
-
-    var isMock: Bool { get }
-}
-
-extension CSAPIRequest {
-    var isMock: Bool {
-        return false
-    }
+class CSAPIRequest<DataResponse: APIDefaultJSONParsable>: APIRequest {
+    typealias Response = CSBaseResponseModel<DataResponse>
 
     var baseURL: URL {
         if isMock {
@@ -32,8 +24,11 @@ extension CSAPIRequest {
         }
     }
 
-    var method: APIRequestMethod { .get }
+    var path: String {
+        return ""
+    }
 
+    var method: APIRequestMethod { .get }
 
     var parameters: [String: Any]? {
         return nil
@@ -51,11 +46,28 @@ extension CSAPIRequest {
         return APIURLEncoding.default
     }
 
-    public func intercept(urlRequest: URLRequest) throws -> URLRequest {
-        return urlRequest
+    var isMock: Bool {
+        return false
     }
 
-    public func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, replaceResponseHandler: @escaping APICompletionHandler<Response>) {
+    /// 验证码
+    private var neteaseValidate = ""
+
+    func intercept(parameters: [String: Any]?) -> [String: Any]? {
+        if !neteaseValidate.isEmpty {
+            var resultParameters = parameters ?? [:]
+            resultParameters["neteaseValidate"] = neteaseValidate
+            return resultParameters
+        } else {
+            return parameters
+        }
+    }
+
+    func intercept<U: APIRequest>(request: U, response: APIResponse<Response>, replaceResponseHandler: @escaping APICompletionHandler<Response>) {
+        if response.result.value?.code == 1001, let csAPIRequest = request as? CSAPIRequest {
+            csAPIRequest.neteaseValidate = "123"
+            APIService.sendRequest(csAPIRequest, completionHandler: replaceResponseHandler)
+        }
         replaceResponseHandler(response)
     }
 }

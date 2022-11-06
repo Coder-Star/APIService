@@ -9,14 +9,38 @@
 import Foundation
 import BetterCodable
 
-public struct DefaultEmptyString: DefaultCodableStrategy {
+public typealias DefaultEmptyArray<T> = DefaultCodable<DefaultEmptyArrayStrategy<T>> where T: Decodable
+
+public typealias DefaultEmptyDictionary<K, V> = DefaultCodable<DefaultEmptyDictionaryStrategy<K, V>> where K: Decodable & Hashable, V: Decodable
+
+public typealias DefaultFalse = DefaultCodable<DefaultFalseStrategy>
+
+public typealias DefaultTrue = DefaultCodable<DefaultTrueStrategy>
+
+/// Double
+public struct DefaultDoubleZeroStrategy: DefaultCodableStrategy {
+    public static var defaultValue: Double { 0.0 }
+}
+
+public typealias DefaultDoubleZero = DefaultCodable<DefaultDoubleZeroStrategy>
+
+/// Float
+public struct DefaultFloatZeroStrategy: DefaultCodableStrategy {
+    public static var defaultValue: Float { 0.0 }
+}
+
+public typealias DefaultFloatZero = DefaultCodable<DefaultFloatZeroStrategy>
+
+/// Int
+public struct DefaultIntZeroStrategy: DefaultCodableStrategy {
+    public static var defaultValue: Int { 0 }
+}
+
+public typealias DefaultIntZero = DefaultCodable<DefaultIntZeroStrategy>
+
+/// 空字符串
+public struct DefaultEmptyStringStrategy: DefaultCodableStrategy {
     public static var defaultValue: String { "" }
 }
 
-public struct DefaultEmptyArray<T>: DefaultCodableStrategy where T: Decodable {
-    public static var defaultValue: [T] { [] }
-}
-
-public struct DefaultEmptyDict<K, V>: DefaultCodableStrategy where K: Hashable & Codable, V: Codable {
-    public static var defaultValue: [K: V] { [:] }
-}
+public typealias DefaultEmptyString = DefaultCodable<DefaultEmptyStringStrategy>

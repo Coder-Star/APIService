@@ -10,7 +10,7 @@ import APIService
 
 /// 网络请求结果最外层Model
 public protocol APIModelWrapper {
-    associatedtype DataType: Decodable
+    associatedtype DataType: APIDefaultJSONParsable
 
     var code: Int { get }
 
