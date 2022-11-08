@@ -467,8 +467,8 @@ enum HomeBannerAPI {
     }
 }
 
-APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { reponse in
-    switch reponse.result.validateResult {
+APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { response in
+    switch response.result.validateResult {
     case let .success(info, _):
         /// 这个 Info 就是上面我们传入的 HomeBanner 类型
         print(info)
@@ -478,7 +478,7 @@ APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { reponse in
 }
 ```
 
-
+> 项目示例中有两种使用形式，一种是 协议默认实现，一种是类继承，比较推荐协议默认实现，但是当有重试逻辑时，协议默认实现无法cover，增加了类继承方式；
 
 ## 未来规划
 
