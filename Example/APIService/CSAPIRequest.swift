@@ -67,7 +67,8 @@ class CSAPIRequest<DataResponse: APIDefaultJSONParsable>: APIRequest {
         if response.result.value?.code == 1001, let csAPIRequest = request as? CSAPIRequest {
             csAPIRequest.neteaseValidate = "123"
             APIService.sendRequest(csAPIRequest, completionHandler: replaceResponseHandler)
+        } else {
+            replaceResponseHandler(response)
         }
-        replaceResponseHandler(response)
     }
 }
