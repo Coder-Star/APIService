@@ -46,6 +46,18 @@ class CSAPIRequest<DataResponse: APIDefaultJSONParsable>: APIRequest {
         return APIURLEncoding.default
     }
 
+    public var cache: APICache? {
+        return nil
+    }
+
+    public var cacheShouldWriteHandler: ((APIResponse<Response>) -> Bool)? {
+        return nil
+    }
+
+    public var cacheFilterParameters: [String] {
+        return []
+    }
+
     var isMock: Bool {
         return false
     }
