@@ -7,7 +7,16 @@
 
 import Foundation
 
+public typealias LoggingFunctionType = (String) -> Void
+
 struct DebugUtils {
+    public static var loggingFunction: LoggingFunctionType? {
+        get { return _loggingFunction }
+        set { _loggingFunction = newValue }
+    }
+
+    private static var _loggingFunction: LoggingFunctionType? = { print($0) }
+
     static func log<T>(_ log: T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         if APIConfig.shared.debugLogEnabled {
             printLog(log, file: file, function: function, line: line)
@@ -19,8 +28,10 @@ struct DebugUtils {
         let filename = ((file as NSString).lastPathComponent as NSString).deletingPathExtension // 文件扩展名
         let time = getCurrentTime()
         let informationPart = "\(time)-\(filename).\(fileExtension):\(line) \(function):"
-        print(informationPart, terminator: "") // 文件、行号等信息
-        print("\(log)\n", terminator: "") // 具体日志
+
+        let message = "\(informationPart)\(log)"
+
+        _loggingFunction?(message)
     }
 
     private static func getCurrentTime() -> String {
