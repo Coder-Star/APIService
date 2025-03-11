@@ -34,6 +34,11 @@ public typealias APIURLEncoding = URLEncoding
 /// APINetworkReachabilityManager
 public typealias APINetworkReachabilityManager = NetworkReachabilityManager
 
+/// APIDataResponseCompletionHandler
+public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
+/// APIDownloadResponseCompletionHandler
+public typealias APIDownloadResponseCompletionHandler = (APIDownloadResponse<Data>) -> Void
+
 extension Request: APIRequestTask {}
 
 // MARK: - AlamofireAPIClient
