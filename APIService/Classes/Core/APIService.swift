@@ -59,7 +59,7 @@ open class APIService {
 extension APIService {
     /// 网络状态
     public var networkStatus: NetworkStatus {
-        guard let status = reachabilityManager?.networkReachabilityStatus else {
+        guard let status = reachabilityManager?.status else {
             return .unknown
         }
         switch status {
@@ -71,7 +71,7 @@ extension APIService {
             switch type {
             case .ethernetOrWiFi:
                 return .wifi
-            case .wwan:
+            case .cellular:
                 return .wwan
             }
         }
