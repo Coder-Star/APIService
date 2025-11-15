@@ -15,13 +15,13 @@ public typealias APIRequestMethod = HTTPMethod
 /// Header
 public typealias APIRequestHeaders = HTTPHeaders
 /// APIDataResponse
-public typealias APIDataResponse = DataResponse
+public typealias APIDataResponse = AFDataResponse
 /// APIDownloadResponse
-public typealias APIDownloadResponse = DownloadResponse
+public typealias APIDownloadResponse = AFDownloadResponse
 /// APIRequestAdapter
 public typealias APIRequestAdapter = RequestAdapter
 /// APIDownloadDestination
-public typealias APIDownloadDestination = DownloadRequest.DownloadFileDestination
+public typealias APIDownloadDestination = DownloadRequest.Destination
 
 /// APIMultipartFormData
 public typealias APIMultipartFormData = MultipartFormData
@@ -34,14 +34,18 @@ public typealias APIURLEncoding = URLEncoding
 /// APINetworkReachabilityManager
 public typealias APINetworkReachabilityManager = NetworkReachabilityManager
 
+/// APIDataResponseCompletionHandler
+public typealias APIDataResponseCompletionHandler = (APIDataResponse<Data>) -> Void
+/// APIDownloadResponseCompletionHandler
+public typealias APIDownloadResponseCompletionHandler = (APIDownloadResponse<Data>) -> Void
+
 extension Request: APIRequestTask {}
 
 // MARK: - AlamofireAPIClient
 
 struct AlamofireAPIClient: APIClient {
-    let sessionManager: SessionManager = {
-        let sessionManager = SessionManager(configuration: APIConfig.shared.urlSessionConfiguration)
-        sessionManager.startRequestsImmediately = false
+    let sessionManager: Session = {
+        let sessionManager = Session(configuration: APIConfig.shared.urlSessionConfiguration, startRequestsImmediately: false)
         return sessionManager
     }()
 

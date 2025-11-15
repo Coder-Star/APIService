@@ -13,11 +13,11 @@ enum Env {
 }
 
 struct NetworkConstants {
-    static let baseProdURL = URL(string: "https://www.fastmock.site/mock/5abd18409d0a2270b34088a07457e68f/LTXMock")!
+    static let baseProdURL = URL(string: "https://m1.apifoxmock.com/m1/7410343-7143360-default")!
 
     // 不可用，显示使用
-    static let baseDevURL = URL(string: "https://www.fastmock.site/mock/5abd18409d0a2270b34088a07457e68f/LTXMock1")!
-    static let baseMockURL = URL(string: "https://www.fastmock.site/mock/5abd18409d0a2270b34088a07457e68f/LTXMock2")!
+    static let baseDevURL = URL(string: "https://m1.apifoxmock.com/m1/7410343-7143360-default")!
+    static let baseMockURL = URL(string: "https://m1.apifoxmock.com/m1/7410343-7143360-default")!
 
     static let env: Env = .prod
 }

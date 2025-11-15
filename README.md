@@ -27,7 +27,7 @@ pod 'CSAPIService'
 
 ## 框架组成
 
-![APIService](http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png)
+![APIService](./images/flow.png)
 > 箭头指的是发送流程，实心点指的是数据回调流程；
 > 高清图可见 [链接](https://www.processon.com/view/link/6274d2db1efad40df0236a83)
 

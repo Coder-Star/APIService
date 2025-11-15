@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'CSAPIService'
-    s.version          = '0.0.9'
+    s.version          = '0.1.0'
     s.summary          = 'Swift 网络抽象层'
     s.description      = <<-DESC
     Swift 网络抽象层，角色分明
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
     # 第一层
     s.subspec 'Core' do |core|
         core.source_files = 'APIService/Classes/Core/**/*'
-        core.dependency 'Alamofire','4.9.1'
+        core.dependency 'Alamofire','5.8.1'
     end
 
     # 第二层
