@@ -26,4 +26,4 @@ git commit -m ${COMMIT_MESSAGE}
 git tag ${NEW_VERSION_NUMBER}
 git push --tags
 
-pod trunk push ${POD_NAME}.podspec
+pod trunk push ${POD_NAME}.podspec --allow-warnings
