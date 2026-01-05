@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'CSAPIService'
-    s.version          = '0.1.0'
+    s.version          = '0.2.0'
     s.summary          = 'Swift 网络抽象层'
     s.description      = <<-DESC
     Swift 网络抽象层，角色分明
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
     s.swift_version = '5.0'
     s.module_name = 'APIService'
-    s.ios.deployment_target = '11.0'
+    s.ios.deployment_target = '13.0'
 
     # 第一层
     s.subspec 'Core' do |core|

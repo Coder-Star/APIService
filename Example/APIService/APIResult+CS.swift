@@ -51,3 +51,16 @@ extension APIResult where T: APIModelWrapper {
         return code == 200
     }
 }
+
+
+// 扩展 APIResponse
+extension APIResponse where T: APIModelWrapper {
+    func validated() throws -> (T.DataType, String) {
+        switch result.validateResult {
+        case let .success(data, msg):
+            return (data, msg)
+        case let .failure(_, error):
+            throw error
+        }
+    }
+}

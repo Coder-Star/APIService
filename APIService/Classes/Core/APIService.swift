@@ -51,7 +51,7 @@ open class APIService {
         self.client = client
     }
 
-    private static let `default` = APIService(client: AlamofireAPIClient())
+    static let `default` = APIService(client: AlamofireAPIClient())
 }
 
 // MARK: - 公开属性
