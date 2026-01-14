@@ -52,4 +52,13 @@ public protocol APIClient {
         progressHandler: APIProgressHandler?,
         completionHandler: @escaping APIDownloadResponseCompletionHandler
     ) -> APIRequestTask
+    
+    
+    func createUploadRequest(
+        request: URLRequest,
+        file: APIFile,
+        queue: DispatchQueue,
+        progressHandler: APIProgressHandler?,
+        completionHandler: @escaping APIDataResponseCompletionHandler
+    ) -> APIRequestTask
 }

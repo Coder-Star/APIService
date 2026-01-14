@@ -79,4 +79,22 @@ struct AlamofireAPIClient: APIClient {
         }
         return request
     }
+    
+    func createUploadRequest(
+        request: URLRequest,
+        file: APIFile,
+        queue: DispatchQueue,
+        progressHandler: APIProgressHandler?,
+        completionHandler: @escaping APIDataResponseCompletionHandler
+    ) -> any APIRequestTask {
+        let request = sessionManager.upload(multipartFormData: { formData in
+            formData.append(file.data, withName: file.name, fileName: file.name, mimeType: file.mimeType)
+        }, with: request).validate().responseData(queue: queue) { response in
+            completionHandler(response)
+        }
+        if let tempProgressHandler = progressHandler {
+            request.downloadProgress(closure: tempProgressHandler)
+        }
+        return request
+    }
 }

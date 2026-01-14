@@ -322,6 +322,24 @@ extension APIService {
                 let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.value, result: apiResult)
                 self?.performData(request: request, response: apiResponse, plugins: resultPlugins, completionHandler: completionHandler)
             }
+        case let .upload(file):
+            requestTask = client.createUploadRequest(request: urlRequest, file: file, queue: queue, progressHandler: progressHandler) { [weak self] response in
+                let apiResult: APIResult<T.Response>
+                switch response.result {
+                case let .success(data):
+                    do {
+                        let responseModel = try T.Response.parse(data: data)
+                        apiResult = .success(responseModel)
+                    } catch {
+                        apiResult = .failure(.responseError(error))
+                    }
+                case let .failure(error):
+                    apiResult = .failure(.connectionError(error))
+                }
+
+                let apiResponse = APIResponse<T.Response>(request: response.request, response: response.response, data: response.value, result: apiResult)
+                self?.performData(request: request, response: apiResponse, plugins: resultPlugins, completionHandler: completionHandler)
+            }
         }
 
         requestTask.resume()

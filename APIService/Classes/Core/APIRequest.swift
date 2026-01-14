@@ -8,12 +8,31 @@
 import Foundation
 import CommonCrypto
 
+public struct APIFile {
+    public var name: String
+    public var data: Data
+    public var fileName: String
+    public var mimeType: String
+    
+    public init(name: String, data: Data, fileName: String, mimeType: String) {
+        self.name = name
+        self.data = data
+        self.fileName = fileName
+        self.mimeType = mimeType
+    }
+}
+
 /// 任务类型
 public enum APIRequestTaskType {
     /// 请求
     case request
+    
     /// 下载
     case download(APIDownloadDestination)
+    
+    /// 上传
+    /// 表单方式
+    case upload(APIFile)
 }
 
 // MARK: - 请求协议
