@@ -24,6 +24,7 @@ pod 'CSAPIService'
 - 支持插件化拦截器；
 - 面向协议，角色清晰，方便功能扩展；
 - 缓存可拆卸，缓存包含内存、磁盘两级缓存；
+- 支持async/await
 
 ## 框架组成
 
@@ -292,6 +293,14 @@ public func sendRequest<T: APIRequest>(
         progressHandler: APIProgressHandler? = nil,
         completionHandler: @escaping APICompletionHandler<T.Response>
     ) -> APIRequestTask? { }
+
+/// 支持async方式调用
+public static func sendRequestAsync<T: APIRequest>(
+        _ request: T,
+        plugins: [APIPlugin] = [],
+        queue: DispatchQueue = .main,
+        progressHandler: APIProgressHandler? = nil
+    ) async throws -> APIResponse<T.Response> { }    
 ```
 
 实例方法定义如上，支持传入`APIPlugin` 实例数组。
@@ -444,9 +453,24 @@ extension APIResult where T: APIModelWrapper {
     }
 }
 
+extension APIResponse where T: APIModelWrapper {
+    @discardableResult
+    func validated() throws -> (T.DataType, String) {
+        switch result.validateResult {
+        case let .success(data, msg):
+            return (data, msg)
+        case let .failure(_, error):
+            throw error
+        }
+    }
+    
+    var validatedValue: T.DataType {
+        get throws {
+            try validated().0
+        }
+    }
+}
 ```
-
-
 
 ### 业务使用
 
@@ -476,10 +500,17 @@ APIService.sendRequest(HomeBannerAPI.HomeBannerRequest()) { response in
         print(error)
     }
 }
+
+Task {
+    let launchAdRequest = HomeBannerAPI.LaunchAdRequest()
+    do {
+        let response = try await APIService.sendRequestAsync(request)
+        try response.validated()
+        /// response就是我们想要的结果
+    } catch {
+        print(error.localizedDescription)
+    }
+}
 ```
 
 > 项目示例中有两种使用形式，一种是 协议默认实现，一种是类继承，比较推荐协议默认实现，但是当有重试逻辑时，协议默认实现无法cover，增加了类继承方式；
-
-## 未来规划
-
-- 重试机制

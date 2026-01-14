@@ -55,12 +55,19 @@ extension APIResult where T: APIModelWrapper {
 
 // 扩展 APIResponse
 extension APIResponse where T: APIModelWrapper {
+    @discardableResult
     func validated() throws -> (T.DataType, String) {
         switch result.validateResult {
         case let .success(data, msg):
             return (data, msg)
         case let .failure(_, error):
             throw error
+        }
+    }
+    
+    var validatedValue: T.DataType {
+        get throws {
+            try validated().0
         }
     }
 }
