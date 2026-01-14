@@ -33,6 +33,10 @@ public protocol APIRequest {
 
     /// 接口路径
     var path: String { get }
+    
+    /// 完整地址，当不为nil的时候优先使用这个
+    /// 其等于 baseURL + path
+    var url: URL? { get }
 
     /// 方法
     var method: APIRequestMethod { get }
@@ -93,6 +97,10 @@ public protocol APIRequest {
 // MARK: - 默认实现
 
 extension APIRequest {
+    public var url: URL? {
+        return nil
+    }
+    
     public var cache: APICache? {
         return nil
     }
@@ -122,6 +130,9 @@ extension APIRequest {
     /// 完整的URL
     /// 不包含参数，只是 baseURL 与 path 的拼接
     public var completeURL: URL {
+        if let url = url {
+            return url
+        }
         return path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
     }
 

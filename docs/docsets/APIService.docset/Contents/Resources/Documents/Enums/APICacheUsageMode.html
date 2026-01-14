@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>NetworkActivityChangeType Enumeration Reference</title>
+    <title>APICacheUsageMode Enumeration Reference</title>
     <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
     <meta charset='utf-8'>
@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <a name='//apple_ref/swift/Enum/NetworkActivityChangeType' class='dashAnchor'></a>
+    <a name='//apple_ref/swift/Enum/APICacheUsageMode' class='dashAnchor'></a>
 
-    <a title='NetworkActivityChangeType Enumeration Reference'></a>
+    <a title='APICacheUsageMode Enumeration Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -34,7 +34,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='../index.html'>APIService Reference</a>
       <img class='carat' src='../img/carat.png' />
-      NetworkActivityChangeType Enumeration Reference
+      APICacheUsageMode Enumeration Reference
     </p>
 
     <div class='content-wrapper'>
@@ -229,14 +229,14 @@
 
         <section class='section'>
           <div class='section-content'>
-            <h1>NetworkActivityChangeType</h1>
+            <h1>APICacheUsageMode</h1>
               <div class='declaration'>
                 <div class='language'>
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">NetworkActivityChangeType</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">APICacheUsageMode</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>缓存使用模式</p>
 
           </div>
         </section>
@@ -248,9 +248,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService25NetworkActivityChangeTypeO5beganyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/began" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService25NetworkActivityChangeTypeO5beganyA2CmF">began</a>
+                    <a name="/s:10APIService17APICacheUsageModeO4noneyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService17APICacheUsageModeO4noneyA2CmF">none</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -258,14 +258,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>不使用缓存</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">began</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">none</span></code></pre>
 
                         </div>
                       </div>
@@ -278,9 +278,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService25NetworkActivityChangeTypeO5endedyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/ended" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService25NetworkActivityChangeTypeO5endedyA2CmF">ended</a>
+                    <a name="/s:10APIService17APICacheUsageModeO11alsoNetworkyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/alsoNetwork" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService17APICacheUsageModeO11alsoNetworkyA2CmF">alsoNetwork</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -288,14 +288,75 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>命中缓存后，仍然发起网络请求，但是不会执行网络回调
+使用场景：命中缓存后业务方使用缓存，并请求网络刷新缓存</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">ended</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">alsoNetwork</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService17APICacheUsageModeO23alsoNetworkWithCallbackyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/alsoNetworkWithCallback" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService17APICacheUsageModeO23alsoNetworkWithCallbackyA2CmF">alsoNetworkWithCallback</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>命中缓存之后，仍然发起网络请求并执行网络回调</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">alsoNetworkWithCallback</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService17APICacheUsageModeO13cancelNetworkyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cancelNetwork" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService17APICacheUsageModeO13cancelNetworkyA2CmF">cancelNetwork</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>取消网络请求</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cancelNetwork</span></code></pre>
 
                         </div>
                       </div>

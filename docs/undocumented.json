@@ -1,124 +1,138 @@
 {
   "warnings": [
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Cache/CacheTool.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Cache/CacheTool.swift",
       "line": 119,
       "symbol": "CacheTool.set(forKey:data:writeMode:expiry:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Cache/CacheTool.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Cache/CacheTool.swift",
       "line": 166,
       "symbol": "CacheTool.set(forKey:data:writeMode:expiry:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 51,
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APICache.swift",
+      "line": 55,
       "symbol": "APICache.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 82,
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APICache.swift",
+      "line": 86,
       "symbol": "APICacheTool",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 85,
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APICache.swift",
+      "line": 89,
       "symbol": "APICacheTool.set(forKey:data:writeMode:expiry:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APICache.swift",
-      "line": 93,
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APICache.swift",
+      "line": 97,
       "symbol": "APICacheTool.set(forKey:data:writeMode:expiry:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APIConfig.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APIConfig.swift",
       "line": 10,
       "symbol": "APIConfig",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APIConfig.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APIConfig.swift",
       "line": 13,
       "symbol": "APIConfig.shared",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APIConfig.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APIConfig.swift",
       "line": 17,
       "symbol": "APIConfig.debugLogEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Core/APIConfig.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APIConfig.swift",
       "line": 31,
       "symbol": "APIConfig.cacheTool",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/APIService+Async.swift",
+      "line": 40,
+      "symbol": "APIResponseAsyncIterator.Element",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Core/DebugUtils.swift",
+      "line": 10,
+      "symbol": "LoggingFunctionType",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 10,
       "symbol": "NetworkActivityChangeType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 11,
       "symbol": "NetworkActivityChangeType.began",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 12,
       "symbol": "NetworkActivityChangeType.ended",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 15,
       "symbol": "NetworkActivityPlugin",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 16,
       "symbol": "NetworkActivityPlugin.NetworkActivityClosure",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 19,
       "symbol": "NetworkActivityPlugin.init(networkActivityClosure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
+      "file": "/Users/bytedance/CoderStar/APIService/APIService/Classes/Plugin/NetworkActivityPlugin.swift",
       "line": 24,
       "symbol": "NetworkActivityPlugin",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/coderstar/CoderStar/Projects/iOS_Projects/APIService/Example"
+  "source_directory": "/Users/bytedance/CoderStar/APIService/Example"
 }

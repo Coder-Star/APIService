@@ -63,7 +63,7 @@
                 <a class='nav-group-task-link' href='Enums/APICacheExpiry.html'>APICacheExpiry</a>
               </li>
               <li class='nav-group-task'>
-                <a class='nav-group-task-link' href='Enums/APICacheReadMode.html'>APICacheReadMode</a>
+                <a class='nav-group-task-link' href='Enums/APICacheUsageMode.html'>APICacheUsageMode</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
@@ -150,6 +150,12 @@
                 <a class='nav-group-task-link' href='Structs/APIResponse.html'>APIResponse</a>
               </li>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/APIResponseAsyncIterator.html'>APIResponseAsyncIterator</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/APIResponseAsyncSequence.html'>APIResponseAsyncSequence</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
@@ -211,6 +217,9 @@
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
               </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Typealiases.html#/s:10APIService19LoggingFunctionTypea'>LoggingFunctionType</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -245,10 +254,11 @@
 <li>支持插件化拦截器；</li>
 <li>面向协议，角色清晰，方便功能扩展；</li>
 <li>缓存可拆卸，缓存包含内存、磁盘两级缓存；</li>
+<li>支持async/await</li>
 </ul>
 <h2 id='框架组成' class='heading'>框架组成</h2>
 
-<p><img src="http://assets.processon.com/chart_image/6273fd0e7d9c08074fb5bad7.png" alt="APIService"></p>
+<p><img src="./images/flow.png" alt="APIService"></p>
 
 <blockquote>
 <p>箭头指的是发送流程，实心点指的是数据回调流程；
@@ -261,6 +271,7 @@
 <li>请求者（APIRequest）：更准确的叫法应该是<strong>构建请求者</strong>，其主要作用就是将外部传入的相关参数经过相关处理构造成一个<code>URLRequest</code>实例，并且提供请求拦截器以及回调拦截器两种拦截器；</li>
 <li>发送者（APIClient）：实际的网络请求发送者，目前默认是<code>Alamofire</code>，你也可以实现协议，灵活的对发送者进行替换；</li>
 <li>解析者（APIParsable）：一般与<code>Model</code>是同一个角色，由<code>Model</code>实现协议从而实现从数据到实体这一过程的映射；</li>
+<li>缓存（APICache、APICacheTool）：缓存相关；</li>
 <li>服务提供者（APIService）：整个框架的服务提供者，提供最外层的<code>API</code>，可以传入插件；</li>
 </ul>
 
@@ -277,7 +288,10 @@
 <li>发送前加上统一参数，Header 等信息；</li>
 <li>数据回调到业务之前统一对一些 <code>code</code> 进行判断，如未登录自动弹出登录框等统一逻辑；</li>
 </ul>
-<pre class="highlight swift"><code><span class="c1">/// 请求发送之前</span>
+<pre class="highlight swift"><code><span class="c1">/// 拦截参数，在参数编码之前</span>
+<span class="kd">func</span> <span class="nf">intercept</span><span class="p">(</span><span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span>
+
+<span class="c1">/// 请求发送之前</span>
 <span class="kd">func</span> <span class="nf">intercept</span><span class="p">(</span><span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span>
 
 <span class="c1">/// 数据回调给业务之前</span>
@@ -296,7 +310,7 @@
     <span class="kd">public</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
 
     <span class="c1">/// 读取缓存模式</span>
-    <span class="kd">public</span> <span class="k">var</span> <span class="nv">readMode</span><span class="p">:</span> <span class="kt">APICacheReadMode</span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">usageMode</span><span class="p">:</span> <span class="kt">APICacheUsageMode</span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span>
 
     <span class="c1">/// 写入缓存模式</span>
     <span class="kd">public</span> <span class="k">var</span> <span class="nv">writeNode</span><span class="p">:</span> <span class="kt">APICacheWriteMode</span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span>
@@ -307,15 +321,28 @@
     <span class="c1">/// 可添加app版本号、用户id、缓存版本等</span>
     <span class="kd">public</span> <span class="k">var</span> <span class="nv">extraCacheKey</span> <span class="o">=</span> <span class="s">""</span>
 
-    <span class="c1">/// 是否允许缓存</span>
-    <span class="c1">/// 可根据业务实际情况控制</span>
-    <span class="kd">public</span> <span class="k">var</span> <span class="nv">shouldCacheHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">HTTPURLResponse</span><span class="p">?,</span> <span class="kt">Data</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span>
-
     <span class="c1">/// 自定义缓存key</span>
     <span class="kd">public</span> <span class="k">var</span> <span class="nv">customCacheKeyHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">)?</span>
 
-    <span class="c1">/// 缓存策略类型</span>
+    <span class="c1">/// 缓存过期策略类型</span>
     <span class="kd">public</span> <span class="k">var</span> <span class="nv">expiry</span><span class="p">:</span> <span class="kt">APICacheExpiry</span> <span class="o">=</span> <span class="o">.</span><span class="nf">seconds</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIRequest</span> <span class="p">{</span>
+    <span class="c1">// MARK: - 缓存相关</span>
+
+    <span class="c1">/// 缓存</span>
+    <span class="c1">/// 目前 taskType 为 request 才生效</span>
+    <span class="k">var</span> <span class="nv">cache</span><span class="p">:</span> <span class="kt">APICache</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="c1">/// 是否允许缓存</span>
+    <span class="c1">/// 可根据业务实际情况控制：比如业务code为成功，业务数据不为空</span>
+    <span class="c1">/// 这个闭包之所以不放入 APICache 内部的原因是 享受泛型的回调</span>
+    <span class="k">var</span> <span class="nv">cacheShouldWriteHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">Response</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="c1">/// 过滤不参与缓存key生成的参数</span>
+    <span class="c1">/// 如果一些业务场景不想统一参数参与缓存key生成，可在此配置</span>
+    <span class="k">var</span> <span class="nv">cacheFilterParameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -372,13 +399,13 @@
 <span class="p">})</span>
 </code></pre>
 
-<p>我们可以看到，<code>sendRequest</code> 为缓存单独加了一个回调，而不是和原来的<code>completionHandler</code>使用同一个，目的是想让业务方可以明确的感知到该次回调是来自网络还是缓存，也是呼应 <code><a href="Enums/APICacheReadMode.html">APICacheReadMode</a></code> 这个配置。</p>
+<p>我们可以看到，<code>sendRequest</code> 为缓存单独加了一个回调，而不是和原来的<code>completionHandler</code>使用同一个，目的是想让业务方可以明确的感知到该次回调是来自网络还是缓存，也是呼应 <code>APICacheReadMode</code> 这个配置。</p>
 <h3 id='apiclient-协议' class='heading'>APIClient 协议</h3>
 
 <p>负责发送一个<code>Request</code>请求，我们可以调整<code>APIClient</code>的实现方式； 目前默认实现方式为<code>Alamofire</code>，其中使用别名等方式做了隔离。</p>
 <pre class="highlight swift"><code><span class="c1">/// 网络请求任务协议</span>
 <span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">APIRequestTask</span> <span class="p">{</span>
-    <span class="c1">/// 取消</span>
+    <span class="c1">/// 恢复</span>
     <span class="kd">func</span> <span class="nf">resume</span><span class="p">()</span>
 
     <span class="c1">/// 取消</span>
@@ -471,7 +498,7 @@
     <span class="p">}</span>
 
     <span class="c1">/// 单例</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">let</span> <span class="err">`</span><span class="k">default</span><span class="err">`</span> <span class="o">=</span> <span class="kt">APIService</span><span class="p">(</span><span class="nv">client</span><span class="p">:</span> <span class="kt">AlamofireAPIClient</span><span class="p">())</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">let</span> <span class="p">`</span><span class="nv">default</span><span class="p">`</span> <span class="o">=</span> <span class="kt">APIService</span><span class="p">(</span><span class="nv">client</span><span class="p">:</span> <span class="kt">AlamofireAPIClient</span><span class="p">())</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -483,6 +510,14 @@
         <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt">APIProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
         <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">APICompletionHandler</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">APIRequestTask</span><span class="p">?</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="c1">/// 支持async方式调用</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">sendRequestAsync</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">APIRequest</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span>
+        <span class="nv">plugins</span><span class="p">:</span> <span class="p">[</span><span class="kt">APIPlugin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+        <span class="nv">progressHandler</span><span class="p">:</span> <span class="kt">APIProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">APIResponse</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">.</span><span class="kt">Response</span><span class="o">&gt;</span> <span class="p">{</span> <span class="p">}</span>    
 </code></pre>
 
 <p>实例方法定义如上，支持传入<code><a href="Protocols/APIPlugin.html">APIPlugin</a></code> 实例数组。</p>
@@ -629,6 +664,23 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
+<span class="kd">extension</span> <span class="kt">APIResponse</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">APIModelWrapper</span> <span class="p">{</span>
+    <span class="kd">@discardableResult</span>
+    <span class="kd">func</span> <span class="nf">validated</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="kt">DataType</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="n">result</span><span class="o">.</span><span class="n">validateResult</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+            <span class="nf">return</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+            <span class="k">throw</span> <span class="n">error</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">validatedValue</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="kt">DataType</span> <span class="p">{</span>
+        <span class="k">get</span> <span class="k">throws</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="nf">validated</span><span class="p">()</span><span class="o">.</span><span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <h3 id='业务使用' class='heading'>业务使用</h3>
 
@@ -647,8 +699,8 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">APIService</span><span class="o">.</span><span class="nf">sendRequest</span><span class="p">(</span><span class="kt">HomeBannerAPI</span><span class="o">.</span><span class="kt">HomeBannerRequest</span><span class="p">())</span> <span class="p">{</span> <span class="n">reponse</span> <span class="k">in</span>
-    <span class="k">switch</span> <span class="n">reponse</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">validateResult</span> <span class="p">{</span>
+<span class="kt">APIService</span><span class="o">.</span><span class="nf">sendRequest</span><span class="p">(</span><span class="kt">HomeBannerAPI</span><span class="o">.</span><span class="kt">HomeBannerRequest</span><span class="p">())</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">validateResult</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
         <span class="c1">/// 这个 Info 就是上面我们传入的 HomeBanner 类型</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
@@ -656,12 +708,22 @@
         <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-<h2 id='未来规划' class='heading'>未来规划</h2>
 
-<ul>
-<li>重试机制</li>
-</ul>
+<span class="kt">Task</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">launchAdRequest</span> <span class="o">=</span> <span class="kt">HomeBannerAPI</span><span class="o">.</span><span class="kt">LaunchAdRequest</span><span class="p">()</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">response</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="kt">APIService</span><span class="o">.</span><span class="nf">sendRequestAsync</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">try</span> <span class="n">response</span><span class="o">.</span><span class="nf">validated</span><span class="p">()</span>
+        <span class="c1">/// response就是我们想要的结果</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<blockquote>
+<p>项目示例中有两种使用形式，一种是 协议默认实现，一种是类继承，比较推荐协议默认实现，但是当有重试逻辑时，协议默认实现无法cover，增加了类继承方式；</p>
+</blockquote>
 
           </div>
         </section>
@@ -670,7 +732,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-20)</p>
+      <p>&copy; 2026 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external noopener">CoderStar</a>. All rights reserved. (Last updated: 2026-01-14)</p>
     </section>  </body>
 </div>
 </html>

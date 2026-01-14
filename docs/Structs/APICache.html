@@ -64,7 +64,7 @@
                 <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
               </li>
               <li class='nav-group-task'>
-                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+                <a class='nav-group-task-link' href='../Enums/APICacheUsageMode.html'>APICacheUsageMode</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
@@ -151,6 +151,12 @@
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
               </li>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponseAsyncIterator.html'>APIResponseAsyncIterator</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponseAsyncSequence.html'>APIResponseAsyncSequence</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
@@ -212,6 +218,9 @@
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
               </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService19LoggingFunctionTypea'>LoggingFunctionType</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -269,9 +278,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService8APICacheV8readModeAA0b4ReadD0Ovp"></a>
-                    <a name="//apple_ref/swift/Property/readMode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService8APICacheV8readModeAA0b4ReadD0Ovp">readMode</a>
+                    <a name="/s:10APIService8APICacheV9usageModeAA0b5UsageD0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/usageMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService8APICacheV9usageModeAA0b5UsageD0Ovp">usageMode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -279,14 +288,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>读取缓存模式</p>
+                        <p>缓存使用模式</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">readMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheReadMode.html">APICacheReadMode</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">usageMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/APICacheUsageMode.html">APICacheUsageMode</a></span></code></pre>
 
                         </div>
                       </div>
@@ -402,7 +411,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>自定义缓存key
-闭包参数为框架内部按照规则生成的key值</p>
+闭包参数为框架内部按照规则生成的key值，实际的cacheKey还会再此基础上进行md5</p>
 
                       </div>
                       <div class="declaration">
@@ -427,7 +436,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-20)</p>
+      <p>&copy; 2026 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external noopener">CoderStar</a>. All rights reserved. (Last updated: 2026-01-14)</p>
     </section>  </body>
 </div>
 </html>

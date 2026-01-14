@@ -1,5 +1,5 @@
 //
-//  HomeBannerAPI.swift
+//  ExampleAPI.swift
 //  APIService_Example
 //
 //  Created by CoderStar on 2022/9/15.
@@ -9,7 +9,9 @@
 import APIService
 import Foundation
 
-enum HomeBannerAPI {
+enum ExampleAPI {}
+
+extension ExampleAPI {
     struct HomeBannerRequest: CSAPIRequestProtocol {
         typealias DataResponse = HomeBanner
 
@@ -43,7 +45,9 @@ enum HomeBannerAPI {
             return false
         }
     }
+}
 
+extension ExampleAPI {
     class LaunchAdRequest: CSAPIRequest<LaunchAd> {
         override var parameters: [String: Any]? {
             return [
@@ -60,7 +64,9 @@ enum HomeBannerAPI {
             debugPrint("LaunchAdRequest deinit")
         }
     }
+}
 
+extension ExampleAPI {
     /// 用于演示 AsyncSequence 多次回调的请求（alsoNetworkWithCallback 模式）
     struct MultipleCallbackRequest: CSAPIRequestProtocol {
         typealias DataResponse = HomeBanner
@@ -78,7 +84,8 @@ enum HomeBannerAPI {
 
         var cache: APICache? {
             var cache = APICache()
-            cache.usageMode = .alsoNetworkWithCallback  // 多次回调模式
+            // 多次回调模式
+            cache.usageMode = .alsoNetworkWithCallback
             cache.writeNode = .memoryAndDisk
             cache.expiry = .seconds(10)
             return cache
@@ -93,6 +100,38 @@ enum HomeBannerAPI {
                 return true
             }
             return false
+        }
+    }
+}
+
+extension ExampleAPI {
+    /// 下载请求示例
+    struct DownloadRequest: CSAPIRequestProtocol {
+        typealias DataResponse = PlaceholderResponseModel
+        
+        let downloadURL: URL
+        let callback: ((String) -> Void)
+        
+        var url: URL? {
+            return downloadURL
+        }
+        
+        var path: String {
+            return ""
+        }
+
+        var parameters: [String: Any]? {
+            return nil
+        }
+
+        var taskType: APIRequestTaskType {
+            return .download { temporaryURL, response in
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let fileName = response.suggestedFilename ?? "\(UUID().uuidString).file"
+                let destinationURL = documentsURL.appendingPathComponent("Downloads").appendingPathComponent(fileName)
+                self.callback(destinationURL.path)
+                return (destinationURL, [.createIntermediateDirectories, .removePreviousFile])
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>NetworkActivityChangeType Enumeration Reference</title>
+    <title>APIResponseAsyncSequence Structure Reference</title>
     <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
     <meta charset='utf-8'>
@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <a name='//apple_ref/swift/Enum/NetworkActivityChangeType' class='dashAnchor'></a>
+    <a name='//apple_ref/swift/Struct/APIResponseAsyncSequence' class='dashAnchor'></a>
 
-    <a title='NetworkActivityChangeType Enumeration Reference'></a>
+    <a title='APIResponseAsyncSequence Structure Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -34,7 +34,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='../index.html'>APIService Reference</a>
       <img class='carat' src='../img/carat.png' />
-      NetworkActivityChangeType Enumeration Reference
+      APIResponseAsyncSequence Structure Reference
     </p>
 
     <div class='content-wrapper'>
@@ -229,14 +229,14 @@
 
         <section class='section'>
           <div class='section-content'>
-            <h1>NetworkActivityChangeType</h1>
+            <h1>APIResponseAsyncSequence</h1>
               <div class='declaration'>
                 <div class='language'>
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">NetworkActivityChangeType</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">APIResponseAsyncSequence</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">AsyncSequence</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>API响应异步序列，支持缓存和网络数据的多次返回</p>
 
           </div>
         </section>
@@ -248,9 +248,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService25NetworkActivityChangeTypeO5beganyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/began" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService25NetworkActivityChangeTypeO5beganyA2CmF">began</a>
+                    <a name="/s:Sci7ElementQa"></a>
+                    <a name="//apple_ref/swift/Alias/Element" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sci7ElementQa">Element</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -258,14 +258,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">began</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Element</span> <span class="o">=</span> <span class="p">(</span><span class="kt"><a href="../Structs/APIResponse.html">APIResponse</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/APICompletionHandlerSourceType.html">APICompletionHandlerSourceType</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -278,9 +277,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService25NetworkActivityChangeTypeO5endedyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/ended" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService25NetworkActivityChangeTypeO5endedyA2CmF">ended</a>
+                    <a name="/s:Sci17makeAsyncIterator0bC0QzyF"></a>
+                    <a name="//apple_ref/swift/Method/makeAsyncIterator()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sci17makeAsyncIterator0bC0QzyF">makeAsyncIterator()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -288,14 +287,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">ended</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeAsyncIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/APIResponseAsyncIterator.html">APIResponseAsyncIterator</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>

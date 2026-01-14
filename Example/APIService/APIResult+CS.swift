@@ -37,8 +37,6 @@ extension APIResult where T: APIModelWrapper {
             if apiError == APIError.networkError {
                 message = apiError.localizedDescription
             }
-
-            assertionFailure(apiError.localizedDescription)
             return .failure(message, apiError)
         }
     }

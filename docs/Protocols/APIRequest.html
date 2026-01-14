@@ -64,7 +64,7 @@
                 <a class='nav-group-task-link' href='../Enums/APICacheExpiry.html'>APICacheExpiry</a>
               </li>
               <li class='nav-group-task'>
-                <a class='nav-group-task-link' href='../Enums/APICacheReadMode.html'>APICacheReadMode</a>
+                <a class='nav-group-task-link' href='../Enums/APICacheUsageMode.html'>APICacheUsageMode</a>
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Enums/APICacheWriteMode.html'>APICacheWriteMode</a>
@@ -151,6 +151,12 @@
                 <a class='nav-group-task-link' href='../Structs/APIResponse.html'>APIResponse</a>
               </li>
               <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponseAsyncIterator.html'>APIResponseAsyncIterator</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Structs/APIResponseAsyncSequence.html'>APIResponseAsyncSequence</a>
+              </li>
+              <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Structs/NetworkActivityPlugin.html'>NetworkActivityPlugin</a>
               </li>
             </ul>
@@ -211,6 +217,9 @@
               </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService14APIURLEncodinga'>APIURLEncoding</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../Typealiases.html#/s:10APIService19LoggingFunctionTypea'>LoggingFunctionType</a>
               </li>
             </ul>
           </li>
@@ -348,9 +357,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService10APIRequestP6method9Alamofire10HTTPMethodOvp"></a>
+                    <a name="/s:10APIService10APIRequestP6method9Alamofire10HTTPMethodVvp"></a>
                     <a name="//apple_ref/swift/Property/method" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService10APIRequestP6method9Alamofire10HTTPMethodOvp">method</a>
+                    <a class="token" href="#/s:10APIService10APIRequestP6method9Alamofire10HTTPMethodVvp">method</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -408,9 +417,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:10APIService10APIRequestP7headersSDyS2SGSgvp"></a>
+                    <a name="/s:10APIService10APIRequestP7headers9Alamofire11HTTPHeadersVSgvp"></a>
                     <a name="//apple_ref/swift/Property/headers" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10APIService10APIRequestP7headersSDyS2SGSgvp">headers</a>
+                    <a class="token" href="#/s:10APIService10APIRequestP7headers9Alamofire11HTTPHeadersVSgvp">headers</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -499,10 +508,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/%E7%BC%93%E5%AD%98"></a>
-                <a name="//apple_ref/swift/Section/缓存" class="dashAnchor"></a>
-                <a href="#/%E7%BC%93%E5%AD%98">
-                  <h3 class="section-name">缓存</h3>
+                <a name="/%E7%BC%93%E5%AD%98%E7%9B%B8%E5%85%B3"></a>
+                <a name="//apple_ref/swift/Section/缓存相关" class="dashAnchor"></a>
+                <a href="#/%E7%BC%93%E5%AD%98%E7%9B%B8%E5%85%B3">
+                  <h3 class="section-name">缓存相关</h3>
                 </a>
               </div>
               <ul class='item-container'>
@@ -583,6 +592,44 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:10APIService10APIRequestP21cacheFilterParametersSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/cacheFilterParameters" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10APIService10APIRequestP21cacheFilterParametersSaySSGvp">cacheFilterParameters</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>过滤不参与缓存key生成的参数
+如果一些业务场景不想统一参数参与缓存key生成，可在此配置</p>
+
+                      </div>
+                      <h5>Default Implementation</h5>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">cacheFilterParameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -611,7 +658,8 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>拦截参数，在参数编码之前
-可以用于加上一些统一参数的场景</p>
+可以用于加上一些统一参数的场景
+参数的相关操作最好都在这个位置进行处理，缓存key依赖于这个参数</p>
 
                       </div>
                       <h5>Default Implementation</h5>
@@ -853,7 +901,7 @@
       </article>
     </div>
     <section class='footer' id="footer">
-      <p>&copy; 2022 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external">CoderStar</a>. All rights reserved. (Last updated: 2022-10-20)</p>
+      <p>&copy; 2026 <a class="link" href="https://coder-star.github.io/" target="_blank" rel="external noopener">CoderStar</a>. All rights reserved. (Last updated: 2026-01-14)</p>
     </section>  </body>
 </div>
 </html>

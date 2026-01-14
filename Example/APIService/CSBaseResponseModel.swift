@@ -21,3 +21,5 @@ extension CSBaseResponseModel {
         case data
     }
 }
+
+public struct PlaceholderResponseModel: APIDefaultJSONParsable {}
