@@ -88,7 +88,7 @@ struct AlamofireAPIClient: APIClient {
         completionHandler: @escaping APIDataResponseCompletionHandler
     ) -> any APIRequestTask {
         let request = sessionManager.upload(multipartFormData: { formData in
-            formData.append(file.data, withName: file.name, fileName: file.name, mimeType: file.mimeType)
+            formData.append(file.data, withName: file.name, fileName: file.fileName, mimeType: file.mimeType)
         }, with: request).validate().responseData(queue: queue) { response in
             completionHandler(response)
         }
