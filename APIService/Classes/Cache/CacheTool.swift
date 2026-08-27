@@ -7,6 +7,7 @@
 
 import Cache
 import Foundation
+import UIKit
 
 /// 默认的缓存工具
 public final class CacheTool {

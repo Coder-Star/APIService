@@ -9,6 +9,24 @@
 
 ## 使用方式
 
+### Swift Package Manager
+
+在 Xcode 中添加以下 package 地址：
+
+```text
+https://github.com/Coder-Star/APIService.git
+```
+
+添加 `APIService` product 后即可使用：
+
+```swift
+import APIService
+```
+
+该 package 的最低 iOS 版本为 `13.0`，并会自动解析 `Alamofire 5.8.1` 与 `Cache 6.0.0`。
+
+### CocoaPods
+
 ```ruby
 pod 'CSAPIService'
 ```
